@@ -36,15 +36,16 @@ void CAdpativeVibeBGS::process(const cv::Mat &img_input, cv::Mat &img_output, cv
 
 void CAdpativeVibeBGS::saveConfig()
 {
-	CvFileStorage* fs = cvOpenFileStorage("./config/adpative_vibe.xml", 0, CV_STORAGE_WRITE);
-	cvWriteReal(fs, "alpha", alpha);
-	cvReleaseFileStorage(&fs);
+	//CvFileStorage* fs = cvOpenFileStorage("./config/adpative_vibe.xml", 0, CV_STORAGE_WRITE);
+	//cvWriteReal(fs, "alpha", alpha);
+	//cvReleaseFileStorage(&fs);
 }
 
 void CAdpativeVibeBGS::loadConfig()
 {
-	CvFileStorage* fs = cvOpenFileStorage("./config/adpative_vibe.xml", 0, CV_STORAGE_READ);
-	alpha = cvReadRealByName(fs, 0, "alpha", 0.5);
-	cvReleaseFileStorage(&fs);
+	//CvFileStorage* fs = cvOpenFileStorage("./config/adpative_vibe.xml", 0, CV_STORAGE_READ);
+	//alpha = cvReadRealByName(fs, 0, "alpha", 0.5);
+	//cvReleaseFileStorage(&fs);
+	alpha = 0.5;
 }
 

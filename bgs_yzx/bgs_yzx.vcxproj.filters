@@ -40,6 +40,9 @@
     <Filter Include="头文件\sigmadelta">
       <UniqueIdentifier>{bdd2cb66-ca92-4690-9573-25acffd26253}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\PBAS">
+      <UniqueIdentifier>{7b63cda2-60d8-49b4-bd06-02462377fcc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -150,6 +153,12 @@
     <ClInclude Include="SigmaDelta.h">
       <Filter>头文件\sigmadelta</Filter>
     </ClInclude>
+    <ClInclude Include="PBASBGS.h">
+      <Filter>头文件\PBAS</Filter>
+    </ClInclude>
+    <ClInclude Include="PBAS.h">
+      <Filter>头文件\PBAS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -238,6 +247,12 @@
     </ClCompile>
     <ClCompile Include="SigmaDelta.cpp">
       <Filter>头文件\sigmadelta</Filter>
+    </ClCompile>
+    <ClCompile Include="PBASBGS.cpp">
+      <Filter>头文件\PBAS</Filter>
+    </ClCompile>
+    <ClCompile Include="PBAS.cpp">
+      <Filter>头文件\PBAS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

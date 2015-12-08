@@ -54,6 +54,7 @@
 #include "AdpativeVibeBGS.h"
 #include "YZXAdpativeGaussianMix.h"
 #include "SigmaDeltaBGS.h"
+#include "PBASBGS.h"
 //if using the check of leak memory
 #define _CRTDBG_MAP_ALLOC 
 #include<stdlib.h>

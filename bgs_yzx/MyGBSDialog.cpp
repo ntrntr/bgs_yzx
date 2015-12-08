@@ -124,6 +124,7 @@ void CMyGBSDialog::addBgsList()
 	m_BGSList.AddString(_T("AdpativeVibe"));
 	m_BGSList.AddString(_T("AdpativeGMM"));
 	m_BGSList.AddString(_T("SigmaDelta"));
+	m_BGSList.AddString(_T("PBAS"));
 }
 
 
@@ -270,6 +271,10 @@ void CMyGBSDialog::ThreadProcess()
 	if (m_methodName == "SigmaDelta")
 	{
 		bgs = new CSigmaDeltaBGS;
+	}
+	if (m_methodName == "PBAS")
+	{
+		bgs = new CPBASBGS;
 	}
 	if (bgs == NULL)
 	{

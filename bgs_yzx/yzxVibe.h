@@ -25,6 +25,7 @@ public:
 	void initBackgroundModel();
 	void operator()(const cv::Mat& image, cv::Mat& fgmask, double learningRate = 0);
 	void saveBackgroundModels(cv::Mat& image);
+
 private:
 	double alpha;
 	Mat pFrame;

@@ -132,6 +132,8 @@
     <ClInclude Include="MyBackgroundSubtractorMOG.h" />
     <ClInclude Include="MyGaussmix2.h" />
     <ClInclude Include="MyGBSDialog.h" />
+    <ClInclude Include="PBAS.h" />
+    <ClInclude Include="PBASBGS.h" />
     <ClInclude Include="precomp.hpp" />
     <ClInclude Include="RandUtils.h" />
     <ClInclude Include="Resource.h" />
@@ -167,6 +169,8 @@
     <ClCompile Include="MyBackgroundSubtractorMOG.cpp" />
     <ClCompile Include="MyGaussmix2.cpp" />
     <ClCompile Include="MyGBSDialog.cpp" />
+    <ClCompile Include="PBAS.cpp" />
+    <ClCompile Include="PBASBGS.cpp" />
     <ClCompile Include="SigmaDelta.cpp" />
     <ClCompile Include="SigmaDeltaBGS.cpp" />
     <ClCompile Include="stdafx.cpp">

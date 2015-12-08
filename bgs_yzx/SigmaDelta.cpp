@@ -15,8 +15,8 @@ void CSigmaDelta::operator()(const cv::Mat& image, cv::Mat& fgmask)
 {
 	Mat pFrame;
 	image.copyTo(pFrame);
-	//cvtColor(pFrame, pFrame, CV_BGR2GRAY);
-	//GaussianBlur(pFrame, pFrame, Size(3, 3), 0);
+	cvtColor(pFrame, pFrame, CV_BGR2GRAY);
+	GaussianBlur(pFrame, pFrame, Size(3, 3), 0);
 	pFrame.convertTo(pFrame, CV_32S);
 	if (firsttime)
 	{
@@ -40,6 +40,14 @@ void CSigmaDelta::operator()(const cv::Mat& image, cv::Mat& fgmask)
 				if (*(pdiff + j * channals + c) != 0)
 				{
 					*(pvariance + j * channals + c) = *(pvariance + j * channals + c) + getsgn((*(pdiff + j * channals + c)) * 2, *(pvariance + j * channals + c));
+				}
+				if (*(pvariance + j * channals + c) < 15)
+				{
+					*(pvariance + j * channals + c) = 15;
+				}
+				if (*(pvariance + j * channals + c) > 255)
+				{
+					*(pvariance + j * channals + c) = 255;
 				}
 				
 				sumv += *(pvariance + j * channals + c);

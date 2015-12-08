@@ -93,6 +93,8 @@ int Cbgs_yzxView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_MyGBSDialog.ShowWindow(SW_SHOW);
 	//CRect rect;
 	//m_MyGBSDialog.GetClientRect(&rect);
+	//m_MyGBSDialog.SetWindowPos(this, 100, 100, rect.Width(), rect.Height(), SWP_NOZORDER);
+	
 	//SetWindowPos(NULL, 5000, 200, rect.Width(), rect.Height(), SWP_NOZORDER);
 	//AfxGetMainWnd()->MoveWindow(500, 100, rect.Width(), rect.Height(), TRUE);
 	//this->MoveWindow();

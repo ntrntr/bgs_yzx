@@ -85,7 +85,6 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 {
 
 	image.copyTo(pFrame);
-	
 	GaussianBlur(pFrame, pFrame, Size(3, 3), 0);
 	fgmask.create(pFrame.size(), CV_8UC1);
 	sg = (uchar*)fgmask.data;
@@ -220,3 +219,5 @@ void yzxVibe::saveBackgroundModels(cv::Mat& image)
 	}
 	image.convertTo(image, CV_8U, 1.0/N, 0);
 }
+
+
