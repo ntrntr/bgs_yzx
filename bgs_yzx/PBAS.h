@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cstring>
 #include <map>
+#include <list>
 using namespace std;
 using namespace cv;
 const int N = 35;
@@ -41,12 +42,14 @@ private:
 	//vector<Mat> backgroundModel;
 	//vector<Mat> R;
 	//vector<Mat> D;
-	Mat backgroundModel[N];
-	float* pBGM[N];
-	Mat R[N];
-	float* pR[N];
-	Mat D[N];
-	float* pD[N];
+	//Mat backgroundModel[N];
+	vector<vector<uchar>> backgroundModel;
+	vector<list<double>> D;
+	//float* pBGM[N];
+	Mat R;
+	float* pR;
+	//Mat D[N];
+	//float* pD[N];
 	Mat T;
 	float* pT;
 	Mat background;
