@@ -11,6 +11,8 @@
 #include <iostream>
 #include <cstring>
 #include <map>
+using namespace std;
+using namespace cv;
 const int N = 35;
 class CPBAS
 {
@@ -32,7 +34,7 @@ private:
 	float R_lower;
 	int R_scale;
 	float T_dec;
-	int T_inc;
+	float T_inc;
 	float T_lower;
 	float T_upper;
 	float alpha;
@@ -40,9 +42,13 @@ private:
 	//vector<Mat> R;
 	//vector<Mat> D;
 	Mat backgroundModel[N];
+	float* pBGM[N];
 	Mat R[N];
+	float* pR[N];
 	Mat D[N];
+	float* pD[N];
 	Mat T;
+	float* pT;
 	Mat background;
 	bool firstTime;
 	int patchsize;
@@ -50,6 +56,8 @@ private:
 	vector<int> c_yoff;
 	Mat pFrame;
 	Mat foregroundModel;
+	uchar* pFGM;
+	
 	int height, width, stepUchar, channels;
 	int stepFloat;
 };

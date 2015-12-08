@@ -89,6 +89,7 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 	fgmask.create(pFrame.size(), CV_8UC1);
 	sg = (uchar*)fgmask.data;
 	data = pFrame.data;
+	srand((int)time(NULL));
 	if (firstFrame)
 	{
 		for (int index = 0; index < N; ++index)
