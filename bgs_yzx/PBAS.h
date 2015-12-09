@@ -24,10 +24,12 @@ public:
 	void operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &img_bgmodel);
 	void init();
 	void initBackgroundModel();
+	void initBackgroundGradient();
 	int getX(int x);
 	int getY(int y);
 	int random(int a, int b);
 	void getBackgroundModel(cv::Mat &image);
+	void gradientComputation(cv::Mat& res);
 private:
 
 	int m_min;
@@ -44,7 +46,11 @@ private:
 	//vector<Mat> D;
 	//Mat backgroundModel[N];
 	vector<vector<uchar>> backgroundModel;
-	vector<list<double>> D;
+	vector<vector<float>> backgroundGradient;
+	vector<list<float>> D;
+	list<Mat> gradient;
+	Mat meanGradient;
+	//float* pMeanGra;
 	//float* pBGM[N];
 	Mat R;
 	float* pR;

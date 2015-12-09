@@ -2,7 +2,7 @@
 #include "PBAS.h"
 
 
-CPBAS::CPBAS() : m_min(2), R_inc_dec(0.05), R_lower(18), R_scale(5), T_dec(0.05), T_inc(1.0), T_lower(2), T_upper(200), alpha(10), firstTime(true), patchsize(3)
+CPBAS::CPBAS() : m_min(2), R_inc_dec(0.05), R_lower(18), R_scale(5), T_dec(0.05), T_inc(1.0), T_lower(2), T_upper(200), alpha(0), firstTime(true), patchsize(3)
 {
 	//backgroundModel.resize(N);
 	//R.resize(N);
@@ -28,6 +28,7 @@ void CPBAS::init()
 		//backgroundModel[i].create(pFrame.size(), CV_32FC1);
 		//backgroundModel[i] = cv::Scalar::all(0);
 		backgroundModel.resize(pFrame.cols * pFrame.rows);
+		backgroundGradient.resize(pFrame.cols * pFrame.rows);
 		//R[i].create(pFrame.size(), CV_32FC1);
 		//R[i] = cv::Scalar::all(R_lower);
 		//D[i].create(pFrame.size(), CV_32FC1);
@@ -46,6 +47,7 @@ void CPBAS::init()
 	//stepUchar = pFrame.step[0];
 	//stepFloat = R[0].step[0];
 	initBackgroundModel();
+	initBackgroundGradient();
 }
 
 void CPBAS::initBackgroundModel()
@@ -84,6 +86,25 @@ void CPBAS::initBackgroundModel()
 	//{
 	//	absdiff(frameTmp, backgroundModel[i], D[i]);
 	//}
+}
+
+void CPBAS::initBackgroundGradient()
+{
+	Mat res;
+	gradientComputation(res);
+	for (int i = 0; i < height; ++i)
+	{
+		float* pRes = res.ptr<float>(i);
+		for (int j = 0; j < width; ++j)
+		{
+			for (int k = 0; k < N; ++k)
+			{
+				
+				backgroundGradient[i * width + j].push_back(*(pRes + j));
+			}
+			//backgroundModel[i * width + j].push_back(*p++);
+		}
+	}
 }
 
 int CPBAS::getX(int x)
@@ -145,6 +166,14 @@ void CPBAS::getBackgroundModel(cv::Mat &image)
 	//image.convertTo(image, CV_8U, 1.0 / N, 0);
 }
 
+void CPBAS::gradientComputation(cv::Mat& res)
+{
+	Mat grad_x, grad_y;
+	Sobel(pFrame, grad_x, CV_32F, 1, 0);
+	Sobel(pFrame, grad_y, CV_32F, 0, 1);
+	magnitude(grad_x, grad_y, res);
+}
+
 void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &img_bgmodel)
 {
 	img_input.copyTo(pFrame);
@@ -161,6 +190,25 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 	int index;
 	float mean_sumD = 0;
 	srand((int)time(NULL));
+	Mat tmpGradient;
+	gradientComputation(tmpGradient);
+	if (gradient.size() < N)
+	{
+		gradient.push_back(tmpGradient);
+	}
+	else 
+	{
+		gradient.pop_front();
+		gradient.push_back(tmpGradient);
+	}
+	meanGradient.create(pFrame.size(), CV_32FC1);
+	meanGradient = cv::Scalar::all(0.0);
+	for (auto i:gradient)
+	{
+		meanGradient += i;
+	}
+	meanGradient = meanGradient / gradient.size();
+	//gradientComputation();
 	for (int i = 0; i < height; ++i)
 	{
 		uchar* p = pFrame.ptr<uchar>(i);
@@ -178,6 +226,7 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 			while (index < backgroundModel[i * width + j].size())
 			{
 				dist = std::abs(*(p + j) - (backgroundModel[i * width + j][index]));
+				dist += alpha / meanGradient.at<float>(i, j) * abs(tmpGradient.at<float>(i, j) - backgroundGradient[i * width + j][index]);
 				if (dist < *(pR + j))
 				{
 					++count;
@@ -198,6 +247,10 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 				D[i * width + j].pop_front();
 				D[i * width + j].push_back(mindist);
 			}
+			else
+			{
+				D[i * width + j].pop_front();
+			}
 			for (auto i : D[i * width + j])
 			{
 				mean_sumD += i;
@@ -215,6 +268,7 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 				{
 					rdm = random(0, N);
 					backgroundModel[i * width + j][rdm] = (*(p + j));
+					backgroundGradient[i * width + j][rdm] = tmpGradient.at<float>(i, j);
 				}
 				//update neighbourhood
 				rdm = random(0, static_cast<int>(*(pT + j)));
@@ -229,6 +283,7 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 					}
 					rdm = random(0, N);
 					backgroundModel[xng * width + yng][rdm] = *(pFrame.data + xng * pFrame.step[0] + yng);
+					backgroundGradient[i * width + j][rdm] = tmpGradient.at<float>(xng, yng);
 					//float* tmp = backgroundModel[rdm].ptr<float>(xng);
 					//uchar* tmp1 = pFrame.ptr<uchar>(xng);
 					//*(tmp + yng) = static_cast<float>(*(tmp1 + yng));
