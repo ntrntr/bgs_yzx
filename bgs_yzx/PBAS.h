@@ -69,6 +69,7 @@ private:
 	uchar* pFGM;
 	int height, width, stepUchar, channels;
 	int stepFloat;
+	float formerMeanMag;
 	Mat currentGradient;
 };
 

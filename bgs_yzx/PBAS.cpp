@@ -2,11 +2,12 @@
 #include "PBAS.h"
 
 
-CPBAS::CPBAS() : m_min(2), R_inc_dec(0.05), R_lower(18), R_scale(5), T_dec(0.05), T_inc(1.0), T_lower(2), T_upper(200), alpha(0), firstTime(true), patchsize(3)
+CPBAS::CPBAS() : m_min(2), R_inc_dec(0.05), R_lower(18), R_scale(5), T_dec(0.05), T_inc(1.0), T_lower(2), T_upper(200), alpha(10), firstTime(true), patchsize(3)
 {
 	//backgroundModel.resize(N);
 	//R.resize(N);
 	//D.resize(N);  
+	formerMeanMag = 20;
 	c_xoff.resize(patchsize);
 	c_yoff.resize(patchsize);
 	for (int tmp = -patchsize / 2, i = 0; i < patchsize; ++i, ++tmp)
@@ -224,7 +225,7 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 			while (index < backgroundModel[i * width + j].size() && count < m_min)
 			{
 				dist = std::abs(*(p + j) - (backgroundModel[i * width + j][index]));
-				norm = alpha / meanGradient.at<float>(i, j) * abs(currentGradient.at<float>(i, j) - backgroundGradient[i * width + j][index]);
+				norm = alpha / formerMeanMag * abs(currentGradient.at<float>(i, j) - backgroundGradient[i * width + j][index]);
 				dist += norm;
 				if (dist < *(pR + j))
 				{
@@ -321,6 +322,13 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 			//}
 		}
 	}
+	//-> initiate some low value to prevent diving through zero
+	double meanMag = sumMag  / (double)(foregroundCount + 1); 
+
+	if (meanMag > 20)
+		formerMeanMag = meanMag;
+	else
+		formerMeanMag = 20;
 	foregroundModel.copyTo(img_output);
 	getBackgroundModel(img_bgmodel);
 }
