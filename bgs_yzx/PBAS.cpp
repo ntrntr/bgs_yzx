@@ -6,7 +6,7 @@ CPBAS::CPBAS() : m_min(2), R_inc_dec(0.05), R_lower(18), R_scale(5), T_dec(0.05)
 {
 	//backgroundModel.resize(N);
 	//R.resize(N);
-	//D.resize(N);
+	//D.resize(N);  
 	c_xoff.resize(patchsize);
 	c_yoff.resize(patchsize);
 	for (int tmp = -patchsize / 2, i = 0; i < patchsize; ++i, ++tmp)
@@ -27,13 +27,13 @@ void CPBAS::init()
 	//{
 		//backgroundModel[i].create(pFrame.size(), CV_32FC1);
 		//backgroundModel[i] = cv::Scalar::all(0);
-		backgroundModel.resize(pFrame.cols * pFrame.rows);
-		backgroundGradient.resize(pFrame.cols * pFrame.rows);
+	backgroundModel.resize(pFrame.cols * pFrame.rows);
+	backgroundGradient.resize(pFrame.cols * pFrame.rows);
 		//R[i].create(pFrame.size(), CV_32FC1);
 		//R[i] = cv::Scalar::all(R_lower);
 		//D[i].create(pFrame.size(), CV_32FC1);
 		//D[i] = cv::Scalar::all(0);
-		D.resize(pFrame.cols * pFrame.rows);
+	//D.resize(pFrame.cols * pFrame.rows);
 	//}
 	R.create(pFrame.size(), CV_32FC1);
 	R = cv::Scalar::all(R_lower);
@@ -46,8 +46,10 @@ void CPBAS::init()
 	channels = pFrame.channels();
 	//stepUchar = pFrame.step[0];
 	//stepFloat = R[0].step[0];
-	initBackgroundModel();
-	initBackgroundGradient();
+	meanGradient.create(pFrame.size(), CV_32FC1);
+	meanGradient = cv::Scalar::all(0.000001f);
+	meanD.create(pFrame.size(), CV_32FC1);
+	meanD = cv::Scalar::all(0.000001f);
 }
 
 void CPBAS::initBackgroundModel()
@@ -66,45 +68,55 @@ void CPBAS::initBackgroundModel()
 	//		}
 	//	}
 	//}
-	int row = 0, col = 0;
-	for (int i = 0; i < height; ++i)
-	{
-		for (int j = 0; j < width; ++j)
-		{
-			for (int k = 0; k < N; ++k)
-			{
-					row = getX(i);
-					col = getY(j);
-					backgroundModel[i * width + j].push_back(*(pFrame.data + row * pFrame.step[0] + col));
-			}
-			//backgroundModel[i * width + j].push_back(*p++);
-		}
-	}
+	//int row = 0, col = 0;
+	//for (int i = 0; i < height; ++i)
+	//{
+	//	for (int j = 0; j < width; ++j)
+	//	{
+	//		for (int k = 0; k < N; ++k)
+	//		{
+	//				row = getX(i);
+	//				col = getY(j);
+	//				backgroundModel[i * width + j].push_back(*(pFrame.data + row * pFrame.step[0] + col));
+	//		}
+	//		//backgroundModel[i * width + j].push_back(*p++);
+	//	}
+	//}
 	//Mat frameTmp;
 	//pFrame.convertTo(frameTmp, CV_32F);
 	//for (int i = 0; i < N; ++i)
 	//{
 	//	absdiff(frameTmp, backgroundModel[i], D[i]);
 	//}
+	if (backgroundModel.front().size() < N)
+	{
+		for (int i = 0; i < height; ++i)
+		{
+			for (int j = 0; j < width; ++j)
+			{
+
+				backgroundModel[i * width + j].push_back(*(pFrame.data + i * pFrame.step[0] + j));
+			}
+		}
+	}
 }
 
 void CPBAS::initBackgroundGradient()
 {
-	Mat res;
-	gradientComputation(res);
-	for (int i = 0; i < height; ++i)
+	if (backgroundGradient.front().size() < N)
 	{
-		float* pRes = res.ptr<float>(i);
-		for (int j = 0; j < width; ++j)
+		Mat res;
+		gradientComputation(res);
+		for (int i = 0; i < height; ++i)
 		{
-			for (int k = 0; k < N; ++k)
+			float* pRes = res.ptr<float>(i);
+			for (int j = 0; j < width; ++j)
 			{
-				
 				backgroundGradient[i * width + j].push_back(*(pRes + j));
 			}
-			//backgroundModel[i * width + j].push_back(*p++);
 		}
 	}
+	
 }
 
 int CPBAS::getX(int x)
@@ -187,49 +199,41 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 		init();
 		firstTime = false;
 	}
+	initBackgroundModel();
+	initBackgroundGradient();
 	int index;
-	float mean_sumD = 0;
+	float sumMag = 0;
+	long int foregroundCount = 0;
 	srand((int)time(NULL));
-	Mat tmpGradient;
-	gradientComputation(tmpGradient);
-	if (gradient.size() < N)
-	{
-		gradient.push_back(tmpGradient);
-	}
-	else 
-	{
-		gradient.pop_front();
-		gradient.push_back(tmpGradient);
-	}
-	meanGradient.create(pFrame.size(), CV_32FC1);
-	meanGradient = cv::Scalar::all(0.0);
-	for (auto i:gradient)
-	{
-		meanGradient += i;
-	}
-	meanGradient = meanGradient / gradient.size();
-	//gradientComputation();
+	gradientComputation(currentGradient);
 	for (int i = 0; i < height; ++i)
 	{
 		uchar* p = pFrame.ptr<uchar>(i);
 		pR = R.ptr<float>(i);
 		pT = T.ptr<float>(i);
 		pFGM = foregroundModel.ptr<uchar>(i);
+		pMeanD = meanD.ptr<float>(i);
 		for (int j = 0; j < width; ++j)
 		{
 			int count = 0;
 			float dist = 0;
-			mean_sumD = 0;
+			float norm = 0;
 			index = 0;
 			int minindex = 0;
-			float mindist = 256;
-			while (index < backgroundModel[i * width + j].size())
+			float mindist = 1000;
+			while (index < backgroundModel[i * width + j].size() && count < m_min)
 			{
 				dist = std::abs(*(p + j) - (backgroundModel[i * width + j][index]));
-				dist += alpha / meanGradient.at<float>(i, j) * abs(tmpGradient.at<float>(i, j) - backgroundGradient[i * width + j][index]);
+				norm = alpha / meanGradient.at<float>(i, j) * abs(currentGradient.at<float>(i, j) - backgroundGradient[i * width + j][index]);
+				dist += norm;
 				if (dist < *(pR + j))
 				{
 					++count;
+				}
+				else
+				{
+					sumMag += norm;
+					++foregroundCount;
 				}
 				if (mindist > dist)
 				{
@@ -238,68 +242,64 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 				}
 				++index;
 			}
-			if (D[i * width + j].size() < N)
-			{
-				D[i * width + j].push_back(mindist);
-			}
-			else if (D[i * width + j].size() == N)
-			{
-				D[i * width + j].pop_front();
-				D[i * width + j].push_back(mindist);
-			}
-			else
-			{
-				D[i * width + j].pop_front();
-			}
-			for (auto i : D[i * width + j])
-			{
-				mean_sumD += i;
-			}
-			mean_sumD = mean_sumD * 1.0 / D[i * width + j].size();
 			//*(pD[minindex] + j) = mindist;
 			//foreground judge
 			//background
 			if (count >= m_min)
 			{
 				*(pFGM + j) = 0;
-				
-				int rdm = random(0, static_cast<int>(*(pT + j)));
-				if (rdm == 0)
+				//updatemean
+				if (backgroundModel.front().size() < N && backgroundModel.front().size() > 2)
 				{
-					rdm = random(0, N);
-					backgroundModel[i * width + j][rdm] = (*(p + j));
-					backgroundGradient[i * width + j][rdm] = tmpGradient.at<float>(i, j);
+					*(pMeanD + j) = ((*(pMeanD + j)) * (backgroundModel.front().size() - 1) + mindist) / backgroundModel.front().size();
 				}
-				//update neighbourhood
-				rdm = random(0, static_cast<int>(*(pT + j)));
-				if (rdm == 0)
+				else if (backgroundModel.front().size() < N && backgroundModel.front().size() == 2)
 				{
-					int xng = i;
-					int yng = j;
-					while (i == xng && j == yng)
+					*(pMeanD + j) = mindist;
+				}
+				if (backgroundModel.front().size() == N)
+				{
+					//update background model
+					int rdm = random(0, static_cast<int>(*(pT + j)));
+					if (rdm == 0)
 					{
-						xng = getX(i);
-						yng = getY(j);
+						rdm = random(0, N);
+						backgroundModel[i * width + j][rdm] = (*(p + j));
+						backgroundGradient[i * width + j][rdm] = currentGradient.at<float>(i, j);
 					}
-					rdm = random(0, N);
-					backgroundModel[xng * width + yng][rdm] = *(pFrame.data + xng * pFrame.step[0] + yng);
-					backgroundGradient[i * width + j][rdm] = tmpGradient.at<float>(xng, yng);
-					//float* tmp = backgroundModel[rdm].ptr<float>(xng);
-					//uchar* tmp1 = pFrame.ptr<uchar>(xng);
-					//*(tmp + yng) = static_cast<float>(*(tmp1 + yng));
+					//update neighbourhood
+					rdm = random(0, static_cast<int>(*(pT + j)));
+					if (rdm == 0)
+					{
+						int xng = i;
+						int yng = j;
+						while (i == xng && j == yng)
+						{
+							xng = getX(i);
+							yng = getY(j);
+						}
+						rdm = random(0, N);
+						backgroundModel[xng * width + yng][rdm] = *(pFrame.data + xng * pFrame.step[0] + yng);
+						backgroundGradient[i * width + j][rdm] = currentGradient.at<float>(xng, yng);
+						//float* tmp = backgroundModel[rdm].ptr<float>(xng);
+						//uchar* tmp1 = pFrame.ptr<uchar>(xng);
+						//*(tmp + yng) = static_cast<float>(*(tmp1 + yng));
+					}
+					
 				}
 				//update T
-				*(pT + j) = std::max(std::min(T_upper, *(pT + j) - T_dec / mean_sumD), T_lower);
+				*(pT + j) = std::max(std::min(T_upper, *(pT + j) - T_dec / (*(pMeanD + j))), T_lower);
+				
 			}
 			//foreground
 			else
 			{
 				*(pFGM + j) = 255;
 				//update T
-				*(pT + j) = std::max(std::min(T_upper, *(pT + j) + T_inc / mean_sumD), T_lower);
+				*(pT + j) = std::max(std::min(T_upper, *(pT + j) + T_inc / (*(pMeanD + j))), T_lower);
 			}
 			//upgrate R
-			if (*(pR + j) > (mean_sumD * R_scale))
+			if (*(pR + j) > ((*(pMeanD + j)) * R_scale))
 			{
 				*(pR + j) = std::max((*(pR + j)) * (1 - R_inc_dec), R_lower);
 			}

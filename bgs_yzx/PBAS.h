@@ -47,9 +47,10 @@ private:
 	//Mat backgroundModel[N];
 	vector<vector<uchar>> backgroundModel;
 	vector<vector<float>> backgroundGradient;
-	vector<list<float>> D;
-	list<Mat> gradient;
+	//vector<list<float>> D;
 	Mat meanGradient;
+	Mat meanD;
+	float* pMeanD;
 	//float* pMeanGra;
 	//float* pBGM[N];
 	Mat R;
@@ -66,8 +67,8 @@ private:
 	Mat pFrame;
 	Mat foregroundModel;
 	uchar* pFGM;
-	
 	int height, width, stepUchar, channels;
 	int stepFloat;
+	Mat currentGradient;
 };
 
