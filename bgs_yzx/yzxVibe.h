@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <direct.h>
-#include <time.h>
 #include <iostream>
 #include <cstring>
 #include <map>

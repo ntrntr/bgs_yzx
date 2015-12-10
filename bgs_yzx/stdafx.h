@@ -42,6 +42,10 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 #include "time.h"
+#include <direct.h>
+#include <cstring>
+#include <map>
+#include <omp.h>
 
 #include "FrameDifferenceBGS.h"
 #include "VibeBGS.h"
