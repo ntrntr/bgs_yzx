@@ -43,6 +43,9 @@
     <Filter Include="头文件\PBAS">
       <UniqueIdentifier>{7b63cda2-60d8-49b4-bd06-02462377fcc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\MyBGS">
+      <UniqueIdentifier>{38668f9a-beb0-4969-8313-460dfc4aad67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -159,6 +162,12 @@
     <ClInclude Include="PBAS.h">
       <Filter>头文件\PBAS</Filter>
     </ClInclude>
+    <ClInclude Include="MyBGS.h">
+      <Filter>头文件\MyBGS</Filter>
+    </ClInclude>
+    <ClInclude Include="Yzx.h">
+      <Filter>头文件\MyBGS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -253,6 +262,12 @@
     </ClCompile>
     <ClCompile Include="PBAS.cpp">
       <Filter>头文件\PBAS</Filter>
+    </ClCompile>
+    <ClCompile Include="MyBGS.cpp">
+      <Filter>头文件\MyBGS</Filter>
+    </ClCompile>
+    <ClCompile Include="Yzx.cpp">
+      <Filter>头文件\MyBGS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

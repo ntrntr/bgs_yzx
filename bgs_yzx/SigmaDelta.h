@@ -15,8 +15,13 @@ public:
 	void init(cv::Mat& image);
 	void getBackgroundModel(cv::Mat& image);
 	int getsgn(int a, int b);
+	void saveCustomedPointData(cv::Mat& pFrame);
 public:
 	cv::Mat m_Mean;
+	cv::Mat m_MovingAverage;
+	cv::Mat m_NonlinearMoving;
+	cv::Mat m_Dilation;
+	cv::Mat m_Erosion;
 	cv::Mat m_Difference;
 	cv::Mat m_Variance;
 	cv::Mat m_foreground;
@@ -27,5 +32,9 @@ public:
 	int rows;
 	int channals;
 	int N;
+	vector<Point> watchPoint;
+	vector<vector<vector<int>>> resultPoint;
+	int kindOfPoint;
+	double alpha;
 };
 

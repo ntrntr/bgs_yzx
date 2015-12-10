@@ -69,7 +69,7 @@ BOOL CMyGBSDialog::OnInitDialog()
 	initMemberVariable();
 	addBgsList();
 	addFilterList();
-	m_dragEdit.SetWindowTextW(L"D://dataset//dataset//baseline//highway//input//in%06d.jpg");
+	m_dragEdit.SetWindowTextW(L"D://dataset//dataset//dynamicBackground//fall//input//in%06d.jpg");
 	m_saveMaskPath.SetWindowTextW(L"D://dataset//results//dynamicBackground//fall//");
 	m_delay.SetWindowTextW(L"1");
 	m_frameNumber.SetWindowTextW(L"-");
