@@ -59,6 +59,7 @@
 #include "YZXAdpativeGaussianMix.h"
 #include "SigmaDeltaBGS.h"
 #include "PBASBGS.h"
+#include "MyBGS.h"
 //if using the check of leak memory
 #define _CRTDBG_MAP_ALLOC 
 #include<stdlib.h>

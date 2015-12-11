@@ -250,7 +250,7 @@ void CPBAS::operator()(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &i
 			{
 				*(pFGM + j) = 0;
 				//updatemean
-				if (backgroundModel.front().size() < N && backgroundModel.front().size() > 2)
+				if (backgroundModel.front().size() <= N && backgroundModel.front().size() > 2)
 				{
 					*(pMeanD + j) = ((*(pMeanD + j)) * (backgroundModel.front().size() - 1) + mindist) / backgroundModel.front().size();
 				}

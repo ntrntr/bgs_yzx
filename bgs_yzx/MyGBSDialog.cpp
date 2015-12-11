@@ -35,6 +35,7 @@ void CMyGBSDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SAVE_MASK, m_saveMask);
 	DDX_Control(pDX, IDC_EDIT_SAVE_MASK, m_saveMaskPath);
 	DDX_Control(pDX, IDC_COMBO_FILTER, m_filterList);
+	DDX_Control(pDX, IDC_IDC_INPUT_VIDEO_APPEND, m_videoPathAppendControl);
 }
 
 
@@ -68,8 +69,11 @@ BOOL CMyGBSDialog::OnInitDialog()
 	// TODO:  在此添加额外的初始化
 	initMemberVariable();
 	addBgsList();
+	m_BGSList.SetCurSel(m_BGSList.GetCount() - 1);
 	addFilterList();
-	m_dragEdit.SetWindowTextW(L"D://dataset//dataset//dynamicBackground//fall//input//in%06d.jpg");
+	addVideoPathAppend();
+	m_videoPathAppendControl.SetCurSel(10);
+	m_dragEdit.SetWindowTextW(L"D://dataset//dataset//");
 	m_saveMaskPath.SetWindowTextW(L"D://dataset//results//dynamicBackground//fall//");
 	m_delay.SetWindowTextW(L"1");
 	m_frameNumber.SetWindowTextW(L"-");
@@ -82,10 +86,6 @@ BOOL CMyGBSDialog::OnInitDialog()
 		HWND hParent = ::GetParent(hWnd);
 		::SetParent(hWnd, GetDlgItem(IDC_FRAME_INPUT)->m_hWnd);
 		::ShowWindow(hParent, SW_HIDE);
-
-		
-
-		
 	}
 	if (started == false)
 	{
@@ -125,6 +125,7 @@ void CMyGBSDialog::addBgsList()
 	m_BGSList.AddString(_T("AdpativeGMM"));
 	m_BGSList.AddString(_T("SigmaDelta"));
 	m_BGSList.AddString(_T("PBAS"));
+	m_BGSList.AddString(_T("MyBGS"));
 }
 
 
@@ -163,9 +164,10 @@ bool CMyGBSDialog::getBgsMethodName()
 bool CMyGBSDialog::getInputVideoFilePath()
 {
 	m_dragEdit.GetWindowTextW(m_filePath);
-
-	if (m_filePath.GetLength() > 0)
+	m_videoPathAppendControl.GetWindowTextW(m_filePathAppend);
+	if (m_filePath.GetLength() > 0 && m_filePathAppend.GetLength() > 0)
 	{
+		m_filePath.Append(m_filePathAppend);
 		return true;
 	}
 	else
@@ -275,6 +277,10 @@ void CMyGBSDialog::ThreadProcess()
 	if (m_methodName == "PBAS")
 	{
 		bgs = new CPBASBGS;
+	}
+	if (m_methodName == "MyBGS")
+	{
+		bgs = new CMyBGS;
 	}
 	if (bgs == NULL)
 	{
@@ -483,4 +489,41 @@ CString CMyGBSDialog::getFilterName()
 		m_filterList.GetLBText(nIndex, res);
 	}
 	return res;
+}
+
+
+void CMyGBSDialog::addVideoPathAppend()
+{
+
+	m_videoPathAppendControl.AddString(_T("baseline//highway//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("baseline//office//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("baseline//pedestrians//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("baseline//PETS2006//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("cameraJitter//badminton//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("cameraJitter//boulevard//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("cameraJitter//sidewalk//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("cameraJitter//traffic//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("dynamicBackground//boats//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("dynamicBackground//canoe//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("dynamicBackground//fall//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("dynamicBackground//fountain01//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("dynamicBackground//fountain02//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("dynamicBackground//overpass//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//abandonedBox//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//parking//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//sofa//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//streetLight//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//tramstop//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//winterDriveway//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("shadow//backdoor//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("shadow//bungalows//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("shadow//busStation//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("shadow//copyMachine//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("shadow//cubicle//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("shadow//peopleInShade//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("thermal//corridor//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("thermal//diningRoom//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("thermal//lakeSide//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("thermal//library//input//in%06d.jpg"));
+	m_videoPathAppendControl.AddString(_T("thermal//park//input//in%06d.jpg"));
 }

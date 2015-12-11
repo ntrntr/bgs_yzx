@@ -39,6 +39,7 @@ public:
 	// bool CDlg::getInputVideoFilePath()
 	bool getInputVideoFilePath();
 	CString m_filePath;
+	CString m_filePathAppend;
 	CString m_saveMaskOutPath;
 	afx_msg void OnBnClickedButtonStart();
 	CStatic m_log;
@@ -60,4 +61,6 @@ public:
 	void addFilterList();
 	void modifyMask(cv::Mat& image, CString& filtername);
 	CString getFilterName();
+	CComboBox m_videoPathAppendControl;
+	void addVideoPathAppend();
 };
