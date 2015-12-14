@@ -148,6 +148,7 @@
     <ClInclude Include="YZXAdpativeGaussianMix.h" />
     <ClInclude Include="YzxCodeBook.h" />
     <ClInclude Include="YZXCodebookBGS.h" />
+    <ClInclude Include="YzxFormView.h" />
     <ClInclude Include="YZXGaussianMix.h" />
     <ClInclude Include="YZXGaussianMix2.h" />
     <ClInclude Include="yzxVibe.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="YZXAdpativeGaussianMix.cpp" />
     <ClCompile Include="YzxCodeBook.cpp" />
     <ClCompile Include="YZXCodebookBGS.cpp" />
+    <ClCompile Include="YzxFormView.cpp" />
     <ClCompile Include="YZXGaussianMix.cpp" />
     <ClCompile Include="YZXGaussianMix2.cpp" />
     <ClCompile Include="yzxVibe.cpp" />

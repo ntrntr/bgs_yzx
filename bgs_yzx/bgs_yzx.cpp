@@ -10,7 +10,7 @@
 
 #include "bgs_yzxDoc.h"
 #include "bgs_yzxView.h"
-
+#include "YzxFormView.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -97,11 +97,16 @@ BOOL Cbgs_yzxApp::InitInstance()
 	// 注册应用程序的文档模板。  文档模板
 	// 将用作文档、框架窗口和视图之间的连接
 	CSingleDocTemplate* pDocTemplate;
+	//pDocTemplate = new CSingleDocTemplate(
+	//	IDR_MAINFRAME,
+	//	RUNTIME_CLASS(Cbgs_yzxDoc),
+	//	RUNTIME_CLASS(CMainFrame),       // 主 SDI 框架窗口
+	//	RUNTIME_CLASS(Cbgs_yzxView));
 	pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
 		RUNTIME_CLASS(Cbgs_yzxDoc),
 		RUNTIME_CLASS(CMainFrame),       // 主 SDI 框架窗口
-		RUNTIME_CLASS(Cbgs_yzxView));
+		RUNTIME_CLASS(CYzxFormView));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);

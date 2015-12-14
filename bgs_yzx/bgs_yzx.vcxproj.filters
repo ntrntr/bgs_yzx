@@ -168,6 +168,9 @@
     <ClInclude Include="Yzx.h">
       <Filter>头文件\MyBGS</Filter>
     </ClInclude>
+    <ClInclude Include="YzxFormView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -268,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="Yzx.cpp">
       <Filter>头文件\MyBGS</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxFormView.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

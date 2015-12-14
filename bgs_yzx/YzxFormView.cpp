@@ -1,31 +1,30 @@
-// MyGBSDialog.cpp : 实现文件
+// YzxFormView.cpp : 实现文件
 //
 
 #include "stdafx.h"
 #include "bgs_yzx.h"
-#include "MyGBSDialog.h"
-#include "afxdialogex.h"
+#include "YzxFormView.h"
 #include "DragEdit.h"
 
-// CMyGBSDialog 对话框
+// CYzxFormView
 
-IMPLEMENT_DYNAMIC(CMyGBSDialog, CDialogEx)
+IMPLEMENT_DYNCREATE(CYzxFormView, CFormView)
 
-CMyGBSDialog::CMyGBSDialog(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CMyGBSDialog::IDD, pParent)
+CYzxFormView::CYzxFormView()
+	: CFormView(CYzxFormView::IDD)
 {
 
 	m_methodName = _T("");
 	m_filePath = _T("");
 }
 
-CMyGBSDialog::~CMyGBSDialog()
+CYzxFormView::~CYzxFormView()
 {
 }
 
-void CMyGBSDialog::DoDataExchange(CDataExchange* pDX)
+void CYzxFormView::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	CFormView::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LISTBOX_BGSLIST, m_BGSList);
 	DDX_Control(pDX, IDC_INPUT_VIDEO, m_dragEdit);
 	DDX_Control(pDX, IDC_EDIT_DELAY, m_delay);
@@ -38,80 +37,55 @@ void CMyGBSDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_IDC_INPUT_VIDEO_APPEND, m_videoPathAppendControl);
 }
 
-
-BEGIN_MESSAGE_MAP(CMyGBSDialog, CDialogEx)
+BEGIN_MESSAGE_MAP(CYzxFormView, CFormView)
 	ON_WM_CREATE()
-	ON_BN_CLICKED(IDC_BUTTON_START, &CMyGBSDialog::OnBnClickedButtonStart)
-	ON_BN_CLICKED(IDC_BUTTON_SUSPEND, &CMyGBSDialog::OnBnClickedButtonSuspend)
-	ON_BN_CLICKED(IDC_BUTTON_RESUME, &CMyGBSDialog::OnBnClickedButtonResume)
-	ON_BN_CLICKED(IDC_BUTTON_END, &CMyGBSDialog::OnBnClickedButtonEnd)
+	ON_BN_CLICKED(IDC_BUTTON_START, &CYzxFormView::OnBnClickedButtonStart)
+	ON_BN_CLICKED(IDC_BUTTON_SUSPEND, &CYzxFormView::OnBnClickedButtonSuspend)
+	ON_BN_CLICKED(IDC_BUTTON_RESUME, &CYzxFormView::OnBnClickedButtonResume)
+	ON_BN_CLICKED(IDC_BUTTON_END, &CYzxFormView::OnBnClickedButtonEnd)
 END_MESSAGE_MAP()
 
 
-// CMyGBSDialog 消息处理程序
+// CYzxFormView 诊断
 
-
-int CMyGBSDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
+#ifdef _DEBUG
+void CYzxFormView::AssertValid() const
 {
-	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
+	CFormView::AssertValid();
+}
+
+#ifndef _WIN32_WCE
+void CYzxFormView::Dump(CDumpContext& dc) const
+{
+	CFormView::Dump(dc);
+}
+#endif
+#endif //_DEBUG
+// CYzxFormView 消息处理程序
+
+
+int CYzxFormView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CFormView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
 	// TODO:  在此添加您专用的创建代码
+	// TODO:  在此添加额外的初始化
 
+	
 	return 0;
 }
 
 
-BOOL CMyGBSDialog::OnInitDialog()
+BOOL CYzxFormView::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext)
 {
-	CDialogEx::OnInitDialog();
+	// TODO:  在此添加专用代码和/或调用基类
 
-	// TODO:  在此添加额外的初始化
-	initMemberVariable();
-	addBgsList();
-	m_BGSList.SetCurSel(m_BGSList.GetCount() - 5);
-	addFilterList();
-	addVideoPathAppend();
-	m_videoPathAppendControl.SetCurSel(10);
-	m_dragEdit.SetWindowTextW(L"D://dataset//dataset//");
-	m_saveMaskPath.SetWindowTextW(L"D://dataset//results//dynamicBackground//fall//");
-	m_delay.SetWindowTextW(L"1");
-	m_frameNumber.SetWindowTextW(L"-");
-	m_execTime.SetWindowTextW(L"-");
-	started = false;
-	if (started == false)
-	{
-		cv::namedWindow("INPUT", CV_WINDOW_AUTOSIZE);
-		HWND hWnd = (HWND)cvGetWindowHandle("INPUT");
-		HWND hParent = ::GetParent(hWnd);
-		::SetParent(hWnd, GetDlgItem(IDC_FRAME_INPUT)->m_hWnd);
-		::ShowWindow(hParent, SW_HIDE);
-	}
-	if (started == false)
-	{
-		cv::namedWindow("MASK", CV_WINDOW_AUTOSIZE);
-		HWND hWnd = (HWND)cvGetWindowHandle("MASK");
-		HWND hParent = ::GetParent(hWnd);
-		::SetParent(hWnd, GetDlgItem(IDC_FRAME_MASK)->m_hWnd);
-		::ShowWindow(hParent, SW_HIDE);
-	}
-	if (started == false)
-	{
-		cv::namedWindow("BKG", CV_WINDOW_AUTOSIZE);
-		HWND hWnd = (HWND)cvGetWindowHandle("BKG");
-		HWND hParent = ::GetParent(hWnd);
-		::SetParent(hWnd, GetDlgItem(IDC_FRAME_BKG)->m_hWnd);
-		::ShowWindow(hParent, SW_HIDE);
-	}
-	//  [11/30/2015 yzx]
-	//cv::namedWindow("MASK1", CV_WINDOW_AUTOSIZE);
-	//cv::namedWindow("BKG1", CV_WINDOW_AUTOSIZE);
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 异常:  OCX 属性页应返回 FALSE
+	return CFormView::Create(lpszClassName, lpszWindowName, dwStyle, rect, pParentWnd, nID, pContext);
 }
 
 
-void CMyGBSDialog::addBgsList()
+void CYzxFormView::addBgsList()
 {
 	m_BGSList.AddString(_T("vibe"));
 	m_BGSList.AddString(_T("subsense"));
@@ -128,8 +102,7 @@ void CMyGBSDialog::addBgsList()
 	m_BGSList.AddString(_T("MyBGS"));
 }
 
-
-void CMyGBSDialog::initMemberVariable()
+void CYzxFormView::initMemberVariable()
 {
 	m_methodName = _T("");
 	m_filePath = _T("");
@@ -140,9 +113,7 @@ void CMyGBSDialog::initMemberVariable()
 
 }
 
-
-// getBgsMethodName
-bool CMyGBSDialog::getBgsMethodName()
+bool CYzxFormView::getBgsMethodName()
 {
 	int nSel;
 	nSel = m_BGSList.GetCurSel();
@@ -159,9 +130,7 @@ bool CMyGBSDialog::getBgsMethodName()
 	return false;
 }
 
-
-// bool getInputVideoFilePath()
-bool CMyGBSDialog::getInputVideoFilePath()
+bool CYzxFormView::getInputVideoFilePath()
 {
 	m_dragEdit.GetWindowTextW(m_filePath);
 	m_videoPathAppendControl.GetWindowTextW(m_filePathAppend);
@@ -177,11 +146,9 @@ bool CMyGBSDialog::getInputVideoFilePath()
 	return false;
 }
 
-
-void CMyGBSDialog::OnBnClickedButtonStart()
+void CYzxFormView::OnBnClickedButtonStart()
 {
 	// TODO:  在此添加控件通知处理程序代码
-
 	isContinue = true;
 	if (started == false)
 	{
@@ -201,7 +168,7 @@ void CMyGBSDialog::OnBnClickedButtonStart()
 		GetDlgItem(IDC_BUTTON_RESUME)->EnableWindow(FALSE);
 		GetDlgItem(IDC_BUTTON_END)->EnableWindow(TRUE);
 		m_log.SetWindowTextW(L"算法运行中...");
-		yzxBGSthread = AfxBeginThread((AFX_THREADPROC)CMyGBSDialog::BGSThread, (LPVOID) this);
+		yzxBGSthread = AfxBeginThread((AFX_THREADPROC)CYzxFormView::BGSThread, (LPVOID) this);
 	}
 	else
 	{
@@ -209,7 +176,8 @@ void CMyGBSDialog::OnBnClickedButtonStart()
 	}
 }
 
-void CMyGBSDialog::OnBnClickedButtonSuspend()
+
+void CYzxFormView::OnBnClickedButtonSuspend()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	GetDlgItem(IDC_BUTTON_START)->EnableWindow(FALSE);
@@ -220,7 +188,7 @@ void CMyGBSDialog::OnBnClickedButtonSuspend()
 }
 
 
-void CMyGBSDialog::OnBnClickedButtonResume()
+void CYzxFormView::OnBnClickedButtonResume()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	GetDlgItem(IDC_BUTTON_START)->EnableWindow(FALSE);
@@ -232,7 +200,7 @@ void CMyGBSDialog::OnBnClickedButtonResume()
 }
 
 
-void CMyGBSDialog::OnBnClickedButtonEnd()
+void CYzxFormView::OnBnClickedButtonEnd()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	GetDlgItem(IDC_BUTTON_START)->EnableWindow(TRUE);
@@ -241,15 +209,14 @@ void CMyGBSDialog::OnBnClickedButtonEnd()
 	GetDlgItem(IDC_BUTTON_END)->EnableWindow(FALSE);
 	isContinue = false;
 }
-DWORD CMyGBSDialog::BGSThread(LPVOID* pParam)
+DWORD CYzxFormView::BGSThread(LPVOID* pParam)
 {
-	CMyGBSDialog* thr = (CMyGBSDialog*)pParam;
+	CYzxFormView* thr = (CYzxFormView*)pParam;
 	thr->ThreadProcess();
 	return 0;
 }
 
-
-void CMyGBSDialog::ThreadProcess()
+void CYzxFormView::ThreadProcess()
 {
 	cv::VideoCapture oVideoInput;
 	CStringA file_path_aux(m_filePath);
@@ -415,15 +382,9 @@ void CMyGBSDialog::ThreadProcess()
 	m_log.SetWindowTextW(text);
 	started = false;
 	OnBnClickedButtonEnd();
-
 }
 
-
-
-
-
-// 保存文件
-void CMyGBSDialog::saveImage(cv::Mat& image, CString outpath, CString filename, int count)
+void CYzxFormView::saveImage(cv::Mat& image, CString outpath, CString filename, int count)
 {
 	outpath.AppendFormat(filename, count);
 	// Convert a TCHAR string to a LPCSTR
@@ -433,8 +394,7 @@ void CMyGBSDialog::saveImage(cv::Mat& image, CString outpath, CString filename, 
 	cv::imwrite(str_file, image);
 }
 
-
-bool CMyGBSDialog::isSaveMaskImage()
+bool CYzxFormView::isSaveMaskImage()
 {
 	m_saveMaskPath.GetWindowTextW(m_saveMaskOutPath);
 
@@ -449,16 +409,14 @@ bool CMyGBSDialog::isSaveMaskImage()
 	return false;
 }
 
-
-void CMyGBSDialog::addFilterList()
+void CYzxFormView::addFilterList()
 {
 	m_filterList.AddString(L"none");
 	m_filterList.AddString(L"modify");
 	m_filterList.AddString(L"median filter");
 }
 
-
-void CMyGBSDialog::modifyMask(cv::Mat& image, CString& filtername)
+void CYzxFormView::modifyMask(cv::Mat& image, CString& filtername)
 {
 	if (filtername == "none")
 	{
@@ -476,11 +434,9 @@ void CMyGBSDialog::modifyMask(cv::Mat& image, CString& filtername)
 		cv::erode(image, image, cv::Mat(), cv::Point(0, 0), 1);
 		cv::medianBlur(image, image, 5);
 	}
-
 }
 
-
-CString CMyGBSDialog::getFilterName()
+CString CYzxFormView::getFilterName()
 {
 	CString res(L"none");
 	int nIndex = m_filterList.GetCurSel();
@@ -491,11 +447,9 @@ CString CMyGBSDialog::getFilterName()
 	return res;
 }
 
-
-void CMyGBSDialog::addVideoPathAppend()
+void CYzxFormView::addVideoPathAppend()
 {
-
-	m_videoPathAppendControl.AddString(_T("baseline//highway//input//in%06d.jpg"));
+m_videoPathAppendControl.AddString(_T("baseline//highway//input//in%06d.jpg"));
 	m_videoPathAppendControl.AddString(_T("baseline//office//input//in%06d.jpg"));
 	m_videoPathAppendControl.AddString(_T("baseline//pedestrians//input//in%06d.jpg"));
 	m_videoPathAppendControl.AddString(_T("baseline//PETS2006//input//in%06d.jpg"));
@@ -526,4 +480,53 @@ void CMyGBSDialog::addVideoPathAppend()
 	m_videoPathAppendControl.AddString(_T("thermal//lakeSide//input//in%06d.jpg"));
 	m_videoPathAppendControl.AddString(_T("thermal//library//input//in%06d.jpg"));
 	m_videoPathAppendControl.AddString(_T("thermal//park//input//in%06d.jpg"));
+}
+
+
+
+
+
+
+
+void CYzxFormView::OnInitialUpdate()
+{
+	CFormView::OnInitialUpdate();
+
+	// TODO:  在此添加专用代码和/或调用基类
+	initMemberVariable();
+	addBgsList();
+	m_BGSList.SetCurSel(m_BGSList.GetCount() - 5);
+	addFilterList();
+	addVideoPathAppend();
+	m_videoPathAppendControl.SetCurSel(10);
+	m_dragEdit.SetWindowTextW(L"D://dataset//dataset//");
+	m_saveMaskPath.SetWindowTextW(L"D://dataset//results//dynamicBackground//fall//");
+	m_delay.SetWindowTextW(L"1");
+	m_frameNumber.SetWindowTextW(L"-");
+	m_execTime.SetWindowTextW(L"-");
+	started = false;
+	if (started == false)
+	{
+		cv::namedWindow("INPUT", CV_WINDOW_AUTOSIZE);
+		HWND hWnd = (HWND)cvGetWindowHandle("INPUT");
+		HWND hParent = ::GetParent(hWnd);
+		::SetParent(hWnd, GetDlgItem(IDC_FRAME_INPUT)->m_hWnd);
+		::ShowWindow(hParent, SW_HIDE);
+	}
+	if (started == false)
+	{
+		cv::namedWindow("MASK", CV_WINDOW_AUTOSIZE);
+		HWND hWnd = (HWND)cvGetWindowHandle("MASK");
+		HWND hParent = ::GetParent(hWnd);
+		::SetParent(hWnd, GetDlgItem(IDC_FRAME_MASK)->m_hWnd);
+		::ShowWindow(hParent, SW_HIDE);
+	}
+	if (started == false)
+	{
+		cv::namedWindow("BKG", CV_WINDOW_AUTOSIZE);
+		HWND hWnd = (HWND)cvGetWindowHandle("BKG");
+		HWND hParent = ::GetParent(hWnd);
+		::SetParent(hWnd, GetDlgItem(IDC_FRAME_BKG)->m_hWnd);
+		::ShowWindow(hParent, SW_HIDE);
+	}
 }

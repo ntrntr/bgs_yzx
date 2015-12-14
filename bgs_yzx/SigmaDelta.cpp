@@ -5,8 +5,8 @@ CSigmaDelta::CSigmaDelta() :firsttime(true), N(2), alpha(0.5)
 {
 	//Point pt(100, 100);
 	kindOfPoint = 6;
-	watchPoint.push_back(Point(100,200));
-	watchPoint.push_back(Point(150,150));
+	watchPoint.push_back(Point(680,364));
+	watchPoint.push_back(Point(579,60));
 	resultPoint.assign(watchPoint.size(), vector<vector<int>>(kindOfPoint));
 }
 

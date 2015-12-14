@@ -38,6 +38,8 @@ public:
 	void updateNeighborModel(int x, int y);
 	void updateT(int flag, float* pt, float* pmean);
 	void updateR(float* pr, float* pmean);
+	int getNeighborX(int x, int begin = -1, int end = 2);
+	int getNeighborY(int y, int begin = -1, int end = 2);
 private:
 	const int N;
 	double alpha;

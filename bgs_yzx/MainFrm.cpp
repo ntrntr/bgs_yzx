@@ -49,6 +49,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("未能创建工具栏\n");
 		return -1;      // 未能创建
 	}
+	m_wndToolBar.ShowWindow(SW_HIDE);
 
 	if (!m_wndStatusBar.Create(this))
 	{
