@@ -11,6 +11,7 @@
 #include "bgs_yzxDoc.h"
 #include "bgs_yzxView.h"
 #include "YzxFormView.h"
+#include "Version.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -23,6 +24,7 @@ BEGIN_MESSAGE_MAP(Cbgs_yzxApp, CWinApp)
 	// 基于文件的标准文档命令
 	ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
+	ON_COMMAND(ID_VERSION, &Cbgs_yzxApp::OnVersion)
 END_MESSAGE_MAP()
 
 
@@ -180,4 +182,13 @@ void Cbgs_yzxApp::OnAppAbout()
 // Cbgs_yzxApp 消息处理程序
 
 
+
+
+
+void Cbgs_yzxApp::OnVersion()
+{
+	// TODO:  在此添加命令处理程序代码
+	CVersion versionDlg;
+	versionDlg.DoModal();
+}
 

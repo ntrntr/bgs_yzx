@@ -14,7 +14,7 @@ yzxVibe::yzxVibe() :alpha(0.1), N(MODEL_SIZE), R(20), _min(2), ts(16), patchsize
 	for (int tmp = -patchsize / 2, i = 0; i < patchsize; ++i, ++tmp)
 	{
 		c_xoff[i] = tmp;
-		c_yoff[i] = tmp;
+		c_yoff[i] = tmp; 
 	}
 }
 
@@ -47,32 +47,10 @@ void yzxVibe::initBackgroundModel()
 		{
 			for (int j = 0; j < width; ++j)
 			{
-				int tmp = random(0, patchsize);
-				x = i + c_yoff[tmp];
-				//cout<<"tmp = "<<tmp <<"\t"<<"c_yoff[tmp] = "<<c_yoff[tmp]<<endl;
-				if (x < 0)
-				{
-					x = -x;
-				}
-				if (x >= height)
-				{
-					x = 2 * (height - 1) - height;
-				}
-				tmp = random(0, patchsize);
-				y = j + c_xoff[tmp];
-				//cout<<"tmp = "<<tmp <<"\t"<<"c_xoff[tmp] = "<<c_xoff[tmp]<<endl;
-				if (y < 0)
-				{
-					y = -y;
-				}
-				if (y >= width)
-				{
-					y = 2 * (width - 1) - width;
-				}
 				for (int k = 0; k < 3; ++k)
 				{
 					//data = image data;
-					simdata[index][i * step + j * pFrame.step[1] + k] = data[x * step + y * pFrame.step[1] + k];
+					simdata[index][i * step + j * pFrame.step[1] + k] = data[getRandomX(i) * step + getRandomY(j) * pFrame.step[1] + k];
 				}
 
 			}
@@ -99,10 +77,7 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 			//simdata[index] = (uchar*)simple[index]->imageData;
 			simdata[index] = (uchar*)simple[index].data;
 
-		}
-
-		//segmap = cvCreateImage(cvSize(pFrame->width, pFrame->height), IPL_DEPTH_8U, 1);
-		
+		}		
 		height = pFrame.rows;
 		width = pFrame.cols;
 		//step is the bytes of each line
@@ -123,10 +98,10 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 
 		int x, y,index;
 		//#pragma omp parallel for reduction(+:fgcount)
-		for (x = 1; x < width - 1; ++x)
+		for (x = 0; x < width; ++x)
 		{
 			double a[3] = { 0, 0, 0 };
-			for (y = 1; y < height - 1; ++y)
+			for (y = 0; y < height; ++y)
 			{
 				//y height, x width 
 				//compare pixel to background model
@@ -153,36 +128,28 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 					//store that image[x][y] to background
 					sg[y * fgmask.step[0] + x * fgmask.step[1]] = 0;
 					//1 / ts to change
-					int rdm = random(0, ts);
+					int rdm = rng.uniform(0, ts);
 					if (rdm == 0)
 					{
-						rdm = random(0, N);
+						rdm = rng.uniform(0, N);
 						//omp_set_lock(&mylock);
 						simdata[rdm][y * step + x * pFrame.step[1] + 0] = data[y * step + x * pFrame.step[1] + 0];
 						simdata[rdm][y * step + x * pFrame.step[1] + 1] = data[y * step + x * pFrame.step[1] + 1];
 						simdata[rdm][y * step + x * pFrame.step[1] + 2] = data[y * step + x * pFrame.step[1] + 2];
-						//simdata[rdm][y * step + x * pFrame.step[1] + 0] = (1 - AlphaLUT[(int)abs(simdata[rdm][y * step + x * pFrame.step[1] + 0] - data[y * step + x * pFrame.step[1] + 0])]) * simdata[rdm][y * step + x * pFrame.step[1] + 0] + AlphaLUT[(int)abs(simdata[rdm][y * step + x * pFrame.step[1] + 0] - data[y * step + x * pFrame.step[1] + 0])] * data[y * step + x * pFrame.step[1] + 0];
-						//simdata[rdm][y * step + x * pFrame.step[1] + 1] = (1 - AlphaLUT[(int)abs(simdata[rdm][y * step + x * pFrame.step[1] + 1] - data[y * step + x * pFrame.step[1] + 1])]) * simdata[rdm][y * step + x * pFrame.step[1] + 1] + AlphaLUT[(int)abs(simdata[rdm][y * step + x * pFrame.step[1] + 1] - data[y * step + x * pFrame.step[1] + 1])] * data[y * step + x * pFrame.step[1] + 1];
-						//simdata[rdm][y * step + x * pFrame.step[1] + 2] = (1 - AlphaLUT[(int)abs(simdata[rdm][y * step + x * pFrame.step[1] + 2] - data[y * step + x * pFrame.step[1] + 2])]) * simdata[rdm][y * step + x * pFrame.step[1] + 2] + AlphaLUT[(int)abs(simdata[rdm][y * step + x * pFrame.step[1] + 2] - data[y * step + x * pFrame.step[1] + 2])] * data[y * step + x * pFrame.step[1] + 2];
-						//omp_unset_lock(&mylock);
+
 					}
 					//update neighboring pixel model
-					rdm = random(0, ts);
+					rdm = rng.uniform(0, ts);
 					if (rdm == 0)
 					{
-						int xng = 0;
-						int yng = 0;
-						while (xng == 0 && yng == 0)
-						{
-							xng = random(-1, 2); //[-1,1]
-							yng = random(-1, 2); //[-1,1]
-						}
-						rdm = random(0, ts);
+						int xng = getRandomY(x);
+						int yng = getRandomX(y);
+						rdm = rng.uniform(0, ts);
 						//omp_set_lock(&mylock);
 						//x¡Ê[1,width -2],y¡Ê[1,height -2],so will not out of range
-						simdata[rdm][(y + yng) * step + (x + xng) * pFrame.step[1] + 0] = data[y * step + x * pFrame.step[1] + 0];
-						simdata[rdm][(y + yng) * step + (x + xng) * pFrame.step[1] + 1] = data[y * step + x * pFrame.step[1] + 1];
-						simdata[rdm][(y + yng) * step + (x + xng) * pFrame.step[1] + 2] = data[y * step + x * pFrame.step[1] + 2];
+						simdata[rdm][yng * step + xng * pFrame.step[1] + 0] = data[y * step + x * pFrame.step[1] + 0];
+						simdata[rdm][yng * step + xng * pFrame.step[1] + 1] = data[y * step + x * pFrame.step[1] + 1];
+						simdata[rdm][yng * step + xng * pFrame.step[1] + 2] = data[y * step + x * pFrame.step[1] + 2];
 						//omp_unset_lock(&mylock);
 					}
 
@@ -221,4 +188,32 @@ void yzxVibe::saveBackgroundModels(cv::Mat& image)
 	image.convertTo(image, CV_8U, 1.0/N, 0);
 }
 
+int yzxVibe::getRandomX(int x)
+{
+	x = x + rng.uniform((int)(-patchsize / 2), (int)(patchsize / 2 + 1));
+	if (x < 0)
+	{
+		x = 0;
+	}
+	else if ( x >= height)
+	{
+		x = height - 1;
+	}
+	return x;
+
+}
+
+int yzxVibe::getRandomY(int y)
+{
+	y = y + rng.uniform((int)(-patchsize / 2), (int)(patchsize / 2 + 1));
+	if (y < 0)
+	{
+		y = 0;
+	}
+	else if (y >= width)
+	{
+		y = width - 1;
+	}
+	return y;
+}
 

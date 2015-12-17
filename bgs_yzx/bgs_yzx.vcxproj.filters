@@ -46,6 +46,9 @@
     <Filter Include="头文件\MyBGS">
       <UniqueIdentifier>{38668f9a-beb0-4969-8313-460dfc4aad67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\vibe+">
+      <UniqueIdentifier>{4d167087-6a55-4b12-ba1c-152612d723c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -171,6 +174,15 @@
     <ClInclude Include="YzxFormView.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Version.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VibePlusBGS.h">
+      <Filter>头文件\vibe+</Filter>
+    </ClInclude>
+    <ClInclude Include="VibePlus.h">
+      <Filter>头文件\vibe+</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -274,6 +286,15 @@
     </ClCompile>
     <ClCompile Include="YzxFormView.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Version.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VibePlusBGS.cpp">
+      <Filter>头文件\vibe+</Filter>
+    </ClCompile>
+    <ClCompile Include="VibePlus.cpp">
+      <Filter>头文件\vibe+</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

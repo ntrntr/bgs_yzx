@@ -100,6 +100,7 @@ void CYzxFormView::addBgsList()
 	m_BGSList.AddString(_T("SigmaDelta"));
 	m_BGSList.AddString(_T("PBAS"));
 	m_BGSList.AddString(_T("MyBGS"));
+	m_BGSList.AddString(_T("Vibe+"));
 }
 
 void CYzxFormView::initMemberVariable()
@@ -279,6 +280,10 @@ void CYzxFormView::ThreadProcess()
 	if (m_methodName == "MyBGS")
 	{
 		bgs = new CMyBGS;
+	}
+	if (m_methodName == "Vibe+")
+	{
+		bgs = new CVibePlusBGS;
 	}
 	if (bgs == NULL)
 	{
