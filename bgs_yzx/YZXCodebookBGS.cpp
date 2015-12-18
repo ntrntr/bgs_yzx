@@ -84,7 +84,7 @@ void CYZXCodebookBGS::initMemberVariable(const cv::Mat &img_input)
 	maskCodeBook.create(img_input.size(), CV_8UC1);
 	maskCodeBook = cv::Scalar_<uchar>(255);
 	imageLen = img_input.rows * img_input.cols;
-	cb = new codeBook[imageLen];
+	cb = new codeBook_yzx[imageLen];
 	gbs.initialize(img_input);
 	for (int i = 0; i < imageLen; ++i)
 	{

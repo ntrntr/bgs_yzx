@@ -49,6 +49,12 @@
     <Filter Include="头文件\vibe+">
       <UniqueIdentifier>{4d167087-6a55-4b12-ba1c-152612d723c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\codebookOpencv">
+      <UniqueIdentifier>{d1de6574-6abe-4494-a804-28304c4bddbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\codeBookOpencv2">
+      <UniqueIdentifier>{57faa730-79c6-493e-85c3-1ea4f3a07d98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -183,6 +189,15 @@
     <ClInclude Include="VibePlus.h">
       <Filter>头文件\vibe+</Filter>
     </ClInclude>
+    <ClInclude Include="cv_yuv_codebook.h">
+      <Filter>头文件\codebookOpencv</Filter>
+    </ClInclude>
+    <ClInclude Include="CodebookOpencvBGS.h">
+      <Filter>头文件\codebookOpencv</Filter>
+    </ClInclude>
+    <ClInclude Include="Codebook2BGS.h">
+      <Filter>头文件\codeBookOpencv2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -295,6 +310,18 @@
     </ClCompile>
     <ClCompile Include="VibePlus.cpp">
       <Filter>头文件\vibe+</Filter>
+    </ClCompile>
+    <ClCompile Include="cv_yuv_codebook.cpp">
+      <Filter>头文件\codebookOpencv</Filter>
+    </ClCompile>
+    <ClCompile Include="CodebookOpencvBGS.cpp">
+      <Filter>头文件\codebookOpencv</Filter>
+    </ClCompile>
+    <ClCompile Include="Codebook2BGS.cpp">
+      <Filter>头文件\codeBookOpencv2</Filter>
+    </ClCompile>
+    <ClCompile Include="bgfg_codebook.cpp">
+      <Filter>头文件\codeBookOpencv2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

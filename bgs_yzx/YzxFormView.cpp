@@ -101,6 +101,8 @@ void CYzxFormView::addBgsList()
 	m_BGSList.AddString(_T("PBAS"));
 	m_BGSList.AddString(_T("MyBGS"));
 	m_BGSList.AddString(_T("Vibe+"));
+	m_BGSList.AddString(_T("CodebookOpencv"));
+	m_BGSList.AddString(_T("Codebook2"));
 }
 
 void CYzxFormView::initMemberVariable()
@@ -284,6 +286,14 @@ void CYzxFormView::ThreadProcess()
 	if (m_methodName == "Vibe+")
 	{
 		bgs = new CVibePlusBGS;
+	}
+	if (m_methodName == "CodebookOpencv")
+	{
+		bgs = new CCodebookOpencvBGS;
+	}
+	if (m_methodName == "Codebook2")
+	{
+		bgs = new CCodebook2BGS;
 	}
 	if (bgs == NULL)
 	{
@@ -500,7 +510,7 @@ void CYzxFormView::OnInitialUpdate()
 	// TODO:  在此添加专用代码和/或调用基类
 	initMemberVariable();
 	addBgsList();
-	m_BGSList.SetCurSel(m_BGSList.GetCount() - 5);
+	m_BGSList.SetCurSel(m_BGSList.GetCount() - 1);
 	addFilterList();
 	addVideoPathAppend();
 	m_videoPathAppendControl.SetCurSel(10);

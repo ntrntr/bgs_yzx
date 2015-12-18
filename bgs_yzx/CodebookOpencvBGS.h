@@ -1,15 +1,13 @@
 #pragma once
+#include "cv_yuv_codebook.h"
 #include "IBGS.h"
-#include "YzxCodeBook.h"
 
-
-
-class CYZXCodebookBGS :
+class CCodebookOpencvBGS :
 	public IBGS
 {
 public:
-	CYZXCodebookBGS();
-	~CYZXCodebookBGS();
+	CCodebookOpencvBGS();
+	~CCodebookOpencvBGS();
 public:
 	void process(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &img_bgmodel);
 	void initMemberVariable(const cv::Mat &img_input);
@@ -18,18 +16,16 @@ private:
 	void loadConfig();
 private:
 	bool firstTime;
-	YzxCodeBook gbs;
-	const int learnLength;
 	int nframes;
-private:
+	int learnLength;
+	Mat rawImage;
 	Mat yuvImage;
-	Mat maskCodeBook;
-	codeBook_yzx* cb;
+	Mat ImaskCodeBook;
+	codeBook* cB;
 	unsigned cbBounds[CHANNELS];
-	uchar* pRGB;
 	uchar* pColor;
 	int imageLen;
-	int nChannels = CHANNELS;
+	int nChannels;
 	int minMod[CHANNELS];
 	int maxMod[CHANNELS];
 };

@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "YzxCodeBook.h"
 
-YzxCodeBook::YzxCodeBook(void):CVCONTOUR_APPROX_LEVEL(2),CVCLOSE_ITR(1),COLORDIST_THREAD(0.0)
+YzxCodeBook::YzxCodeBook(void):COLORDIST_THREAD(0.0)
 {
 }
 
@@ -22,7 +22,7 @@ double YzxCodeBook::getcolordist(uchar* pRGBx, float* pRGBv)
 	}
 	return std::pow(xt - xtvi * xtvi /  vi, 0.5);
 }
-int YzxCodeBook::cvupdateCodeBook(uchar *p,uchar *pRGB, codeBook &c, unsigned *cbBounds, int numChannels)
+int YzxCodeBook::cvupdateCodeBook(uchar *p,uchar *pRGB, codeBook_yzx &c, unsigned *cbBounds, int numChannels)
 {
 	if (c.numEntries == 0) c.t = 0;
 	c.t += 1;
@@ -86,15 +86,19 @@ int YzxCodeBook::cvupdateCodeBook(uchar *p,uchar *pRGB, codeBook &c, unsigned *c
 	if (i == c.numEntries)
 	{
 		//create new
-		code_element **foo = new code_element *[c.numEntries + 1];
+		code_element_yzx **foo = new code_element_yzx *[c.numEntries + 1];
 		for (int myi = 0; myi < c.numEntries; ++myi)
 		{
 			foo[myi] = c.cb[myi];
 		}
-		foo[c.numEntries] = new code_element;
+		foo[c.numEntries] = new code_element_yzx;
 		if (c.numEntries)
 		{
-			delete[] c.cb;
+			//for (int i = 0; i < c.numEntries; ++i)
+			//{
+			//	delete[] c.cb[i];
+			//}
+			delete c.cb;
 		}
 		c.cb = foo;
 		for (n = 0; n < numChannels; ++n)
@@ -136,7 +140,7 @@ int YzxCodeBook::cvupdateCodeBook(uchar *p,uchar *pRGB, codeBook &c, unsigned *c
 // maxMod	Add this (possibly negative) number onto max level when code_element determining if new pixel is foreground
 // minMod	Subract this (possible negative) number from min level code_element when determining if pixel is foreground
 
-uchar YzxCodeBook::cvbackgroundDiff(uchar *p,uchar* pRGB,  codeBook &c, int numChannels, int *minMod, int *maxMod)
+uchar YzxCodeBook::cvbackgroundDiff(uchar *p,uchar* pRGB,  codeBook_yzx &c, int numChannels, int *minMod, int *maxMod)
 {
 	int matchChannel;
 	int i;
@@ -176,7 +180,7 @@ uchar YzxCodeBook::cvbackgroundDiff(uchar *p,uchar* pRGB,  codeBook &c, int numC
 //c		Codebook to clean up
 //
 
-int YzxCodeBook::cvclearStaleEntries(codeBook &c)
+int YzxCodeBook::cvclearStaleEntries(codeBook_yzx &c)
 {
 	//T/2
 	int staleThresh = c.t >> 1;
@@ -195,7 +199,7 @@ int YzxCodeBook::cvclearStaleEntries(codeBook &c)
 		}
 	}
 	c.t = 0;
-	code_element **foo = new code_element *[keepCnt];
+	code_element_yzx **foo = new code_element_yzx *[keepCnt];
 	int k = 0;
 	for (int ii = 0; ii < c.numEntries; ++ii)
 	{
@@ -231,7 +235,7 @@ int YzxCodeBook::cvclearStaleEntries(codeBook &c)
 //Return
 // Count of fg pixels
 //
-int YzxCodeBook::cvcountSegmentation(codeBook *c, Mat& I, Mat& raw, int numChannels, int *minMod, int *maxMod)
+int YzxCodeBook::cvcountSegmentation(codeBook_yzx *c, Mat& I, Mat& raw, int numChannels, int *minMod, int *maxMod)
 {
 	int count = 0;
 	int i;

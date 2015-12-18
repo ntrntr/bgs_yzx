@@ -12,17 +12,17 @@
 #include <ctype.h>
 #include <cxcore.h>
 
-using namespace std;
-using namespace cv;
+//using namespace std;
+//using namespace cv;
 #define  CHANNELS 3
-//For connected components:
-const int CVCONTOUR_APPROX_LEVEL = 2;   // Approx.threshold - the bigger it is, the simpler is the boundary
-const int CVCLOSE_ITR = 1;				// How many iterations of erosion and/or dilation there should be
-//#define CVPERIMSCALE 4			// image (width+height)/PERIMSCALE.  If contour length < this, delete that contour
-
-//For learning background
-const double COLORDIST_THREAD = 0.0;
-//Just some convenience macros
+////For connected components:
+//const int CVCONTOUR_APPROX_LEVEL = 2;   // Approx.threshold - the bigger it is, the simpler is the boundary
+//const int CVCLOSE_ITR = 1;				// How many iterations of erosion and/or dilation there should be
+////#define CVPERIMSCALE 4			// image (width+height)/PERIMSCALE.  If contour length < this, delete that contour
+//
+////For learning background
+//const double COLORDIST_THREAD = 0.0;
+////Just some convenience macros
 #define CV_CVX_WHITE	CV_RGB(0xff,0xff,0xff)
 #define CV_CVX_BLACK	CV_RGB(0x00,0x00,0x00)
 typedef struct code_word
@@ -35,14 +35,14 @@ typedef struct code_word
 	int frequency;
 	int t_last_update;  // This is book keeping to allow us to kill stale entries
 	int stale;// max negative run (biggest period of inactivity)
-} code_element;
+} code_element_yzx;
 
-typedef struct code_book
+typedef struct code_book_yzx
 {
-	code_element **cb;
+	code_element_yzx **cb;
 	int numEntries;
 	int t;
-}codeBook;
+}codeBook_yzx;
 
 class YzxCodeBook
 {
@@ -50,10 +50,10 @@ public:
 	YzxCodeBook(void);
 	~YzxCodeBook(void);
 	double getcolordist(uchar* pRGBx, float* pRGBv);
-	int cvupdateCodeBook(uchar *p,uchar *pRGB, codeBook &c, unsigned *cbBounds, int numChannels = 3);
-	uchar cvbackgroundDiff(uchar *p,uchar* pRGB,  codeBook &c, int numChannels, int *minMod, int *maxMod);
-	int cvclearStaleEntries(codeBook &c);
-	int cvcountSegmentation(codeBook *c, Mat& I, Mat& raw, int numChannels, int *minMod, int *maxMod);
+	int cvupdateCodeBook(uchar *p,uchar *pRGB, codeBook_yzx &c, unsigned *cbBounds, int numChannels = 3);
+	uchar cvbackgroundDiff(uchar *p,uchar* pRGB,  codeBook_yzx &c, int numChannels, int *minMod, int *maxMod);
+	int cvclearStaleEntries(codeBook_yzx &c);
+	int cvcountSegmentation(codeBook_yzx *c, Mat& I, Mat& raw, int numChannels, int *minMod, int *maxMod);
 	void cvconnectedComponents(Mat& mask, int poly1_hull0 = 1, float perimScale = 4.0, int *num = NULL, cv::Rect *bbs = NULL, cv::Point2i *centers = NULL);
 	void cvconnectedComponents(IplImage *mask, int poly1_hull0 = 1, float perimScale = 4.0 , int *num = NULL, CvRect *bbs = NULL, CvPoint *centers = NULL);
 	void cvconnectedComponents2(Mat& mask);

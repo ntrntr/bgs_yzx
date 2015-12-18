@@ -121,7 +121,10 @@
     <ClInclude Include="bgs_yzx.h" />
     <ClInclude Include="bgs_yzxDoc.h" />
     <ClInclude Include="bgs_yzxView.h" />
+    <ClInclude Include="Codebook2BGS.h" />
+    <ClInclude Include="CodebookOpencvBGS.h" />
     <ClInclude Include="commom.h" />
+    <ClInclude Include="cv_yuv_codebook.h" />
     <ClInclude Include="DistanceUtils.h" />
     <ClInclude Include="DragEdit.h" />
     <ClInclude Include="FrameDifferenceBGS.h" />
@@ -162,11 +165,15 @@
     <ClCompile Include="AdpativeyzxVibe.cpp" />
     <ClCompile Include="BackgroundSubtractorLBSP.cpp" />
     <ClCompile Include="BackgroundSubtractorSuBSENSE.cpp" />
+    <ClCompile Include="bgfg_codebook.cpp" />
     <ClCompile Include="bgfg_segm.cpp" />
     <ClCompile Include="BGSubtract.cpp" />
     <ClCompile Include="bgs_yzx.cpp" />
     <ClCompile Include="bgs_yzxDoc.cpp" />
     <ClCompile Include="bgs_yzxView.cpp" />
+    <ClCompile Include="Codebook2BGS.cpp" />
+    <ClCompile Include="CodebookOpencvBGS.cpp" />
+    <ClCompile Include="cv_yuv_codebook.cpp" />
     <ClCompile Include="DragEdit.cpp" />
     <ClCompile Include="FrameDifferenceBGS.cpp" />
     <ClCompile Include="LBSP.cpp" />
