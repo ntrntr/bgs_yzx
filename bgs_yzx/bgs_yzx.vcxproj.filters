@@ -58,6 +58,9 @@
     <Filter Include="头文件\MultiscaleSTBackground">
       <UniqueIdentifier>{2ec2d5a6-492a-4dab-83e4-0763c609f897}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\PAWCS">
+      <UniqueIdentifier>{34aac0e6-c696-45b0-b7a3-95227e8a67e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -207,6 +210,12 @@
     <ClInclude Include="MultiscaleSTBG.h">
       <Filter>头文件\MultiscaleSTBackground</Filter>
     </ClInclude>
+    <ClInclude Include="BackgroundSubtractorPAWCS.h">
+      <Filter>头文件\PAWCS</Filter>
+    </ClInclude>
+    <ClInclude Include="PAWCSBgs.h">
+      <Filter>头文件\PAWCS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -337,6 +346,12 @@
     </ClCompile>
     <ClCompile Include="MultiscaleSTBG.cpp">
       <Filter>头文件\MultiscaleSTBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundSubtractorPAWCS.cpp">
+      <Filter>头文件\PAWCS</Filter>
+    </ClCompile>
+    <ClCompile Include="PAWCSBgs.cpp">
+      <Filter>头文件\PAWCS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

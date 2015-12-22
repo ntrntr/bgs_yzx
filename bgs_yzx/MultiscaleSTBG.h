@@ -13,8 +13,9 @@ public:
 	void initLevelBGModel(int level, const Mat& src, Size size);
 	Point getRandomXY(Point pos, Size size);
 	double getPointProbability(int x, int y, const Mat& frame, const vector<Mat>& bgmodel);
-	void updateBGModel(int x, int y, double proba);
+	void updateBGModel(int level);
 	void updateLevelBGModel(int x, int y, double proba, int level);
+	void getforeMask(Mat& img);
 private:
 	bool firstTime;
 	int N;
@@ -27,6 +28,7 @@ private:
 	Mat pFrame;
 	vector<Mat> pFramePyr;
 	Mat probability;
+	Mat probleMap;
 	RNG rng;
 };
 

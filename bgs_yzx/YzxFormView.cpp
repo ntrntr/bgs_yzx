@@ -105,6 +105,7 @@ void CYzxFormView::addBgsList()
 	m_BGSList.AddString(_T("CodebookOpencv"));
 	m_BGSList.AddString(_T("Codebook2"));
 	m_BGSList.AddString(_T("MultiscaleSTBG"));
+	m_BGSList.AddString(_T("PAWCS"));
 }
 
 void CYzxFormView::initMemberVariable()
@@ -300,6 +301,10 @@ void CYzxFormView::ThreadProcess()
 	if (m_methodName == "MultiscaleSTBG")
 	{
 		bgs = new CMultiscaleSTBGS;
+	}
+	if (m_methodName == "PAWCS")
+	{
+		bgs = new CPAWCSBgs;
 	}
 	if (bgs == NULL)
 	{

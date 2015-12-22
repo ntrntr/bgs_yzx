@@ -116,6 +116,7 @@
     <ClInclude Include="AdpativeVibeBGS.h" />
     <ClInclude Include="AdpativeyzxVibe.h" />
     <ClInclude Include="BackgroundSubtractorLBSP.h" />
+    <ClInclude Include="BackgroundSubtractorPAWCS.h" />
     <ClInclude Include="BackgroundSubtractorSuBSENSE.h" />
     <ClInclude Include="BGSubtract.h" />
     <ClInclude Include="bgs_yzx.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="MyBGS.h" />
     <ClInclude Include="MyGaussmix2.h" />
     <ClInclude Include="MyGBSDialog.h" />
+    <ClInclude Include="PAWCSBgs.h" />
     <ClInclude Include="PBAS.h" />
     <ClInclude Include="PBASBGS.h" />
     <ClInclude Include="precomp.hpp" />
@@ -166,6 +168,7 @@
     <ClCompile Include="AdpativeVibeBGS.cpp" />
     <ClCompile Include="AdpativeyzxVibe.cpp" />
     <ClCompile Include="BackgroundSubtractorLBSP.cpp" />
+    <ClCompile Include="BackgroundSubtractorPAWCS.cpp" />
     <ClCompile Include="BackgroundSubtractorSuBSENSE.cpp" />
     <ClCompile Include="bgfg_codebook.cpp" />
     <ClCompile Include="bgfg_segm.cpp" />
@@ -187,6 +190,7 @@
     <ClCompile Include="MyBGS.cpp" />
     <ClCompile Include="MyGaussmix2.cpp" />
     <ClCompile Include="MyGBSDialog.cpp" />
+    <ClCompile Include="PAWCSBgs.cpp" />
     <ClCompile Include="PBAS.cpp" />
     <ClCompile Include="PBASBGS.cpp" />
     <ClCompile Include="SigmaDelta.cpp" />

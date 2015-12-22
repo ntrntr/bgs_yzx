@@ -64,6 +64,7 @@
 #include "CodebookOpencvBGS.h"
 #include "Codebook2BGS.h"
 #include "MultiscaleSTBGS.h"
+#include "PAWCSBgs.h"
 //if using the check of leak memory
 #define _CRTDBG_MAP_ALLOC 
 #include<stdlib.h>

@@ -32,7 +32,7 @@ void CSubsense::process(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &
 	if (firstTime) {
 		saveConfig();
 		oCurrSegmMask.create(img_input.size(), CV_8UC1);
-		oCurrReconstrBGImg.create(oCurrInputFrame.size(), oCurrInputFrame.type());
+		oCurrReconstrBGImg.create(img_input.size(), img_input.type());
 		//oSequenceROI.create(img_input.size(), CV_8UC1);
 		//oSequenceROI = cv::Scalar(255);
 		pLOBSTER = new BackgroundSubtractorSuBSENSE;

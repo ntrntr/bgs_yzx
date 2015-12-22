@@ -33,27 +33,51 @@ void CMultiscaleSTBG::operator()(const cv::Mat& image, cv::Mat& fgmask)
 	uchar* ptrForeground;
 	pFramePyr = getPyr(pFrame, level);
 	double tmpProble = 0;
-	for (size_t i = 0; i < pFrame.rows; i++)
+	//do
+	//////////////////////////////////////////////////////////////////////////
+	probleMap.release();
+	probleMap.create(BGModel[level][0].size(), CV_32FC1);
+	probleMap = Scalar::all(1);
+	for (int k = level; k >= 0; --k)
 	{
-		ptrForeground = foreground.ptr<uchar>(i);
-		for (size_t j = 0; j < pFrame.cols; j++)
+		Size size = BGModel[k][0].size();
+		for (size_t ki = 0; ki < size.height; ki++)
 		{
-			double proble = 1;	
-			for (size_t k = 0; k < level + 1; k++)
+			float* p = probleMap.ptr<float>(ki);
+			for (size_t kj = 0; kj < size.width; kj++, p++)
 			{
-				Size size = BGModel[k][0].size();
-				x = static_cast<int>(1.0 * size.height / pFrame.rows * i);
-				y = static_cast<int>(1.0 * size.width / pFrame.cols * j);
-				tmpProble = getPointProbability(x, y, pFramePyr[k], BGModel[k]);
-				proble *= tmpProble;
-				updateLevelBGModel(x, y, proble, k);
+				*p = *p * getPointProbability(ki, kj, pFramePyr[k], BGModel[k]);
 			}
-			*ptrForeground++ = proble >= T2 ? 255 : 0;
-			//update
-			//updateBGModel(i, j, proble);
+		}
+		updateBGModel(k);
+		if (k > 0)
+		{
+			resize(probleMap, probleMap, BGModel[k - 1][0].size(), CV_INTER_NN);
 		}
 	}
-	foreground.copyTo(fgmask);
+	getforeMask(fgmask);
+	//////////////////////////////////////////////////////////////////////////
+	//for (size_t i = 0; i < pFrame.rows; i++)
+	//{
+	//	ptrForeground = foreground.ptr<uchar>(i);
+	//	for (size_t j = 0; j < pFrame.cols; j++)
+	//	{
+	//		double proble = 1;	
+	//		for (size_t k = 0; k < level + 1; k++)
+	//		{
+	//			Size size = BGModel[k][0].size();
+	//			x = static_cast<int>(1.0 * size.height / pFrame.rows * i);
+	//			y = static_cast<int>(1.0 * size.width / pFrame.cols * j);
+	//			tmpProble = getPointProbability(x, y, pFramePyr[k], BGModel[k]);
+	//			proble *= tmpProble;
+	//			updateLevelBGModel(x, y, proble, k);
+	//		}
+	//		*ptrForeground++ = proble >= T2 ? 255 : 0;
+	//		//update
+	//		//updateBGModel(i, j, proble);
+	//	}
+	//}
+	//foreground.copyTo(fgmask);
 }
 
 void CMultiscaleSTBG::getBackgroundModel(cv::Mat& image)
@@ -157,25 +181,26 @@ double CMultiscaleSTBG::getPointProbability(int x, int y, const Mat& frame, cons
 	return 1.0 * count / bgmodel.size();
 }
 
-void CMultiscaleSTBG::updateBGModel(int x, int y, double proba)
+
+void CMultiscaleSTBG::updateBGModel(int level)
 {
-	double p = rng.uniform((double)0.0, (double)1.0);
-	int xx, yy;
-	int rdm = 0;
-	if (p < (1 - proba))
+	Size size = BGModel[level][0].size();
+	CV_Assert(size == probleMap.size());
+	double p;
+	float* pMap;
+	int rdm = 0; 
+	for (size_t i = 0; i < size.height; i++)
 	{
-		for (int i = 0; i < level + 1; ++i)
+		pMap = probleMap.ptr<float>(i);
+		for (size_t j = 0; j < size.width; j++)
 		{
-			Size size = BGModel[i][0].size();
-			xx = static_cast<int>(1.0 * size.height / pFrame.rows * x);
-			yy = static_cast<int>(1.0 * size.width / pFrame.cols * y);
-			rdm = rng.uniform(0, N);
-			BGModel[i][rdm].at<uchar>(xx, yy) = pFramePyr[i].at<uchar>(xx, yy);
+			p = rng.uniform((double)0.0, (double)1.0);
+			if (p < (1 - pMap[j]))
+			{
+				rdm = rng.uniform(0, N);
+				BGModel[level][rdm].at<uchar>(i, j) = pFramePyr[level].at<uchar>(i, j);
+			}
 		}
-	}
-	else
-	{
-		return;
 	}
 }
 
@@ -189,4 +214,22 @@ void CMultiscaleSTBG::updateLevelBGModel(int x, int y, double proba, int level)
 	}
 	else
 		return;
+}
+
+void CMultiscaleSTBG::getforeMask(Mat& img)
+{
+	CV_Assert(probleMap.size() == pFrame.size());
+	img.create(pFrame.size(), CV_8UC1);
+	img = Scalar::all(0);
+	uchar* p;
+	float* pProble;
+	for (int i = 0; i < img.rows; ++i)
+	{
+		p = img.ptr<uchar>(i);
+		pProble = probleMap.ptr<float>(i);
+		for (int j = 0; j < img.cols; ++j, ++p, ++pProble)
+		{
+			*p = *pProble >= T2 ? 255 : 0;
+		}
+	}
 }
