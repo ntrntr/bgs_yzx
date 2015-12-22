@@ -203,7 +203,7 @@ int CVibePlus::getRandomX(int x)
 	}
 	else if (x >= height)
 	{
-		x = 2 * (height - 1) - height;
+		x = 2 * (height - 1) - x;
 	}
 	return x;
 
@@ -218,7 +218,7 @@ int CVibePlus::getRandomY(int y)
 	}
 	if (y >= width)
 	{
-		y = 2 * (width - 1) - width;
+		y = 2 * (width - 1) - y;
 	}
 	return y;
 }

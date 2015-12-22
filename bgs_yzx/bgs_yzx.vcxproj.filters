@@ -55,6 +55,9 @@
     <Filter Include="头文件\codeBookOpencv2">
       <UniqueIdentifier>{57faa730-79c6-493e-85c3-1ea4f3a07d98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\MultiscaleSTBackground">
+      <UniqueIdentifier>{2ec2d5a6-492a-4dab-83e4-0763c609f897}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -198,6 +201,12 @@
     <ClInclude Include="Codebook2BGS.h">
       <Filter>头文件\codeBookOpencv2</Filter>
     </ClInclude>
+    <ClInclude Include="MultiscaleSTBGS.h">
+      <Filter>头文件\MultiscaleSTBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiscaleSTBG.h">
+      <Filter>头文件\MultiscaleSTBackground</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -322,6 +331,12 @@
     </ClCompile>
     <ClCompile Include="bgfg_codebook.cpp">
       <Filter>头文件\codeBookOpencv2</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiscaleSTBGS.cpp">
+      <Filter>头文件\MultiscaleSTBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiscaleSTBG.cpp">
+      <Filter>头文件\MultiscaleSTBackground</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -76,6 +76,7 @@ public:
 	afx_msg void OnBnClickedButtonResume();
 	afx_msg void OnBnClickedButtonEnd();
 	virtual void OnInitialUpdate();
+	afx_msg void OnLbnSelchangeListboxBgslist();
 };
 
 

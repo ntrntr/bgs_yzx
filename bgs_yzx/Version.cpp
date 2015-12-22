@@ -15,7 +15,7 @@ CVersion::CVersion(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CVersion::IDD, pParent)
 {
 
-	vector<CString> tmp{ _T("[12/14/2015 yzx]\r\n"), _T("修复subsense不能打开\r\n") };
+	vector<CString> tmp{ _T("//[12/20/2015 yzx]\r\n"), _T("增加Multiscale ST Backround, 增加来自opencv实现的codebook， 增加vibe+代码，增加my backround Subtract\r\n "),_T("[12/14/2015 yzx]\r\n"), _T("修复subsense不能打开\r\n") };
 	text = _T("");
 	for (auto i:tmp)
 	{

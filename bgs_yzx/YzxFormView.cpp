@@ -43,6 +43,7 @@ BEGIN_MESSAGE_MAP(CYzxFormView, CFormView)
 	ON_BN_CLICKED(IDC_BUTTON_SUSPEND, &CYzxFormView::OnBnClickedButtonSuspend)
 	ON_BN_CLICKED(IDC_BUTTON_RESUME, &CYzxFormView::OnBnClickedButtonResume)
 	ON_BN_CLICKED(IDC_BUTTON_END, &CYzxFormView::OnBnClickedButtonEnd)
+	ON_LBN_SELCHANGE(IDC_LISTBOX_BGSLIST, &CYzxFormView::OnLbnSelchangeListboxBgslist)
 END_MESSAGE_MAP()
 
 
@@ -103,6 +104,7 @@ void CYzxFormView::addBgsList()
 	m_BGSList.AddString(_T("Vibe+"));
 	m_BGSList.AddString(_T("CodebookOpencv"));
 	m_BGSList.AddString(_T("Codebook2"));
+	m_BGSList.AddString(_T("MultiscaleSTBG"));
 }
 
 void CYzxFormView::initMemberVariable()
@@ -294,6 +296,10 @@ void CYzxFormView::ThreadProcess()
 	if (m_methodName == "Codebook2")
 	{
 		bgs = new CCodebook2BGS;
+	}
+	if (m_methodName == "MultiscaleSTBG")
+	{
+		bgs = new CMultiscaleSTBGS;
 	}
 	if (bgs == NULL)
 	{
@@ -510,7 +516,7 @@ void CYzxFormView::OnInitialUpdate()
 	// TODO:  在此添加专用代码和/或调用基类
 	initMemberVariable();
 	addBgsList();
-	m_BGSList.SetCurSel(m_BGSList.GetCount() - 1);
+	m_BGSList.SetCurSel(m_BGSList.GetCount() - 7);
 	addFilterList();
 	addVideoPathAppend();
 	m_videoPathAppendControl.SetCurSel(10);
@@ -544,4 +550,14 @@ void CYzxFormView::OnInitialUpdate()
 		::SetParent(hWnd, GetDlgItem(IDC_FRAME_BKG)->m_hWnd);
 		::ShowWindow(hParent, SW_HIDE);
 	}
+}
+
+
+void CYzxFormView::OnLbnSelchangeListboxBgslist()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	getBgsMethodName();
+	CString text(L"选择方法：");
+	text.Append(m_methodName);
+	m_log.SetWindowText(text);
 }

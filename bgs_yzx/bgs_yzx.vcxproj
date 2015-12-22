@@ -131,6 +131,8 @@
     <ClInclude Include="IBGS.h" />
     <ClInclude Include="LBSP.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MultiscaleSTBG.h" />
+    <ClInclude Include="MultiscaleSTBGS.h" />
     <ClInclude Include="MyAdpativeMOG.h" />
     <ClInclude Include="MyBackgroundSubtractorMOG.h" />
     <ClInclude Include="MyBGS.h" />
@@ -178,6 +180,8 @@
     <ClCompile Include="FrameDifferenceBGS.cpp" />
     <ClCompile Include="LBSP.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MultiscaleSTBG.cpp" />
+    <ClCompile Include="MultiscaleSTBGS.cpp" />
     <ClCompile Include="MyAdpativeMOG.cpp" />
     <ClCompile Include="MyBackgroundSubtractorMOG.cpp" />
     <ClCompile Include="MyBGS.cpp" />
