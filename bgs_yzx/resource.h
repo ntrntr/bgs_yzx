@@ -9,7 +9,6 @@
 #define IDD_MYGBSDIALOG                 310
 #define IDD_YZXFORMVIEW                 312
 #define IDD_VERSION                     313
-#define IDD_VERSION_TEXT                313
 #define IDC_LISTBOX_BGSLIST             1002
 #define IDC_FRAME_INPUT                 1003
 #define IDC_FRAME_MASK                  1004
@@ -32,8 +31,10 @@
 #define IDC_MFCLINK1                    1023
 #define IDC_SPLIT1                      1045
 #define IDC_COMMAND1                    1046
-#define IDC_VERSION                     1058
 #define IDC_VERSION_TEXT                1058
+#define IDC_BUTTON_PATHCHANGE           1059
+#define IDC_BUTTON2                     1060
+#define IDC_BUTTON_RANDOMSELECT         1060
 #define ID_32771                        32771
 #define ID_VERSION                      32772
 
@@ -43,7 +44,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1059
+#define _APS_NEXT_CONTROL_VALUE         1061
 #define _APS_NEXT_SYMED_VALUE           314
 #endif
 #endif

@@ -61,6 +61,15 @@
     <Filter Include="头文件\PAWCS">
       <UniqueIdentifier>{34aac0e6-c696-45b0-b7a3-95227e8a67e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Vibe_diff">
+      <UniqueIdentifier>{4bc38264-b68e-49b7-aca0-6916bd8c80b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\MyPAWCS">
+      <UniqueIdentifier>{026b1ad8-0b03-4402-aeea-85aedabc779d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\lobster">
+      <UniqueIdentifier>{7fb5c3be-82fb-42cd-bb20-c99899cd5ddf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -216,6 +225,24 @@
     <ClInclude Include="PAWCSBgs.h">
       <Filter>头文件\PAWCS</Filter>
     </ClInclude>
+    <ClInclude Include="VibeTest.h">
+      <Filter>头文件\Vibe_diff</Filter>
+    </ClInclude>
+    <ClInclude Include="ImproveVibeTest.h">
+      <Filter>头文件\Vibe_diff</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxPAWCS.h">
+      <Filter>头文件\MyPAWCS</Filter>
+    </ClInclude>
+    <ClInclude Include="CyzxPAWCSBGS.h">
+      <Filter>头文件\MyPAWCS</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundSubtractorLOBSTER.h">
+      <Filter>头文件\lobster</Filter>
+    </ClInclude>
+    <ClInclude Include="LobsterBGS.h">
+      <Filter>头文件\lobster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -352,6 +379,24 @@
     </ClCompile>
     <ClCompile Include="PAWCSBgs.cpp">
       <Filter>头文件\PAWCS</Filter>
+    </ClCompile>
+    <ClCompile Include="VibeTest.cpp">
+      <Filter>头文件\Vibe_diff</Filter>
+    </ClCompile>
+    <ClCompile Include="ImproveVibeTest.cpp">
+      <Filter>头文件\Vibe_diff</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxPAWCS.cpp">
+      <Filter>头文件\MyPAWCS</Filter>
+    </ClCompile>
+    <ClCompile Include="CyzxPAWCSBGS.cpp">
+      <Filter>头文件\MyPAWCS</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundSubtractorLOBSTER.cpp">
+      <Filter>头文件\lobster</Filter>
+    </ClCompile>
+    <ClCompile Include="LobsterBGS.cpp">
+      <Filter>头文件\lobster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

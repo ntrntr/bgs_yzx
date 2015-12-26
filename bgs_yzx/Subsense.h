@@ -1,6 +1,5 @@
 #pragma once
 #include "IBGS.h"
-
 #include "BackgroundSubtractorSuBSENSE.h"
 class CSubsense :
 	public IBGS

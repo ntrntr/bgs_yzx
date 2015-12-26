@@ -77,6 +77,10 @@ public:
 	afx_msg void OnBnClickedButtonEnd();
 	virtual void OnInitialUpdate();
 	afx_msg void OnLbnSelchangeListboxBgslist();
+	afx_msg void OnBnClickedButtonPathchange();
+	int pathtype;
+	afx_msg void OnBnClickedButtonRandomselect();
+	CButton m_changButton;
 };
 
 

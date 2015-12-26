@@ -16,6 +16,7 @@ CYzxFormView::CYzxFormView()
 
 	m_methodName = _T("");
 	m_filePath = _T("");
+	pathtype = 0;
 }
 
 CYzxFormView::~CYzxFormView()
@@ -35,6 +36,7 @@ void CYzxFormView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_SAVE_MASK, m_saveMaskPath);
 	DDX_Control(pDX, IDC_COMBO_FILTER, m_filterList);
 	DDX_Control(pDX, IDC_IDC_INPUT_VIDEO_APPEND, m_videoPathAppendControl);
+	DDX_Control(pDX, IDC_BUTTON_PATHCHANGE, m_changButton);
 }
 
 BEGIN_MESSAGE_MAP(CYzxFormView, CFormView)
@@ -44,6 +46,8 @@ BEGIN_MESSAGE_MAP(CYzxFormView, CFormView)
 	ON_BN_CLICKED(IDC_BUTTON_RESUME, &CYzxFormView::OnBnClickedButtonResume)
 	ON_BN_CLICKED(IDC_BUTTON_END, &CYzxFormView::OnBnClickedButtonEnd)
 	ON_LBN_SELCHANGE(IDC_LISTBOX_BGSLIST, &CYzxFormView::OnLbnSelchangeListboxBgslist)
+	ON_BN_CLICKED(IDC_BUTTON_PATHCHANGE, &CYzxFormView::OnBnClickedButtonPathchange)
+	ON_BN_CLICKED(IDC_BUTTON_RANDOMSELECT, &CYzxFormView::OnBnClickedButtonRandomselect)
 END_MESSAGE_MAP()
 
 
@@ -88,6 +92,7 @@ BOOL CYzxFormView::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD d
 
 void CYzxFormView::addBgsList()
 {
+	vector<CString> data{ _T("Lobster") };
 	m_BGSList.AddString(_T("vibe"));
 	m_BGSList.AddString(_T("subsense"));
 	m_BGSList.AddString(_T("codebook"));
@@ -106,6 +111,22 @@ void CYzxFormView::addBgsList()
 	m_BGSList.AddString(_T("Codebook2"));
 	m_BGSList.AddString(_T("MultiscaleSTBG"));
 	m_BGSList.AddString(_T("PAWCS"));
+	m_BGSList.AddString(_T("VibeTest"));
+	m_BGSList.AddString(_T("yzxPAWCSBGS"));
+	for (int i = 0; i < data.size(); ++i)
+	{
+		m_BGSList.AddString(data[i]);
+	}
+	int nindex = m_BGSList.FindStringExact(0, _T("vibe"));
+	if (nindex != CB_ERR)
+	{
+		m_BGSList.SetCurSel(nindex);
+	}
+	else
+	{
+		m_BGSList.SetCurSel(m_BGSList.GetCount() - 1);
+	}
+	
 }
 
 void CYzxFormView::initMemberVariable()
@@ -306,6 +327,19 @@ void CYzxFormView::ThreadProcess()
 	{
 		bgs = new CPAWCSBgs;
 	}
+
+	if (m_methodName == "VibeTest")
+	{
+		bgs = new CVibeTest;
+	}
+	if (m_methodName == "yzxPAWCSBGS")
+	{
+		bgs = new CyzxPAWCSBGS;
+	}
+	if (m_methodName == "Lobster")
+	{
+		bgs = new CLobsterBGS;
+	}
 	if (bgs == NULL)
 	{
 		AfxMessageBox(L"BGS object not defined!");
@@ -475,45 +509,8 @@ CString CYzxFormView::getFilterName()
 
 void CYzxFormView::addVideoPathAppend()
 {
-m_videoPathAppendControl.AddString(_T("baseline//highway//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("baseline//office//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("baseline//pedestrians//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("baseline//PETS2006//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("cameraJitter//badminton//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("cameraJitter//boulevard//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("cameraJitter//sidewalk//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("cameraJitter//traffic//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("dynamicBackground//boats//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("dynamicBackground//canoe//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("dynamicBackground//fall//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("dynamicBackground//fountain01//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("dynamicBackground//fountain02//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("dynamicBackground//overpass//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//abandonedBox//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//parking//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//sofa//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//streetLight//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//tramstop//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//winterDriveway//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("shadow//backdoor//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("shadow//bungalows//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("shadow//busStation//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("shadow//copyMachine//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("shadow//cubicle//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("shadow//peopleInShade//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("thermal//corridor//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("thermal//diningRoom//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("thermal//lakeSide//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("thermal//library//input//in%06d.jpg"));
-	m_videoPathAppendControl.AddString(_T("thermal//park//input//in%06d.jpg"));
+	OnBnClickedButtonPathchange();
 }
-
-
-
-
-
-
-
 void CYzxFormView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
@@ -521,12 +518,9 @@ void CYzxFormView::OnInitialUpdate()
 	// TODO:  在此添加专用代码和/或调用基类
 	initMemberVariable();
 	addBgsList();
-	m_BGSList.SetCurSel(m_BGSList.GetCount() - 7);
 	addFilterList();
 	addVideoPathAppend();
-	m_videoPathAppendControl.SetCurSel(10);
-	m_dragEdit.SetWindowTextW(L"D://dataset//dataset//");
-	m_saveMaskPath.SetWindowTextW(L"D://dataset//results//dynamicBackground//fall//");
+	m_saveMaskPath.SetWindowTextW(L"D://dataset//results//");
 	m_delay.SetWindowTextW(L"1");
 	m_frameNumber.SetWindowTextW(L"-");
 	m_execTime.SetWindowTextW(L"-");
@@ -565,4 +559,135 @@ void CYzxFormView::OnLbnSelchangeListboxBgslist()
 	CString text(L"选择方法：");
 	text.Append(m_methodName);
 	m_log.SetWindowText(text);
+}
+
+
+void CYzxFormView::OnBnClickedButtonPathchange()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	if (pathtype == 0)
+	{
+		//data2012
+		m_videoPathAppendControl.ResetContent();
+		m_videoPathAppendControl.AddString(_T("baseline//highway//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("baseline//office//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("baseline//pedestrians//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("baseline//PETS2006//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("cameraJitter//badminton//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("cameraJitter//boulevard//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("cameraJitter//sidewalk//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("cameraJitter//traffic//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//boats//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//canoe//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//fall//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//fountain01//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//fountain02//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//overpass//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//abandonedBox//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//parking//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//sofa//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//streetLight//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//tramstop//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//winterDriveway//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//backdoor//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//bungalows//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//busStation//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//copyMachine//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//cubicle//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//peopleInShade//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//corridor//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//diningRoom//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//lakeSide//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//library//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//park//input//in%06d.jpg"));
+
+		m_dragEdit.SetWindowTextW(L"D://dataset//dataset//");
+		m_changButton.SetWindowText(_T("切换2014数据"));
+		pathtype = 1;
+	}
+	else if (pathtype == 1)
+	{
+		//data2014
+		m_videoPathAppendControl.ResetContent();
+		m_videoPathAppendControl.AddString(_T("baseline//highway//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("baseline//office//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("baseline//pedestrians//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("baseline//PETS2006//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("cameraJitter//badminton//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("cameraJitter//boulevard//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("cameraJitter//sidewalk//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("cameraJitter//traffic//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//boats//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//canoe//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//fall//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//fountain01//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//fountain02//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("dynamicBackground//overpass//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//abandonedBox//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//parking//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//sofa//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//streetLight//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//tramstop//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("intermittentObjectMotion//winterDriveway//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//backdoor//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//bungalows//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//busStation//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//copyMachine//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//cubicle//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("shadow//peopleInShade//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//corridor//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//diningRoom//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//lakeSide//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//library//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("thermal//park//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("badWeather//blizzard//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("badWeather//skating//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("badWeather//snowFall//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("badWeather//wetSnow//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("lowFramerate//port_0_17fps//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("lowFramerate//tramCrossroad_1fps//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("lowFramerate//tunnelExit_0_35fps//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("lowFramerate//turnpike_0_5fps//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("nightVideos//bridgeEntry//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("nightVideos//busyBoulvard//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("nightVideos//fluidHighway//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("nightVideos//streetCornerAtNight//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("nightVideos//tramStation//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("nightVideos//winterStreet//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("PTZ//continuousPan//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("PTZ//intermittentPan//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("PTZ//twoPositionPTZCam//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("PTZ//zoomInZoomOut//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("turbulence//turbulence0//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("turbulence//turbulence1//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("turbulence//turbulence2//input//in%06d.jpg"));
+		m_videoPathAppendControl.AddString(_T("turbulence//turbulence3//input//in%06d.jpg"));
+
+		m_dragEdit.SetWindowTextW(L"E://dataset2014//dataset//");
+		m_changButton.SetWindowText(_T("切换2012数据"));
+		pathtype = 0;
+	}
+	int nindex = m_videoPathAppendControl.FindStringExact(0, _T("dynamicBackground//fall//input//in%06d.jpg"));
+	//SelectString
+	if (nindex != CB_ERR)
+	{
+		m_videoPathAppendControl.SetCurSel(nindex);
+	}
+	else
+	{
+		m_videoPathAppendControl.SetCurSel(0);
+	}
+	
+}
+
+
+void CYzxFormView::OnBnClickedButtonRandomselect()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	int size = m_videoPathAppendControl.GetCount();
+	srand((int)time(NULL));
+	size = rand() % size;
+	m_videoPathAppendControl.SetCurSel(size);
+	//UpdateData();
+
 }

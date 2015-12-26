@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "SigmaDelta.h"
-#include <fstream>
+
 CSigmaDelta::CSigmaDelta() :firsttime(true), N(2), alpha(0.5)
 {
 	//Point pt(100, 100);
@@ -135,17 +135,17 @@ int CSigmaDelta::getsgn(int a, int b)
 
 void CSigmaDelta::saveCustomedPointData(cv::Mat& pFrame)
 {
-	for (int i = 0; i < watchPoint.size(); ++i)
-	{
-		/*for (int j = 0; j < kindOfPoint; ++j)
-		{
-			resultPoint[i][j].push_back(0);
-		}*/
-		resultPoint[i][0].push_back(pFrame.at<int>(watchPoint[i]));
-		resultPoint[i][1].push_back(m_Mean.at<int>(watchPoint[i]));
-		resultPoint[i][2].push_back(static_cast<int>(m_MovingAverage.at<float>(watchPoint[i])));
-		resultPoint[i][3].push_back(static_cast<int>(m_NonlinearMoving.at<float>(watchPoint[i])));
-		resultPoint[i][4].push_back(m_Dilation.at<int>(watchPoint[i]));
-		resultPoint[i][5].push_back(m_Erosion.at<int>(watchPoint[i]));
-	}
+	//for (int i = 0; i < watchPoint.size(); ++i)
+	//{
+	//	/*for (int j = 0; j < kindOfPoint; ++j)
+	//	{
+	//		resultPoint[i][j].push_back(0);
+	//	}*/
+	//	resultPoint[i][0].push_back(pFrame.at<int>(watchPoint[i]));
+	//	resultPoint[i][1].push_back(m_Mean.at<int>(watchPoint[i]));
+	//	resultPoint[i][2].push_back(static_cast<int>(m_MovingAverage.at<float>(watchPoint[i])));
+	//	resultPoint[i][3].push_back(static_cast<int>(m_NonlinearMoving.at<float>(watchPoint[i])));
+	//	resultPoint[i][4].push_back(m_Dilation.at<int>(watchPoint[i]));
+	//	resultPoint[i][5].push_back(m_Erosion.at<int>(watchPoint[i]));
+	//}
 }

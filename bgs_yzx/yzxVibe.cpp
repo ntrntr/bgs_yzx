@@ -55,7 +55,7 @@ void yzxVibe::initBackgroundModel()
 				}
 				if (x >= height)
 				{
-					x = 2 * (height - 1) - height;
+					x = 2 * (height - 1) - x;
 				}
 				tmp = random(0, patchsize);
 				y = j + c_xoff[tmp];
@@ -65,7 +65,7 @@ void yzxVibe::initBackgroundModel()
 				}
 				if (y >= width)
 				{
-					y = 2 * (width - 1) - width;
+					y = 2 * (width - 1) - y;
 				}
 				for (int k = 0; k < 3; ++k)
 				{
@@ -168,7 +168,7 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 							xng = random(-1, 2); //[-1,1]
 							yng = random(-1, 2); //[-1,1]
 						}
-						rdm = random(0, ts);
+						rdm = random(0, N);
 						//omp_set_lock(&mylock);
 						//x¡Ê[1,width -2],y¡Ê[1,height -2],so will not out of range
 						simdata[rdm][(y + yng) * step + (x + xng) * pFrame.step[1] + 0] = data[y * step + x * pFrame.step[1] + 0];

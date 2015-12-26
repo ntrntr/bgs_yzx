@@ -46,6 +46,7 @@
 #include <cstring>
 #include <map>
 #include <omp.h>
+#include <fstream>
 
 #include "FrameDifferenceBGS.h"
 #include "VibeBGS.h"
@@ -65,6 +66,9 @@
 #include "Codebook2BGS.h"
 #include "MultiscaleSTBGS.h"
 #include "PAWCSBgs.h"
+#include "VibeTest.h"
+#include "CyzxPAWCSBGS.h"
+#include "LobsterBGS.h"
 //if using the check of leak memory
 #define _CRTDBG_MAP_ALLOC 
 #include<stdlib.h>

@@ -15,7 +15,11 @@ CVersion::CVersion(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CVersion::IDD, pParent)
 {
 
-	vector<CString> tmp{ _T("//[12/20/2015 yzx]\r\n"), _T("增加Multiscale ST Backround, 增加来自opencv实现的codebook， 增加vibe+代码，增加my backround Subtract\r\n "),_T("[12/14/2015 yzx]\r\n"), _T("修复subsense不能打开\r\n") };
+	vector<CString> tmp{ 
+		_T("[12/26/2015 yzx]\r\n 增加lobster(该方法基于vibe), pwacs（我的测试结果表明效果比subsense要差）,代码来自作者网站，下一步准备自己实现一个\r\n multiscaleSTBG 代码修正\r\n 增加change detection2014的目录数据，客户端界面改进\r\n"),
+		_T("[12/20/2015 yzx]\r\n 增加Multiscale ST Backround, 增加来自opencv实现的codebook， 增加vibe+代码，增加my backround Subtract\r\n"),
+		_T("[12/14/2015 yzx]\r\n修复subsense不能打开\r\n"),
+		};
 	text = _T("");
 	for (auto i:tmp)
 	{
