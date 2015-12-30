@@ -70,6 +70,9 @@
     <Filter Include="头文件\lobster">
       <UniqueIdentifier>{7fb5c3be-82fb-42cd-bb20-c99899cd5ddf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\MyLBSP">
+      <UniqueIdentifier>{bd23a56b-630f-4b43-b28a-5403ef68dd89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -243,6 +246,18 @@
     <ClInclude Include="LobsterBGS.h">
       <Filter>头文件\lobster</Filter>
     </ClInclude>
+    <ClInclude Include="YzxLBSPBGS.h">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxLBSP.h">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxDistanceTool.h">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClInclude>
+    <ClInclude Include="GaussianRandom.h">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -397,6 +412,12 @@
     </ClCompile>
     <ClCompile Include="LobsterBGS.cpp">
       <Filter>头文件\lobster</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxLBSPBGS.cpp">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxLBSP.cpp">
+      <Filter>头文件\MyLBSP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

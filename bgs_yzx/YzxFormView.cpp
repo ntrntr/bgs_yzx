@@ -92,32 +92,35 @@ BOOL CYzxFormView::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD d
 
 void CYzxFormView::addBgsList()
 {
-	vector<CString> data{ _T("Lobster") };
-	m_BGSList.AddString(_T("vibe"));
-	m_BGSList.AddString(_T("subsense"));
-	m_BGSList.AddString(_T("codebook"));
-	m_BGSList.AddString(_T("gaussian_mix"));
-	m_BGSList.AddString(_T("gaussian_mix2"));
-	m_BGSList.AddString(_T("frame_difference"));
-	m_BGSList.AddString(_T("BGSubtract"));
-	m_BGSList.AddString(_T("AdpativeBGSubtract"));
-	m_BGSList.AddString(_T("AdpativeVibe"));
-	m_BGSList.AddString(_T("AdpativeGMM"));
-	m_BGSList.AddString(_T("SigmaDelta"));
-	m_BGSList.AddString(_T("PBAS"));
-	m_BGSList.AddString(_T("MyBGS"));
-	m_BGSList.AddString(_T("Vibe+"));
-	m_BGSList.AddString(_T("CodebookOpencv"));
-	m_BGSList.AddString(_T("Codebook2"));
-	m_BGSList.AddString(_T("MultiscaleSTBG"));
-	m_BGSList.AddString(_T("PAWCS"));
-	m_BGSList.AddString(_T("VibeTest"));
-	m_BGSList.AddString(_T("yzxPAWCSBGS"));
+	vector<CString> data{
+		_T("vibe"),
+		_T("subsense"),
+		_T("codebook"),
+		_T("gaussian_mix"),
+		_T("gaussian_mix2"),
+		_T("frame_difference"),
+		_T("BGSubtract"),
+		_T("AdpativeBGSubtract"),
+		_T("AdpativeVibe"),
+		_T("AdpativeGMM"),
+		_T("SigmaDelta"),
+		_T("PBAS"),
+		_T("MyBGS"),
+		_T("Vibe+"),
+		_T("CodebookOpencv"),
+		_T("Codebook2"),
+		_T("MultiscaleSTBG"),
+		_T("PAWCS"),
+		_T("VibeTest"),
+		_T("yzxPAWCSBGS"),
+		_T("Lobster"),
+		_T("YzxLBSP")};
+
 	for (int i = 0; i < data.size(); ++i)
 	{
 		m_BGSList.AddString(data[i]);
 	}
-	int nindex = m_BGSList.FindStringExact(0, _T("vibe"));
+	int nindex = m_BGSList.FindStringExact(0, _T("YzxLBSP"));
 	if (nindex != CB_ERR)
 	{
 		m_BGSList.SetCurSel(nindex);
@@ -339,6 +342,10 @@ void CYzxFormView::ThreadProcess()
 	if (m_methodName == "Lobster")
 	{
 		bgs = new CLobsterBGS;
+	}
+	if (m_methodName == "YzxLBSP")
+	{
+		bgs = new CYzxLBSPBGS;
 	}
 	if (bgs == NULL)
 	{

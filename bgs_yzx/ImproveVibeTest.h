@@ -17,6 +17,8 @@ public:
 	void gradientComputation(cv::Mat& res);
 	double getColordist(uchar* p, uchar* q);
 	double getStandardDeviationR(int x, int y);
+	double getMean(vector<int>& data);
+	double getStd(vector<int>& data, double mean);
 private:
 	double alpha;
 	Mat pFrame;
@@ -44,5 +46,7 @@ private:
 	Mat diffMap;
 	int frameCount;
 	vector<vector<int>> diffData;
+	Mat outDiffMap;
+	long int mycount;
 };
 

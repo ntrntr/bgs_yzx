@@ -44,10 +44,10 @@ void CYzxPAWCS::CleanupDictionaries()
 
 float CYzxPAWCS::GetLocalWordWeight(const LocalWordBase* w, size_t nCurFrame, size_t nOffset)
 {
-
+	return 0;
 }
 
 float CYzxPAWCS::GetGlobalWordWeight(const GlobalWordBase* w)
 {
-
+	return 0;
 }

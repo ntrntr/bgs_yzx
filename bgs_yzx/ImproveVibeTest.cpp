@@ -8,7 +8,7 @@ CImproveVibeTest::CImproveVibeTest() :alpha(0), N(MODEL_SIZE), R(20), _min(2), t
 	{
 		AlphaLUT[i] = std::pow(alpha, i);
 	}
-
+	mycount = 0;
 }
 
 
@@ -58,8 +58,8 @@ void CImproveVibeTest::operator()(const cv::Mat& image, cv::Mat& fgmask, double 
 {
 
 	image.copyTo(pFrame);
-	GaussianBlur(pFrame, pFrame, Size(3, 3), 0);
-	cvtColor(pFrame, pFrame, CV_BGR2YCrCb);
+	//GaussianBlur(pFrame, pFrame, Size(3, 3), 0);
+	//cvtColor(pFrame, pFrame, CV_BGR2YCrCb);
 	fgmask.create(pFrame.size(), CV_8UC1);
 	sg = (uchar*)fgmask.data;
 	data = pFrame.data;
@@ -79,25 +79,39 @@ void CImproveVibeTest::operator()(const cv::Mat& image, cv::Mat& fgmask, double 
 		//chanels ,for rgb is 3
 		chanels = pFrame.channels();
 		//light threshold, 55% of the image change to foregrond, means have a light change
-		beta = 0.55 * height * width;
-		firstFrame = false;
+		beta = 1.0 * height * width;
 		oR.create(pFrame.size(), CV_32FC1);
 		oR = Scalar::all(R);
-		cvtColor(pFrame, prevFrameGray, CV_BGR2GRAY);
+		//cvtColor(pFrame, prevFrameGray, CV_BGR2GRAY);
+		//prevFrameGray.convertTo(prevFrameGray, CV_32S);
 		diffData.resize(pFrame.rows * pFrame.cols);
+		firstFrame = false;
 	}
 	if (frameCount <= learningRate)
 	{
+		
 		cvtColor(pFrame, curFrameGray, CV_BGR2GRAY);
-		absdiff(prevFrameGray, curFrameGray, diffMap);
-		for (int i = 0; i < diffMap.rows; ++i)
+		if (frameCount == 1)
 		{
-			uchar* p = curFrameGray.ptr<uchar>(i);
-			for (int j = 0; j < diffMap.cols; ++j, ++p)
-			{
-				diffData[i * diffMap.rows + j].push_back((float)(*p));
-			}
+			curFrameGray.copyTo(prevFrameGray);
 		}
+		else
+		{
+			//curFrameGray.convertTo(curFrameGray, CV_32S);
+			absdiff(prevFrameGray, curFrameGray, diffMap);
+			for (int i = 0; i < diffMap.rows; ++i)
+			{
+				uchar* p = diffMap.ptr<uchar>(i);
+				for (int j = 0; j < diffMap.cols; ++j)
+				{
+					diffData[i * diffMap.rows + j].push_back((int)(p[j]));
+					if (p[j] > 20)
+						mycount++;
+				}
+			}
+			//cv::threshold(diffMap, outDiffMap, 20.0, 255, cv::THRESH_BINARY);
+		}
+		
 		if (frameCount == learningRate)
 		{
 			ofstream outfile;
@@ -106,33 +120,23 @@ void CImproveVibeTest::operator()(const cv::Mat& image, cv::Mat& fgmask, double 
 			for (int i = 0; i < diffMap.rows; ++i)
 			{
 				float* p = oR.ptr<float>(i);
-				for (int j = 0; j < diffMap.cols; ++j, ++p)
+				for (int j = 0; j < diffMap.cols; ++j)
 				{
 					meanStdDev(diffData[i * diffMap.rows + j], meanData, dev);
-					(*p) = std::min((float)(255.0),std::max(*p, (float)(dev[0])));
-					outfile << "(" << i << "," << j << ") " << meanData[0] << " " << dev[0] << "|";
+					p[j] = std::max(p[j], (float)(dev[0] + meanData[0] * meanData[0]));
+					//outfile << "(" << i << "," << j << ") " << meanData[0] << " " << dev[0] << "|";
+					//double mymean = getMean(diffData[i * diffMap.rows + j]);
+					//double myStd = getStd(diffData[i * diffMap.rows + j], mymean);
+					//p[j] = std::max(p[j], (float)(mymean + myStd));
+					//outfile << "(" << i << "," << j << ") " << mymean << " " << myStd << "|";
 				}
 				outfile << endl;
 			}
-
-			//imshow("test", oR);
-			
-			outfile << oR << endl;;
-			//for (int i = 0; i < diffData.size()/10; ++i)
-			//{
-			//	//outfile << "point : x = " << watchPoint[i].x << ", y = " << watchPoint[i].y << endl;
-			//	cout << "point index = " << i << endl;
-			//	for (auto j : diffData[i])
-			//	{
-			//		
-
-			//		outfile << j << " ";
-			//		
-			//	}
-			//	outfile << endl;
-			//}
+			outfile << oR << endl;
+			outfile << mycount;
 			outfile.close();
 		}
+		curFrameGray.copyTo(prevFrameGray);
 	}
 	if (needRebuiltModel)
 	{
@@ -226,8 +230,11 @@ void CImproveVibeTest::operator()(const cv::Mat& image, cv::Mat& fgmask, double 
 		fgcount = 0;
 
 	}
+
 	++frameCount;
+	
 	//removeSmallBlobs(fgmask, 1000);
+	//outDiffMap.copyTo(fgmask);
 }
 
 void CImproveVibeTest::saveBackgroundModels(cv::Mat& image)
@@ -242,7 +249,6 @@ void CImproveVibeTest::saveBackgroundModels(cv::Mat& image)
 		image = image + tmp;
 	}
 	image.convertTo(image, CV_8U, 1.0 / N, 0);
-	cvtColor(image, image, CV_YCrCb2BGR);
 }
 
 int CImproveVibeTest::getRandomX(int x)
@@ -344,4 +350,24 @@ double CImproveVibeTest::getStandardDeviationR(int x, int y)
 		res = 40;
 	}
 	return res;
+}
+
+double CImproveVibeTest::getMean(vector<int>& data)
+{
+	double sum = 0;
+	for (int i = 0; i < data.size(); ++i)
+	{
+		sum += data[i];
+	}
+	return sum / data.size();
+}
+
+double CImproveVibeTest::getStd(vector<int>& data, double mean)
+{
+	double res = 0;
+	for (int i = 0; i < data.size(); ++i)
+	{
+		res += (mean - data[i]) * (mean - data[i]);
+	}
+	return sqrt(res / data.size());
 }

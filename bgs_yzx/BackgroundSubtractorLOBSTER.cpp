@@ -34,7 +34,7 @@ void BackgroundSubtractorLOBSTER::initialize(const cv::Mat& oInitImg, const cv::
 	CV_Assert(oInitImg.isContinuous());
 	CV_Assert(oInitImg.type()==CV_8UC1 || oInitImg.type()==CV_8UC3);
 	if(oInitImg.type()==CV_8UC3) {
-		std::vector<cv::Mat> voInitImgChannels;
+		std::vector<cv::Mat> voInitImgChannels(3);
 		cv::split(oInitImg,voInitImgChannels);
 		if(!cv::countNonZero((voInitImgChannels[0]!=voInitImgChannels[1])|(voInitImgChannels[2]!=voInitImgChannels[1])))
 			std::cout << std::endl << "\tBackgroundSubtractorLOBSTER : Warning, grayscale images should always be passed in CV_8UC1 format for optimal performance." << std::endl;
@@ -106,7 +106,8 @@ void BackgroundSubtractorLOBSTER::initialize(const cv::Mat& oInitImg, const cv::
 		CV_Assert(m_oLastDescFrame.step.p[0]==m_oLastColorFrame.step.p[0]*2 && m_oLastDescFrame.step.p[1]==m_oLastColorFrame.step.p[1]*2);
 		for(size_t t=0; t<=UCHAR_MAX; ++t)
 			m_anLBSPThreshold_8bitLUT[t] = cv::saturate_cast<uchar>(t*m_fRelLBSPThreshold+m_nLBSPThresholdOffset);
-		for(size_t nPxIter=0, nModelIter=0; nPxIter<m_nTotPxCount; ++nPxIter) {
+		for(size_t nPxIter=0, nModelIter=0; nPxIter<m_nTotPxCount; ++nPxIter) 
+		{
 			if(m_oROI.data[nPxIter]) {
 				m_aPxIdxLUT[nModelIter] = nPxIter;
 				m_aPxInfoLUT[nPxIter].nImgCoord_Y = (int)nPxIter/m_oImgSize.width;
@@ -133,9 +134,11 @@ void BackgroundSubtractorLOBSTER::refreshModel(float fSamplesRefreshFrac, bool b
 	const size_t nModelsToRefresh = fSamplesRefreshFrac<1.0f?(size_t)(fSamplesRefreshFrac*m_nBGSamples):m_nBGSamples;
 	const size_t nRefreshStartPos = fSamplesRefreshFrac<1.0f?rand()%m_nBGSamples:0;
 	if(m_nImgChannels==1) {
-		for(size_t nModelIter=0; nModelIter<m_nTotRelevantPxCount; ++nModelIter) {
+		for(size_t nModelIter=0; nModelIter<m_nTotRelevantPxCount; ++nModelIter) 
+		{
 			const size_t nPxIter = m_aPxIdxLUT[nModelIter];
-			if(bForceFGUpdate || !m_oLastFGMask.data[nPxIter]) {
+			if(bForceFGUpdate || !m_oLastFGMask.data[nPxIter]) 
+			{
 				for(size_t nCurrModelIdx=nRefreshStartPos; nCurrModelIdx<nRefreshStartPos+nModelsToRefresh; ++nCurrModelIdx) {
 					int nSampleImgCoord_Y, nSampleImgCoord_X;
 					getRandSamplePosition(nSampleImgCoord_X,nSampleImgCoord_Y,m_aPxInfoLUT[nPxIter].nImgCoord_X,m_aPxInfoLUT[nPxIter].nImgCoord_Y,LBSP::PATCH_SIZE/2,m_oImgSize);
@@ -152,14 +155,18 @@ void BackgroundSubtractorLOBSTER::refreshModel(float fSamplesRefreshFrac, bool b
 	else { //m_nImgChannels==3
 		for(size_t nModelIter=0; nModelIter<m_nTotRelevantPxCount; ++nModelIter) {
 			const size_t nPxIter = m_aPxIdxLUT[nModelIter];
-			if(bForceFGUpdate || !m_oLastFGMask.data[nPxIter]) {
-				for(size_t nCurrModelIdx=nRefreshStartPos; nCurrModelIdx<nRefreshStartPos+nModelsToRefresh; ++nCurrModelIdx) {
+			if(bForceFGUpdate || !m_oLastFGMask.data[nPxIter]) 
+			{
+				for(size_t nCurrModelIdx=nRefreshStartPos; nCurrModelIdx<nRefreshStartPos+nModelsToRefresh; ++nCurrModelIdx) 
+				{
 					int nSampleImgCoord_Y, nSampleImgCoord_X;
 					getRandSamplePosition(nSampleImgCoord_X,nSampleImgCoord_Y,m_aPxInfoLUT[nPxIter].nImgCoord_X,m_aPxInfoLUT[nPxIter].nImgCoord_Y,LBSP::PATCH_SIZE/2,m_oImgSize);
 					const size_t nSamplePxIdx = m_oImgSize.width*nSampleImgCoord_Y + nSampleImgCoord_X;
-					if(bForceFGUpdate || !m_oLastFGMask.data[nSamplePxIdx]) {
+					if(bForceFGUpdate || !m_oLastFGMask.data[nSamplePxIdx]) 
+					{
 						const size_t nCurrRealModelIdx = nCurrModelIdx%m_nBGSamples;
-						for(size_t c=0; c<3; ++c) {
+						for(size_t c=0; c<3; ++c) 
+						{
 							m_voBGColorSamples[nCurrRealModelIdx].data[nPxIter*3+c] = m_oLastColorFrame.data[nSamplePxIdx*3+c];
 							*((ushort*)(m_voBGDescSamples[nCurrRealModelIdx].data+(nPxIter*3+c)*2)) = *((ushort*)(m_oLastDescFrame.data+(nSamplePxIdx*3+c)*2));
 						}
