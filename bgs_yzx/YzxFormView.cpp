@@ -114,13 +114,14 @@ void CYzxFormView::addBgsList()
 		_T("VibeTest"),
 		_T("yzxPAWCSBGS"),
 		_T("Lobster"),
-		_T("YzxLBSP")};
+		_T("YzxLBSP"),
+	_T("AMBER")};
 
 	for (int i = 0; i < data.size(); ++i)
 	{
 		m_BGSList.AddString(data[i]);
 	}
-	int nindex = m_BGSList.FindStringExact(0, _T("YzxLBSP"));
+	int nindex = m_BGSList.FindStringExact(0, _T("AMBER"));
 	if (nindex != CB_ERR)
 	{
 		m_BGSList.SetCurSel(nindex);
@@ -346,6 +347,10 @@ void CYzxFormView::ThreadProcess()
 	if (m_methodName == "YzxLBSP")
 	{
 		bgs = new CYzxLBSPBGS;
+	}
+	if (m_methodName == "AMBER")
+	{
+		bgs = new CAMBERBGS;
 	}
 	if (bgs == NULL)
 	{

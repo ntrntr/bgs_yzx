@@ -300,7 +300,7 @@ void CYzxLBSP::operator()(const Mat& image, Mat& fgmask, double learningRate /*=
 	{
 		//todo channels == 1
 	}
-	//medianBlur(fgmask, m_oLastFGMask, m_nDefaultMedianBlurKernelSize);
+	medianBlur(fgmask, m_oLastFGMask, m_nDefaultMedianBlurKernelSize);
 	m_oLastFGMask.copyTo(fgmask);
 }
 

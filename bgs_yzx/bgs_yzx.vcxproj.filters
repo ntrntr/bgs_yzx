@@ -73,6 +73,9 @@
     <Filter Include="头文件\MyLBSP">
       <UniqueIdentifier>{bd23a56b-630f-4b43-b28a-5403ef68dd89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\AMBER">
+      <UniqueIdentifier>{28ebaa81-6942-4cec-9d62-b23568cfbbdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -258,6 +261,12 @@
     <ClInclude Include="GaussianRandom.h">
       <Filter>头文件\MyLBSP</Filter>
     </ClInclude>
+    <ClInclude Include="AMBERBGS.h">
+      <Filter>头文件\AMBER</Filter>
+    </ClInclude>
+    <ClInclude Include="AMBER.h">
+      <Filter>头文件\AMBER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -418,6 +427,12 @@
     </ClCompile>
     <ClCompile Include="YzxLBSP.cpp">
       <Filter>头文件\MyLBSP</Filter>
+    </ClCompile>
+    <ClCompile Include="AMBERBGS.cpp">
+      <Filter>头文件\AMBER</Filter>
+    </ClCompile>
+    <ClCompile Include="AMBER.cpp">
+      <Filter>头文件\AMBER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

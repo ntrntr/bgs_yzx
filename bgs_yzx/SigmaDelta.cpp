@@ -62,15 +62,15 @@ void CSigmaDelta::operator()(const cv::Mat& image, cv::Mat& fgmask)
 			{
 				//sigma delta mean
 				*(pmean + j * channals + c) = *(pmean + j * channals + c) + getsgn(*(pimage + j * channals + c), *(pmean + j * channals + c));
-				//moving average
-				*(pMA + j * channals + c) = *(pMA + j * channals + c) * (1 - alpha) + alpha * *(pimage + j * channals + c);
-				//nonlinear moving average
-				double tmp = std::pow(alpha, std::abs(*(pNMA + j * channals + c) - *(pimage + j * channals + c)));
-				*(pNMA + j * channals + c) = *(pNMA + j * channals + c) * (1 - tmp) + *(pimage + j * channals + c) * tmp;
-				//dilation
-				*(pDilation + j * channals + c) = std::max(*(pDilation + j * channals + c), *(pimage + j * channals + c));
-				//erosion
-				*(pErosion + j * channals + c) = std::min(*(pErosion + j * channals + c), *(pimage + j * channals + c));
+				////moving average
+				//*(pMA + j * channals + c) = *(pMA + j * channals + c) * (1 - alpha) + alpha * *(pimage + j * channals + c);
+				////nonlinear moving average
+				//double tmp = std::pow(alpha, std::abs(*(pNMA + j * channals + c) - *(pimage + j * channals + c)));
+				//*(pNMA + j * channals + c) = *(pNMA + j * channals + c) * (1 - tmp) + *(pimage + j * channals + c) * tmp;
+				////dilation
+				//*(pDilation + j * channals + c) = std::max(*(pDilation + j * channals + c), *(pimage + j * channals + c));
+				////erosion
+				//*(pErosion + j * channals + c) = std::min(*(pErosion + j * channals + c), *(pimage + j * channals + c));
 				*(pdiff + j * channals + c) = std::abs((*(pmean + j * channals + c)) - (*(pimage + j * channals + c)));
 				if (*(pdiff + j * channals + c) != 0)
 				{

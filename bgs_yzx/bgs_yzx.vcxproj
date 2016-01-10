@@ -115,6 +115,8 @@
     <ClInclude Include="AdpativeBGSubtract.h" />
     <ClInclude Include="AdpativeVibeBGS.h" />
     <ClInclude Include="AdpativeyzxVibe.h" />
+    <ClInclude Include="AMBER.h" />
+    <ClInclude Include="AMBERBGS.h" />
     <ClInclude Include="BackgroundSubtractorLBSP.h" />
     <ClInclude Include="BackgroundSubtractorLOBSTER.h" />
     <ClInclude Include="BackgroundSubtractorPAWCS.h" />
@@ -177,6 +179,8 @@
     <ClCompile Include="AdpativeBGSubtract.cpp" />
     <ClCompile Include="AdpativeVibeBGS.cpp" />
     <ClCompile Include="AdpativeyzxVibe.cpp" />
+    <ClCompile Include="AMBER.cpp" />
+    <ClCompile Include="AMBERBGS.cpp" />
     <ClCompile Include="BackgroundSubtractorLBSP.cpp" />
     <ClCompile Include="BackgroundSubtractorLOBSTER.cpp" />
     <ClCompile Include="BackgroundSubtractorPAWCS.cpp" />

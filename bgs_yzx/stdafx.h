@@ -70,6 +70,7 @@
 #include "CyzxPAWCSBGS.h"
 #include "LobsterBGS.h"
 #include "YzxLBSPBGS.h"
+#include "AMBERBGS.h"
 //if using the check of leak memory
 #define _CRTDBG_MAP_ALLOC 
 #include<stdlib.h>
