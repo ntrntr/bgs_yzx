@@ -76,6 +76,9 @@
     <Filter Include="头文件\AMBER">
       <UniqueIdentifier>{28ebaa81-6942-4cec-9d62-b23568cfbbdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\IMBS">
+      <UniqueIdentifier>{954cb036-43ba-4410-b853-917ecfe6c420}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -267,6 +270,15 @@
     <ClInclude Include="AMBER.h">
       <Filter>头文件\AMBER</Filter>
     </ClInclude>
+    <ClInclude Include="IMBSBGS.h">
+      <Filter>头文件\IMBS</Filter>
+    </ClInclude>
+    <ClInclude Include="IMBS.h">
+      <Filter>头文件\IMBS</Filter>
+    </ClInclude>
+    <ClInclude Include="imbs_org.hpp">
+      <Filter>头文件\IMBS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -433,6 +445,15 @@
     </ClCompile>
     <ClCompile Include="AMBER.cpp">
       <Filter>头文件\AMBER</Filter>
+    </ClCompile>
+    <ClCompile Include="IMBSBGS.cpp">
+      <Filter>头文件\IMBS</Filter>
+    </ClCompile>
+    <ClCompile Include="IMBS.cpp">
+      <Filter>头文件\IMBS</Filter>
+    </ClCompile>
+    <ClCompile Include="imbs_org.cpp">
+      <Filter>头文件\IMBS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -115,7 +115,8 @@ void CYzxFormView::addBgsList()
 		_T("yzxPAWCSBGS"),
 		_T("Lobster"),
 		_T("YzxLBSP"),
-	_T("AMBER")};
+	_T("AMBER"),
+	_T("IMBS")};
 
 	for (int i = 0; i < data.size(); ++i)
 	{
@@ -351,6 +352,10 @@ void CYzxFormView::ThreadProcess()
 	if (m_methodName == "AMBER")
 	{
 		bgs = new CAMBERBGS;
+	}
+	if (m_methodName == "IMBS")
+	{
+		bgs = new CIMBSBGS;
 	}
 	if (bgs == NULL)
 	{

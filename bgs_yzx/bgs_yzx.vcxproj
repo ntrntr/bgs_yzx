@@ -135,6 +135,9 @@
     <ClInclude Include="FrameDifferenceBGS.h" />
     <ClInclude Include="GaussianRandom.h" />
     <ClInclude Include="IBGS.h" />
+    <ClInclude Include="IMBS.h" />
+    <ClInclude Include="IMBSBGS.h" />
+    <ClInclude Include="imbs_org.hpp" />
     <ClInclude Include="ImproveVibeTest.h" />
     <ClInclude Include="LBSP.h" />
     <ClInclude Include="LobsterBGS.h" />
@@ -197,6 +200,9 @@
     <ClCompile Include="CyzxPAWCSBGS.cpp" />
     <ClCompile Include="DragEdit.cpp" />
     <ClCompile Include="FrameDifferenceBGS.cpp" />
+    <ClCompile Include="IMBS.cpp" />
+    <ClCompile Include="IMBSBGS.cpp" />
+    <ClCompile Include="imbs_org.cpp" />
     <ClCompile Include="ImproveVibeTest.cpp" />
     <ClCompile Include="LBSP.cpp" />
     <ClCompile Include="LobsterBGS.cpp" />
