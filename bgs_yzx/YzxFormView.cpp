@@ -116,13 +116,15 @@ void CYzxFormView::addBgsList()
 		_T("Lobster"),
 		_T("YzxLBSP"),
 	_T("AMBER"),
-	_T("IMBS")};
+	_T("IMBS"),
+	_T("VuMeter"),
+	_T("I_Wonder")};
 
 	for (int i = 0; i < data.size(); ++i)
 	{
 		m_BGSList.AddString(data[i]);
 	}
-	int nindex = m_BGSList.FindStringExact(0, _T("AMBER"));
+	int nindex = m_BGSList.FindStringExact(0, _T("I_Wonder"));
 	if (nindex != CB_ERR)
 	{
 		m_BGSList.SetCurSel(nindex);
@@ -357,6 +359,14 @@ void CYzxFormView::ThreadProcess()
 	{
 		bgs = new CIMBSBGS;
 	}
+	if (m_methodName == "VuMeter")
+	{
+		bgs = new CVuMeterBGS;
+	}
+	if (m_methodName == "I_Wonder")
+	{
+		bgs = new CIWonderBGS;
+	}
 	if (bgs == NULL)
 	{
 		AfxMessageBox(L"BGS object not defined!");
@@ -439,8 +449,9 @@ void CYzxFormView::ThreadProcess()
 			saveImage(img_mask, m_saveMaskOutPath, m_maskfilename, count);
 		}
 		strFrameNumber.Format(L"%d", count);
+		
 		m_frameNumber.SetWindowTextW(strFrameNumber);
-
+		
 		strExecTime.Format(L"%d", finish - start);
 		m_execTime.SetWindowTextW(strExecTime);
 		::Sleep(delay);
@@ -449,6 +460,10 @@ void CYzxFormView::ThreadProcess()
 		{
 			break;
 		}
+		/*if (count == 964)
+		{
+			cvWaitKey(0);
+		}*/
 	}
 
 	delete bgs;

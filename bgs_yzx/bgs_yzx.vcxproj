@@ -139,6 +139,8 @@
     <ClInclude Include="IMBSBGS.h" />
     <ClInclude Include="imbs_org.hpp" />
     <ClInclude Include="ImproveVibeTest.h" />
+    <ClInclude Include="IWonder.h" />
+    <ClInclude Include="IWonderBGS.h" />
     <ClInclude Include="LBSP.h" />
     <ClInclude Include="LobsterBGS.h" />
     <ClInclude Include="MainFrm.h" />
@@ -160,11 +162,15 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Subsense.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TBackground.h" />
+    <ClInclude Include="TBackgroundVuMeter.h" />
     <ClInclude Include="Version.h" />
     <ClInclude Include="VibeBGS.h" />
     <ClInclude Include="VibePlus.h" />
     <ClInclude Include="VibePlusBGS.h" />
     <ClInclude Include="VibeTest.h" />
+    <ClInclude Include="VuMeter.h" />
+    <ClInclude Include="VuMeterBGS.h" />
     <ClInclude Include="Yzx.h" />
     <ClInclude Include="YZXAdpativeGaussianMix.h" />
     <ClInclude Include="YzxCodeBook.h" />
@@ -204,6 +210,8 @@
     <ClCompile Include="IMBSBGS.cpp" />
     <ClCompile Include="imbs_org.cpp" />
     <ClCompile Include="ImproveVibeTest.cpp" />
+    <ClCompile Include="IWonder.cpp" />
+    <ClCompile Include="IWonderBGS.cpp" />
     <ClCompile Include="LBSP.cpp" />
     <ClCompile Include="LobsterBGS.cpp" />
     <ClCompile Include="MainFrm.cpp" />
@@ -224,11 +232,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Subsense.cpp" />
+    <ClCompile Include="TBackground.cpp" />
+    <ClCompile Include="TBackgroundVuMeter.cpp" />
     <ClCompile Include="Version.cpp" />
     <ClCompile Include="VibeBGS.cpp" />
     <ClCompile Include="VibePlus.cpp" />
     <ClCompile Include="VibePlusBGS.cpp" />
     <ClCompile Include="VibeTest.cpp" />
+    <ClCompile Include="VuMeter.cpp" />
+    <ClCompile Include="VuMeterBGS.cpp" />
     <ClCompile Include="Yzx.cpp" />
     <ClCompile Include="YZXAdpativeGaussianMix.cpp" />
     <ClCompile Include="YzxCodeBook.cpp" />

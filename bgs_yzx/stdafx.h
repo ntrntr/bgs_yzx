@@ -72,6 +72,8 @@
 #include "YzxLBSPBGS.h"
 #include "AMBERBGS.h"
 #include "IMBSBGS.h"
+#include "VuMeterBGS.h"
+#include "IWonderBGS.h"
 //if using the check of leak memory
 #define _CRTDBG_MAP_ALLOC 
 #include<stdlib.h>

@@ -31,9 +31,9 @@ int yzxVibe::random(int a, int b)
 
 void yzxVibe::modifyMask(cv::Mat& mask)
 {
-	morphologyEx(mask, mask, cv::MORPH_CLOSE, cv::Mat(), cv::Point(0, 0), 1);
-	erode(mask, mask, cv::Mat(), cv::Point(0, 0), 1);
-	medianBlur(mask, mask, 5);
+	//morphologyEx(mask, mask, cv::MORPH_CLOSE, cv::Mat(), cv::Point(0, 0), 1);
+	//erode(mask, mask, cv::Mat(), cv::Point(0, 0), 1);
+	medianBlur(mask, mask, 7);
 }
 
 void yzxVibe::initBackgroundModel()
@@ -195,7 +195,7 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 		fgcount = 0;
 
 	}
-
+	modifyMask(fgmask);
 }
 
 void yzxVibe::saveBackgroundModels(cv::Mat& image)

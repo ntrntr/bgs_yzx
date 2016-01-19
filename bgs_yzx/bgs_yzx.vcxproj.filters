@@ -79,6 +79,12 @@
     <Filter Include="头文件\IMBS">
       <UniqueIdentifier>{954cb036-43ba-4410-b853-917ecfe6c420}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\vumter">
+      <UniqueIdentifier>{4bbffba3-303d-4bd4-9127-4fe7cba782c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\I_Wonder">
+      <UniqueIdentifier>{33288fd0-aaf6-46f1-ab7b-38e48f1c6700}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -279,6 +285,24 @@
     <ClInclude Include="imbs_org.hpp">
       <Filter>头文件\IMBS</Filter>
     </ClInclude>
+    <ClInclude Include="TBackground.h">
+      <Filter>头文件\vumter</Filter>
+    </ClInclude>
+    <ClInclude Include="TBackgroundVuMeter.h">
+      <Filter>头文件\vumter</Filter>
+    </ClInclude>
+    <ClInclude Include="VuMeter.h">
+      <Filter>头文件\vumter</Filter>
+    </ClInclude>
+    <ClInclude Include="VuMeterBGS.h">
+      <Filter>头文件\vumter</Filter>
+    </ClInclude>
+    <ClInclude Include="IWonderBGS.h">
+      <Filter>头文件\I_Wonder</Filter>
+    </ClInclude>
+    <ClInclude Include="IWonder.h">
+      <Filter>头文件\I_Wonder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -454,6 +478,24 @@
     </ClCompile>
     <ClCompile Include="imbs_org.cpp">
       <Filter>头文件\IMBS</Filter>
+    </ClCompile>
+    <ClCompile Include="TBackground.cpp">
+      <Filter>头文件\vumter</Filter>
+    </ClCompile>
+    <ClCompile Include="TBackgroundVuMeter.cpp">
+      <Filter>头文件\vumter</Filter>
+    </ClCompile>
+    <ClCompile Include="VuMeter.cpp">
+      <Filter>头文件\vumter</Filter>
+    </ClCompile>
+    <ClCompile Include="VuMeterBGS.cpp">
+      <Filter>头文件\vumter</Filter>
+    </ClCompile>
+    <ClCompile Include="IWonderBGS.cpp">
+      <Filter>头文件\I_Wonder</Filter>
+    </ClCompile>
+    <ClCompile Include="IWonder.cpp">
+      <Filter>头文件\I_Wonder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
