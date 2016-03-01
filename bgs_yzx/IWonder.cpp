@@ -2,7 +2,7 @@
 #include "IWonder.h"
 
 
-CIWonder::CIWonder() :firstTime(true), patchsize(5), needRebuiltModel(false), RThreshold(20.0), m_min(2), ts(16), incR(1), decR(-0.1), blinkTs(6), beta(0.70)
+CIWonder::CIWonder() :firstTime(true), patchsize(5), needRebuiltModel(false), RThreshold(20.0), m_min(2), ts(16), incR(1), decR(-0.1), blinkTs(6), beta(1.0)
 {
 }
 
@@ -205,9 +205,9 @@ void CIWonder::operator()(const cv::Mat& image, cv::Mat& fgmask, double learning
 
 void CIWonder::getBackgroundImage(cv::Mat& image)
 {
-	//backgroundModels[0].copyTo(image);
+	backgroundModels[0].copyTo(image);
 	//maskDownSample.copyTo(image);
-	mask.copyTo(image);
+	//mask.copyTo(image);
 }
 
 void CIWonder::init()

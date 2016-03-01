@@ -291,9 +291,6 @@
     <ClInclude Include="TBackgroundVuMeter.h">
       <Filter>头文件\vumter</Filter>
     </ClInclude>
-    <ClInclude Include="VuMeter.h">
-      <Filter>头文件\vumter</Filter>
-    </ClInclude>
     <ClInclude Include="VuMeterBGS.h">
       <Filter>头文件\vumter</Filter>
     </ClInclude>
@@ -483,9 +480,6 @@
       <Filter>头文件\vumter</Filter>
     </ClCompile>
     <ClCompile Include="TBackgroundVuMeter.cpp">
-      <Filter>头文件\vumter</Filter>
-    </ClCompile>
-    <ClCompile Include="VuMeter.cpp">
       <Filter>头文件\vumter</Filter>
     </ClCompile>
     <ClCompile Include="VuMeterBGS.cpp">

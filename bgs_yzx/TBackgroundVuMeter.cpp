@@ -1,26 +1,4 @@
-/*
-This file is part of BGSLibrary.
 
-BGSLibrary is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-BGSLibrary is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with BGSLibrary.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/*
-*  TBackgroundVuMeter.cpp
-*  Framework
-*
-*  Created by Robinault Lionel on 07/12/11.
-*
-*/
 #include "stdafx.h"
 #include "TBackgroundVuMeter.h"
 
@@ -182,7 +160,7 @@ int TBackgroundVuMeter::Init(IplImage * pSource)
   if(pSource == NULL)
     nErr = 1;
 
-  // calcul le nb de bin
+
   if(!nErr)
   {
     nbl = pSource->height;
@@ -193,7 +171,7 @@ int TBackgroundVuMeter::Init(IplImage * pSource)
       nErr = 1;
   }
 
-  // creation du tableau de pointeur
+
   if(!nErr)
   {
     m_pHist = new IplImage *[m_nBinCount];
@@ -202,7 +180,7 @@ int TBackgroundVuMeter::Init(IplImage * pSource)
       nErr = 1;
   }
 
-  // creation des images
+
   if(!nErr)
   {
     for(int i = 0; i < m_nBinCount; ++i)
@@ -274,7 +252,7 @@ int TBackgroundVuMeter::UpdateBackground(IplImage *pSource, IplImage *pBackgroun
     int nbl = pSource->height;
     unsigned char v = m_nBinSize;
 
-    // multiplie tout par alpha
+
     for(int i = 0; i < m_nBinCount; ++i)
       cvConvertScale(m_pHist[i], m_pHist[i], m_fAlpha, 0.0);
 
@@ -286,7 +264,7 @@ int TBackgroundVuMeter::UpdateBackground(IplImage *pSource, IplImage *pBackgroun
 
       for(int c = 0; c < nbc; ++c, ptrs++, ptrb++, ptrm++)
       {
-        // recherche le bin ?augmenter
+
         int i = *ptrs / v;
         
         if(i < 0 || i >= m_nBinCount)
@@ -298,7 +276,7 @@ int TBackgroundVuMeter::UpdateBackground(IplImage *pSource, IplImage *pBackgroun
         *ptr1 += (float)(1.0 - m_fAlpha);
         *ptrm = (*ptr1 < m_fThreshold) ? 255 : 0;
 
-        // recherche le bin du fond actuel
+
         i = *ptrb / v;
         
         if(i < 0 || i >= m_nBinCount)

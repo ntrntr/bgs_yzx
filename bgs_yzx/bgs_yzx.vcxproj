@@ -169,7 +169,6 @@
     <ClInclude Include="VibePlus.h" />
     <ClInclude Include="VibePlusBGS.h" />
     <ClInclude Include="VibeTest.h" />
-    <ClInclude Include="VuMeter.h" />
     <ClInclude Include="VuMeterBGS.h" />
     <ClInclude Include="Yzx.h" />
     <ClInclude Include="YZXAdpativeGaussianMix.h" />
@@ -239,7 +238,6 @@
     <ClCompile Include="VibePlus.cpp" />
     <ClCompile Include="VibePlusBGS.cpp" />
     <ClCompile Include="VibeTest.cpp" />
-    <ClCompile Include="VuMeter.cpp" />
     <ClCompile Include="VuMeterBGS.cpp" />
     <ClCompile Include="Yzx.cpp" />
     <ClCompile Include="YZXAdpativeGaussianMix.cpp" />

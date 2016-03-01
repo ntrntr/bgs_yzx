@@ -1,26 +1,4 @@
-/*
-This file is part of BGSLibrary.
 
-BGSLibrary is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-BGSLibrary is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with BGSLibrary.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/*
-*  TBackground.cpp
-*  Framework
-*
-*  Created by Robinault Lionel on 07/12/11.
-*
-*/
 #include "stdafx.h"
 #include "TBackground.h"
 
@@ -135,28 +113,22 @@ int TBackground::UpdateTest(IplImage *pSource, IplImage *pBackground, IplImage *
   if(!nErr)
   {
     int l, c;
-    // recupere l'indice de la colonne
     ptr = (unsigned char *)(pTest->imageData);
     c = *ptr;
     
-    // efface la colonne
     cvLine(pTest, cvPoint(c, 0), cvPoint(c, 255), cvScalar(0));
     *ptr += 1;
 
-    //recupere la couleur du fond
     ptr = (unsigned char *)(pBackground->imageData + pBackground->widthStep * nY);
     ptr += nX;
     l = *ptr;
 
-    // dessine la couleur
     cvLine(pTest, cvPoint(c, l - 5), cvPoint(c, l + 5), Color);
 
-    //recupere la couleur du point
     ptr = (unsigned char *)(pSource->imageData + pSource->widthStep * nY);
     ptr += nX;
     l = *ptr;
 
-    // dessine la couleur
     ptr = (unsigned char *)(pTest->imageData + pTest->widthStep * l);
     ptr += (c * 3) + nInd;
     *ptr = 255;
