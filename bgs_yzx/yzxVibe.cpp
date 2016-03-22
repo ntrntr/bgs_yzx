@@ -76,6 +76,7 @@ void yzxVibe::initBackgroundModel()
 		}
 	}
 	needRebuiltModel = false;
+	
 }
 
 void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningRate)
@@ -92,8 +93,8 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 		for (int index = 0; index < N; ++index)
 		{
 			/*simple[index] = cvCreateImage(cvSize(pFrame->width, pFrame->height), IPL_DEPTH_8U, 3);*/
-			simple[index].create(pFrame.size(), CV_8UC3);
-			simdata[index] = (uchar*)simple[index].data;
+			sample[index].create(pFrame.size(), CV_8UC3);
+			simdata[index] = (uchar*)sample[index].data;
 
 		}
 
@@ -201,15 +202,16 @@ void yzxVibe::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningR
 void yzxVibe::saveBackgroundModels(cv::Mat& image)
 {
 
-	image.create(pFrame.size(), CV_32FC3);
-	image = Scalar::all(0);
-	Mat tmp;
-	for (int i = 0; i < N; ++i)
-	{
-		simple[i].convertTo(tmp, CV_32F, 1.0, 0.0);
-		image = image + tmp;
-	}
-	image.convertTo(image, CV_8U, 1.0 / N, 0);
+	//image.create(pFrame.size(), CV_32FC3);
+	//image = Scalar::all(0);
+	//Mat tmp;
+	//for (int i = 0; i < N; ++i)
+	//{
+	//	sample[i].convertTo(tmp, CV_32F, 1.0, 0.0);
+	//	image = image + tmp;
+	//}
+	//image.convertTo(image, CV_8U, 1.0 / N, 0);
+	sample[0].copyTo(image);
 }
 
 int yzxVibe::getRandomX(int x)

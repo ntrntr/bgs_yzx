@@ -41,7 +41,7 @@ void FrameDifferenceBGS::process(const cv::Mat &img_input, cv::Mat &img_output, 
 		cv::imshow("Frame Difference", img_foreground);
 
 	img_foreground.copyTo(img_output);
-
+	img_input_prev.copyTo(img_bgmodel);
 	img_input.copyTo(img_input_prev);
 
 	firstTime = false;

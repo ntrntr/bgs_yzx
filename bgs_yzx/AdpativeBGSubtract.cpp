@@ -2,7 +2,7 @@
 #include "AdpativeBGSubtract.h"
 
 
-CAdpativeBGSubtract::CAdpativeBGSubtract() :firstTime(true), alpha(0.5), limit(-1), counter(0), enableThreshold(true),
+CAdpativeBGSubtract::CAdpativeBGSubtract() :firstTime(true), alpha(0.1), limit(-1), counter(0), enableThreshold(true),
 threshold(20), showForeground(true), showBackground(true)
 {
 	std::cout << "CAdpativeBGSubtract()" << std::endl;

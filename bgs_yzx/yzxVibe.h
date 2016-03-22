@@ -29,7 +29,7 @@ public:
 private:
 	double alpha;
 	Mat pFrame;
-	Mat simple[MODEL_SIZE];
+	Mat sample[MODEL_SIZE];
 	map<int, double> AlphaLUT;
 	const int N;
 	const double R;
