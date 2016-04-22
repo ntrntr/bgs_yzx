@@ -26,12 +26,13 @@ void VibeBGS::process(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &im
 
 	if (firstTime)
 	{
+		firstTime = false;
 		saveConfig();
 		vibebgs = new yzxVibe();
 	}
 	(*vibebgs)(img_input, img_output);
 	vibebgs->saveBackgroundModels(img_bgmodel);
-	firstTime = false;
+	
 }
 
 void VibeBGS::saveConfig()

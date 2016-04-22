@@ -85,6 +85,9 @@
     <Filter Include="头文件\I_Wonder">
       <UniqueIdentifier>{33288fd0-aaf6-46f1-ab7b-38e48f1c6700}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\EFIC">
+      <UniqueIdentifier>{dcdf6321-bad7-4e69-a3f4-26dfaeb473a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -300,6 +303,12 @@
     <ClInclude Include="IWonder.h">
       <Filter>头文件\I_Wonder</Filter>
     </ClInclude>
+    <ClInclude Include="EFICBGS.h">
+      <Filter>头文件\EFIC</Filter>
+    </ClInclude>
+    <ClInclude Include="EFIC.h">
+      <Filter>头文件\EFIC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -490,6 +499,12 @@
     </ClCompile>
     <ClCompile Include="IWonder.cpp">
       <Filter>头文件\I_Wonder</Filter>
+    </ClCompile>
+    <ClCompile Include="EFICBGS.cpp">
+      <Filter>头文件\EFIC</Filter>
+    </ClCompile>
+    <ClCompile Include="EFIC.cpp">
+      <Filter>头文件\EFIC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

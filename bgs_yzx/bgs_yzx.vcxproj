@@ -132,6 +132,8 @@
     <ClInclude Include="CyzxPAWCSBGS.h" />
     <ClInclude Include="DistanceUtils.h" />
     <ClInclude Include="DragEdit.h" />
+    <ClInclude Include="EFIC.h" />
+    <ClInclude Include="EFICBGS.h" />
     <ClInclude Include="FrameDifferenceBGS.h" />
     <ClInclude Include="GaussianRandom.h" />
     <ClInclude Include="IBGS.h" />
@@ -204,6 +206,8 @@
     <ClCompile Include="cv_yuv_codebook.cpp" />
     <ClCompile Include="CyzxPAWCSBGS.cpp" />
     <ClCompile Include="DragEdit.cpp" />
+    <ClCompile Include="EFIC.cpp" />
+    <ClCompile Include="EFICBGS.cpp" />
     <ClCompile Include="FrameDifferenceBGS.cpp" />
     <ClCompile Include="IMBS.cpp" />
     <ClCompile Include="IMBSBGS.cpp" />

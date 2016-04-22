@@ -118,13 +118,14 @@ void CYzxFormView::addBgsList()
 	_T("AMBER"),
 	_T("IMBS"),
 	_T("VuMeter"),
-	_T("I_Wonder")};
+	_T("I_Wonder"),
+	_T("EFIC")};
 
 	for (int i = 0; i < data.size(); ++i)
 	{
 		m_BGSList.AddString(data[i]);
 	}
-	int nindex = m_BGSList.FindStringExact(0, _T("I_Wonder"));
+	int nindex = m_BGSList.FindStringExact(0, _T("EFIC"));
 	if (nindex != CB_ERR)
 	{
 		m_BGSList.SetCurSel(nindex);
@@ -366,6 +367,10 @@ void CYzxFormView::ThreadProcess()
 	if (m_methodName == "I_Wonder")
 	{
 		bgs = new CIWonderBGS;
+	}
+	if (m_methodName == "EFIC")
+	{
+		bgs = new EFICBGS;
 	}
 	if (bgs == NULL)
 	{
