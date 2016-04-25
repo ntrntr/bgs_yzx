@@ -36,6 +36,7 @@ public:
 	void drawOptFlowMap(const Mat& flow, Mat& cflowmap, int step,double, const Scalar& color);
 	double countMovePoint();
 	void OpticalFlowPyrLK();
+	void drawMatchesPoint(Mat& img, vector<unsigned char>& mask = vector<	unsigned char>());
 public:
 	Mat pFrame;
 	Mat LTPs;
@@ -55,5 +56,7 @@ public:
 	//Mat gray, prevGray, image;
 	Mat LKimage;
 	vector<vector<Point2f>> points;
+	Mat H, H_prev;
+	vector<unsigned char> match_mask;
 };
 

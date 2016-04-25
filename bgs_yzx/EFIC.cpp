@@ -383,11 +383,29 @@ void CEFIC::OpticalFlowPyrLK()
 			points[2][k] = points[0][i];
 			points[1][k++] = points[1][i];
 			
-			circle(LKimage, points[1][i], 2, Scalar(0, 255, 0));
-			line(LKimage, points[0][i], points[1][i], Scalar(0, 0, 255));
+			//circle(LKimage, points[1][i], 2, Scalar(0, 255, 0));
+			//line(LKimage, points[0][i], points[1][i], Scalar(0, 0, 255));
 		}
 		points[1].resize(k);
 		points[2].resize(k);
+
+		if (points[2].size() > 5)
+		{
+			H = findHomography(points[2], points[1], RANSAC, 4, match_mask);
+			if (countNonZero(Mat(match_mask)) > 15)
+			{
+				H_prev = H;
+			}
+			else
+				H_prev = Mat::eye(3, 3, CV_32FC1);
+
+			drawMatchesPoint(LKimage, match_mask);
+		}
+		else
+		{
+			needToInit = true;
+			H_prev = Mat::eye(3, 3, CV_32FC1);
+		}
 	}
 
 	if (addRemovePt && points[1].size() < (size_t)MAX_COUNT)
@@ -398,7 +416,7 @@ void CEFIC::OpticalFlowPyrLK()
 		points[1].push_back(tmp[0]);
 		addRemovePt = false;
 	}
-
+	
 	//needToInit = false;
 	//imshow("LK Demo", image);
 
@@ -421,6 +439,18 @@ void CEFIC::OpticalFlowPyrLK()
 
 	std::swap(points[1], points[0]);
 	//cv::swap(prevFrame, pFrame);
+}
+
+void CEFIC::drawMatchesPoint(Mat& img, vector<unsigned char>& mask /*= vector< unsigned char>()*/)
+{
+	for (int i = 0; i < mask.size(); ++i)
+	{
+		if (mask[i])
+		{
+			circle(img, points[1][i], 2, Scalar(0, 255, 0));
+			line(img, points[2][i], points[1][i], Scalar(0, 0, 255));
+		}
+	}
 }
 
 void CEFIC::saveBackgroundModels(cv::Mat& image)
