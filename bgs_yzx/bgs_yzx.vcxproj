@@ -44,12 +44,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\Users\yzx\Downloads\boost_1_59_0\boost_1_59_0;F:\opencv2_4_9\opencv\build\include;F:\opencv2_4_9\opencv\build\include\opencv;F:\opencv2_4_9\opencv\build\include\opencv2;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\opencv2_4_9\opencv\build\x86\vc11\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>F:\opencv2_4_9\opencv\build\x86\vc12\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>D:\Users\yzx\Downloads\boost_1_59_0\boost_1_59_0;F:\opencv2_4_9\opencv\build\include;F:\opencv2_4_9\opencv\build\include\opencv;F:\opencv2_4_9\opencv\build\include\opencv2;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\opencv2_4_9\opencv\build\x86\vc11\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>F:\opencv2_4_9\opencv\build\x86\vc12\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
