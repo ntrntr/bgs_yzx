@@ -145,6 +145,7 @@
     <ClInclude Include="IWonderBGS.h" />
     <ClInclude Include="LBSP.h" />
     <ClInclude Include="LobsterBGS.h" />
+    <ClInclude Include="LTPS.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MultiscaleSTBG.h" />
     <ClInclude Include="MultiscaleSTBGS.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="IWonderBGS.cpp" />
     <ClCompile Include="LBSP.cpp" />
     <ClCompile Include="LobsterBGS.cpp" />
+    <ClCompile Include="LTPS.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MultiscaleSTBG.cpp" />
     <ClCompile Include="MultiscaleSTBGS.cpp" />

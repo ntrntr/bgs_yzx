@@ -309,6 +309,9 @@
     <ClInclude Include="EFIC.h">
       <Filter>头文件\EFIC</Filter>
     </ClInclude>
+    <ClInclude Include="LTPS.h">
+      <Filter>头文件\EFIC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bgs_yzx.cpp">
@@ -504,6 +507,9 @@
       <Filter>头文件\EFIC</Filter>
     </ClCompile>
     <ClCompile Include="EFIC.cpp">
+      <Filter>头文件\EFIC</Filter>
+    </ClCompile>
+    <ClCompile Include="LTPS.cpp">
       <Filter>头文件\EFIC</Filter>
     </ClCompile>
   </ItemGroup>

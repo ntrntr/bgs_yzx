@@ -81,6 +81,7 @@ public:
 	int pathtype;
 	afx_msg void OnBnClickedButtonRandomselect();
 	CButton m_changButton;
+	CButton m_maskSaveCheck;
 };
 
 

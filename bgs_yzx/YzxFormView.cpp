@@ -37,6 +37,7 @@ void CYzxFormView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_FILTER, m_filterList);
 	DDX_Control(pDX, IDC_IDC_INPUT_VIDEO_APPEND, m_videoPathAppendControl);
 	DDX_Control(pDX, IDC_BUTTON_PATHCHANGE, m_changButton);
+	DDX_Control(pDX, IDC_CHECK1, m_maskSaveCheck);
 }
 
 BEGIN_MESSAGE_MAP(CYzxFormView, CFormView)
@@ -144,7 +145,7 @@ void CYzxFormView::initMemberVariable()
 	m_saveMaskOutPath = _T("");
 	bgs = NULL;
 	isContinue = true;
-	m_maskfilename = _T("bin%06d.pgm");
+	m_maskfilename = _T("bin%06d.jpg");
 
 }
 
@@ -393,9 +394,12 @@ void CYzxFormView::ThreadProcess()
 	int delay = _tstoi(csDelay);
 	int count = 0;
 	bool saveMask = isSaveMaskImage();
+	bool isSaveMaskAsVideo = m_maskSaveCheck.GetCheck() == BST_CHECKED;
 	CString filtername = getFilterName();
 	clock_t start, finish;
 	clock_t allStart, allFinish;
+	VideoWriter outputVideo;
+	static bool isFirstTimeVideoWriterInit = true;
 	allStart = clock();
 	while (true)
 	{
@@ -438,6 +442,39 @@ void CYzxFormView::ThreadProcess()
 		//if (m_medianFilter.GetCheck() == BST_CHECKED)
 		//	cv::medianBlur(img_mask, img_mask, 5);
 		modifyMask(img_mask, filtername);
+
+		if (saveMask)
+		{
+			if (isSaveMaskAsVideo)
+			{
+				if (isFirstTimeVideoWriterInit)
+				{
+					CString name(m_saveMaskOutPath);
+					name.Append(_T("test"));
+					name.Append(_T(".avi"));
+					// Convert a TCHAR string to a LPCSTR
+					CT2CA fileType2(name);
+					// construct a std::string using the LPCSTR input
+					std::string str_file(fileType2);
+					if (isFirstTimeVideoWriterInit)
+					{
+						outputVideo.open(str_file, CV_FOURCC('M', 'J', 'P', 'G'), 25.0, img_mask.size(), false);
+					}
+					if (!outputVideo.isOpened())
+					{
+						cout << "Could not open the output video for write: " << str_file << endl;
+					}
+					isFirstTimeVideoWriterInit = false;
+				}
+				outputVideo.write(img_mask);
+			}
+			else
+			{
+				saveImage(img_mask, m_saveMaskOutPath, m_maskfilename, count);
+			}
+			
+		}
+
 		cv::resize(img_mask, img_mask_aux, default_size);
 
 		cv::Mat img_bgk_aux;
@@ -449,10 +486,7 @@ void CYzxFormView::ThreadProcess()
 		cv::imshow("MASK", img_mask_aux);
 		cv::imshow("BKG", img_bgk_aux);
 
-		if (saveMask)
-		{
-			saveImage(img_mask, m_saveMaskOutPath, m_maskfilename, count);
-		}
+		
 		strFrameNumber.Format(L"%d", count);
 		
 		m_frameNumber.SetWindowTextW(strFrameNumber);
@@ -704,7 +738,7 @@ void CYzxFormView::OnBnClickedButtonPathchange()
 		m_changButton.SetWindowText(_T("ÇÐ»»2012Êý¾Ý"));
 		pathtype = 0;
 	}
-	int nindex = m_videoPathAppendControl.FindStringExact(0, _T("dynamicBackground//fall//input//in%06d.jpg"));
+	int nindex = m_videoPathAppendControl.FindStringExact(0, _T("cameraJitter//badminton//input//in%06d.jpg"));
 	//SelectString
 	if (nindex != CB_ERR)
 	{
