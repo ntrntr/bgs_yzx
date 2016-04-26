@@ -16,7 +16,7 @@ CYzxFormView::CYzxFormView()
 
 	m_methodName = _T("");
 	m_filePath = _T("");
-	pathtype = 0;
+	pathtype = 1;
 }
 
 CYzxFormView::~CYzxFormView()
@@ -738,7 +738,7 @@ void CYzxFormView::OnBnClickedButtonPathchange()
 		m_changButton.SetWindowText(_T("ÇÐ»»2012Êý¾Ý"));
 		pathtype = 0;
 	}
-	int nindex = m_videoPathAppendControl.FindStringExact(0, _T("cameraJitter//badminton//input//in%06d.jpg"));
+	int nindex = m_videoPathAppendControl.FindStringExact(0, _T("PTZ//continuousPan//input//in%06d.jpg"));
 	//SelectString
 	if (nindex != CB_ERR)
 	{

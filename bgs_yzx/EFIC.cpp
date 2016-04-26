@@ -3,7 +3,7 @@
 #include "LTPS.h"
 #include <amp_math.h>
 static const int M = 5;
-static const double T_e = 0.12;
+static const double T_e = 0.40;
 static const double T_w = 0.85;
 static const double a_c = 0.0005;
 static const double Tau = 0.04;
@@ -25,6 +25,22 @@ CEFIC::CEFIC() :isinit(false), exponentially_t(1)
 {
 	termcrit = TermCriteria(CV_TERMCRIT_ITER | CV_TERMCRIT_EPS, 20, 0.03);
 	points.resize(3);
+	pointsJitter.resize(3);
+	pointsPanning.resize(3);
+	acc_jitter = (0);
+	acc_panning = (0);
+	prev_jitter = 0;
+	prev_panning = 0;
+	prevCameraOrientation = 0;
+	curCameraOrientation = 0;
+	H_prev = Mat::eye(3, 3, CV_32FC1);
+	H = Mat::eye(3, 3, CV_32FC1);
+	jitterH_prev = Mat::eye(3, 3, CV_32FC1);
+	jitterH = Mat::eye(3, 3, CV_32FC1);
+	panningH = Mat::eye(3, 3, CV_32FC1);
+	panningH_prev = Mat::eye(3, 3, CV_32FC1);
+	isCameraJitter = false;
+	isCameraPaning = true;
 }
 
 
@@ -48,6 +64,7 @@ void CEFIC::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningRat
 	ltps(pFrame, pFrame.rows, pFrame.cols, 1, LTPs);
 	if (!isinit)
 	{
+		prevPanningbackgroundModel = vector<vector<ltps_node>>(pFrame.rows, vector<ltps_node>(pFrame.cols));
 		backgroundModel = vector<vector<vector<ltps_node>>>(pFrame.rows, vector<vector<ltps_node>>(pFrame.cols));
 		maxgradientlen = vector<vector<double>>(pFrame.rows, vector<double>(pFrame.cols,5.0));
 		initBackgroundModel();
@@ -62,38 +79,118 @@ void CEFIC::operator()(const cv::Mat& image, cv::Mat& fgmask, double learningRat
 		prevEficForegroundMask.create(pFrame.size(), CV_8UC1);
 		prevEficForegroundMask = cv::Scalar::all(0);
 		pFrame.copyTo(prevFrame);
+		pFrame.copyTo(firstFrame);
 		isinit = true;
 		
 	}
-	if (needToInit)
-	{
-		// automatic initialization
-		goodFeaturesToTrack(pFrame, points[1], MAX_COUNT, 0.01, 10, Mat(), 3, 0, 0.04);
-		cornerSubPix(pFrame, points[1], subPixWinSize, Size(-1, -1), termcrit);
-		addRemovePt = false;
-	}
-	opticalFlowFarneback();
+	
 	if (countMovePoint() > T_n)
 	{
 		//motion detected
 		image.copyTo(LKimage);
 		OpticalFlowPyrLK();
+		tr_x = H_prev.at<double>(0, 2);
+		tr_y = H_prev.at<double>(1, 2);
+		curCameraOrientation = std::atan(tr_y / tr_x);
+		if (abs(curCameraOrientation - prevCameraOrientation) > (3.14/2))
+		{
+			acc_jitter++;
+		}
+		else
+		{
+			acc_panning++;
+		}
+		prevCameraOrientation = curCameraOrientation;
+		
+	}
+	if (isCameraJitter)
+	{
+		OpticalFlowPyrLKCameraJitter();
+		//warpAffine(pFrame, pFrame, jitterH_prev, pFrame.size(), WARP_INVERSE_MAP, BORDER_TRANSPARENT);
+		warpPerspective(pFrame, pFrame, jitterH_prev.inv(), pFrame.size(), WARP_INVERSE_MAP, /*BORDER_REPLICATE*/ BORDER_CONSTANT);
+	}
+	if (isCameraPaning && !isCameraJitter)
+	{
+		OpticalFlowPyrLKCameraPanning();
+		warpPerspective(pFrame, pFrame, panningH_prev.inv(), pFrame.size(), WARP_INVERSE_MAP, BORDER_CONSTANT);
+		LTPs = cv::Scalar::all(0);
+		ltps(pFrame, pFrame.rows, pFrame.cols, 1, LTPs);
+		updateShortTermBackgroundModel();
+		eficForegroundMask.copyTo(fgmask);
+		exponentially_t++;
+		eficForegroundMask.copyTo(prevEficForegroundMask);
+		pFrame.copyTo(prevFrame);
+		return;
 	}
 	updateBackgroundModel();
 	updateLearningRate();
-	Mat gradientLTP;
-	gradientLTP.create(pFrame.size(), CV_32FC1);
-	ltpsTogradient(LTPs, gradientLTP);
-	cv::normalize(gradientLTP, gradientLTP, 1, 0, NORM_MINMAX, CV_32FC1);
-	cv::erode(eficForegroundMask, eficForegroundMask, cv::Mat(), cv::Point(0, 0), 1);
-	LKimage.copyTo(fgmask);
-	//refineSegments(eficForegroundMask, fgmask);
-	//eficForegroundMask.copyTo(fgmask);
+	//Mat gradientLTP;
+	//gradientLTP.create(pFrame.size(), CV_32FC1);
+	//ltpsTogradient(LTPs, gradientLTP);
+	//cv::normalize(gradientLTP, gradientLTP, 1, 0, NORM_MINMAX, CV_32FC1);
+	//cv::erode(eficForegroundMask, eficForegroundMask, cv::Mat(), cv::Point(0, 0), 1);
 	
+	//pFrame.copyTo(fgmask);
+	//refineSegments(eficForegroundMask, fgmask);
+	eficForegroundMask.copyTo(fgmask);
+	//gradientLTP.copyTo(fgmask);
 	//cflow.copyTo(fgmask);
 	exponentially_t++;
 	eficForegroundMask.copyTo(prevEficForegroundMask);
 	pFrame.copyTo(prevFrame);
+}
+void CEFIC::updateShortTermBackgroundModel()
+{
+	static bool isinit = false;
+	if (!isinit)
+	{
+		LTPs.copyTo(prevLTPs);
+		isinit = true;
+	}
+	float* pltps;
+	uchar* pmask;
+	float* backltp;
+	for (int i = 0; i < prevLTPs.rows; ++i)
+	{
+		pltps = LTPs.ptr<float>(i);
+		backltp = prevLTPs.ptr<float>(i);
+		pmask = eficForegroundMask.ptr<uchar>(i);
+		for (int j = 0; j < prevLTPs.cols; ++j)
+		{
+			if (getDistance(backltp, pltps) > 5)
+			{
+				*pmask = 255;
+			}
+			pltps += 2;
+			backltp += 2;
+			pmask++;
+		}
+	}
+	LTPs.copyTo(prevLTPs);
+}
+
+void CEFIC::initTermBackgroundModel(Mat& src)
+{
+	float* pltps;
+	for (int i = 0; i < prevPanningbackgroundModel.size(); ++i)
+	{
+		pltps = src.ptr<float>(i);
+		for (int j = 0; j < prevPanningbackgroundModel[i].size(); ++j)
+		{
+			prevPanningbackgroundModel[i][j] = (ltps_node(pltps[0], pltps[1]));
+			pltps += 2;
+		}
+	}
+}
+
+float CEFIC::getLtpsDis(ltps_node& a)
+{
+	return sqrt(a.x * a.x + a.y * a.y);
+}
+
+float CEFIC::getLtpsDis(const float* a)
+{
+	return sqrt(a[0] * a[0] + a[1] * a[1]);
 }
 
 void CEFIC::updateBackgroundModel()
@@ -163,6 +260,11 @@ double CEFIC::getDistance(ltps_node& a, const float* p)
 {
 	return sqrt((a.x - p[0])*(a.x - p[0]) + (a.y - p[1]) * (a.y - p[1]));
 	//return ((a.x - p[0])*(a.x - p[0]) + (a.y - p[1]) * (a.y - p[1]));
+}
+
+double CEFIC::getDistance(const float* a, const float* p)
+{
+	return sqrt((a[0] - p[0])*(a[0] - p[0]) + (a[1] - p[1]) * (a[1] - p[1]));
 }
 
 void CEFIC::updateLearningRate()
@@ -326,6 +428,7 @@ void CEFIC::drawOptFlowMap(const Mat& flow, Mat& cflowmap, int step, double, con
 
 double CEFIC::countMovePoint()
 {
+	opticalFlowFarneback();
 	int count = 0;
 	float* p;
 	for (int i = 0; i < flow.rows; ++i)
@@ -441,6 +544,114 @@ void CEFIC::OpticalFlowPyrLK()
 	//cv::swap(prevFrame, pFrame);
 }
 
+void CEFIC::OpticalFlowPyrLKCameraJitter()
+{
+	static bool firstInit = true;
+	if (firstInit)
+	{
+		// automatic initialization
+		goodFeaturesToTrack(firstFrame, pointsJitter[0], MAX_COUNT, 0.01, 10, Mat(), 3, 0, 0.04);
+		cornerSubPix(firstFrame, pointsJitter[0], subPixWinSize, Size(-1, -1), termcrit);
+		pointsJitter[2] = pointsJitter[0];
+		firstInit = false;
+	}
+	else if (!pointsJitter[0].empty())
+	{
+		vector<uchar> status;
+		vector<float> err;
+		calcOpticalFlowPyrLK(firstFrame, pFrame, pointsJitter[0], pointsJitter[1], status, err, winSize,
+			3, termcrit, 0, 0.001);
+		pointsJitter[2].resize(pointsJitter[0].size());
+		size_t i, k;
+		for (i = k = 0; i < pointsJitter[1].size(); i++)
+		{
+			if (!status[i])
+				continue;
+
+			pointsJitter[2][k] = pointsJitter[0][i];
+			pointsJitter[1][k++] = pointsJitter[1][i];
+
+			//circle(LKimage, points[1][i], 2, Scalar(0, 255, 0));
+			//line(LKimage, points[0][i], points[1][i], Scalar(0, 0, 255));
+		}
+		pointsJitter[1].resize(k);
+		pointsJitter[2].resize(k);
+
+		if (pointsJitter[2].size() > 5)
+		{
+			jitterH = findHomography(pointsJitter[2], pointsJitter[1], RANSAC, 4, match_mask);
+			if (countNonZero(Mat(match_mask)) > 15)
+			{
+				jitterH_prev = jitterH;
+			}
+			else
+				jitterH_prev = Mat::eye(3, 3, CV_32FC1);
+
+			//drawMatchesPoint(LKimage, match_mask);
+		}
+		else
+		{
+			needToInit = true;
+			jitterH_prev = Mat::eye(3, 3, CV_32FC1);
+		}
+	}
+	std::swap(pointsJitter[2], pointsJitter[0]);
+}
+
+void CEFIC::OpticalFlowPyrLKCameraPanning()
+{
+	static bool firstInit = true;
+	if (firstInit)
+	{
+		// automatic initialization
+		goodFeaturesToTrack(prevFrame, pointsPanning[0], MAX_COUNT, 0.01, 10, Mat(), 3, 0, 0.04);
+		cornerSubPix(prevFrame, pointsPanning[0], subPixWinSize, Size(-1, -1), termcrit);
+		pointsPanning[2] = pointsPanning[0];
+		firstInit = false;
+	}
+	else if (!pointsPanning[0].empty())
+	{
+		vector<uchar> status;
+		vector<float> err;
+		calcOpticalFlowPyrLK(prevFrame, pFrame, pointsPanning[0], pointsPanning[1], status, err, winSize,
+			3, termcrit, 0, 0.001);
+		pointsPanning[2].resize(pointsPanning[0].size());
+		size_t i, k;
+		for (i = k = 0; i < pointsPanning[1].size(); i++)
+		{
+			if (!status[i])
+				continue;
+
+			pointsPanning[2][k] = pointsPanning[0][i];
+			pointsPanning[1][k++] = pointsPanning[1][i];
+
+			//circle(LKimage, points[1][i], 2, Scalar(0, 255, 0));
+			//line(LKimage, points[0][i], points[1][i], Scalar(0, 0, 255));
+		}
+		pointsPanning[1].resize(k);
+		pointsPanning[2].resize(k);
+
+		if (pointsPanning[2].size() > 15)
+		{
+			panningH = findHomography(pointsPanning[2], pointsPanning[1], RANSAC, 4, match_mask);
+			if (countNonZero(Mat(match_mask)) > 15)
+			{
+				panningH_prev = panningH;
+			}
+			else
+				panningH_prev = Mat::eye(3, 3, CV_32FC1);
+
+			//drawMatchesPoint(LKimage, match_mask);
+		}
+		else
+		{
+			needToInit = true;
+			panningH_prev = Mat::eye(3, 3, CV_32FC1);
+		}
+	}
+	std::swap(pointsPanning[2], pointsPanning[0]);
+}
+
 void CEFIC::drawMatchesPoint(Mat& img, vector<unsigned char>& mask /*= vector< unsigned char>()*/)
 {
 	for (int i = 0; i < mask.size(); ++i)
@@ -453,21 +664,67 @@ void CEFIC::drawMatchesPoint(Mat& img, vector<unsigned char>& mask /*= vector< u
 	}
 }
 
+void CEFIC::getBackgroundModelsForLK()
+{
+	backgroundModelForLK.create(pFrame.size(), CV_32FC1);
+	backgroundModelForLK = cv::Scalar::all(0);
+	float* p;
+	for (int i = 0; i < backgroundModel.size(); ++i)
+	{
+		p = backgroundModelForLK.ptr<float>(i);
+		for (int j = 0; j < backgroundModel[i].size(); ++j)
+		{
+			double sum = 0;
+			double sumweight = 0;
+			for (int k = 0; k < backgroundModel[i][j].size(); ++k)
+			{
+				sum += (float)sqrt(backgroundModel[i][j][k].x *  backgroundModel[i][j][k].x + backgroundModel[i][j][k].y * backgroundModel[i][j][k].y) * backgroundModel[i][j][k].weight;
+				sumweight += backgroundModel[i][j][k].weight;
+			}
+			*p = (float)(sum / sumweight);
+			p++;
+		}
+	}
+	cv::normalize(backgroundModelForLK, backgroundModelForLK, 0, 1, NORM_MINMAX, CV_32FC1);
+}
+
+
 void CEFIC::saveBackgroundModels(cv::Mat& image)
 {
 	image.create(pFrame.size(), CV_32FC1);
 	image = cv::Scalar::all(0);
 	float* p;
+	//for (int i = 0; i < backgroundModel.size(); ++i)
+	//{
+	//	p = image.ptr<float>(i);
+	//	for (int j = 0; j < backgroundModel[i].size(); ++j)
+	//	{
+	//		*p = (float)sqrt(backgroundModel[i][j][0].x *  backgroundModel[i][j][0].x + backgroundModel[i][j][0].y * backgroundModel[i][j][0].y);
+	//		p++;
+	//	}
+	//}
+
 	for (int i = 0; i < backgroundModel.size(); ++i)
 	{
 		p = image.ptr<float>(i);
 		for (int j = 0; j < backgroundModel[i].size(); ++j)
 		{
-			*p = (float)sqrt(backgroundModel[i][j][0].x *  backgroundModel[i][j][0].x + backgroundModel[i][j][0].y * backgroundModel[i][j][0].y);
+			double sum = 0;
+			double sumweight = 0;
+			for (int k = 0; k < backgroundModel[i][j].size(); ++k)
+			{
+				sum += (float)sqrt(backgroundModel[i][j][k].x *  backgroundModel[i][j][k].x + backgroundModel[i][j][k].y * backgroundModel[i][j][k].y) * backgroundModel[i][j][k].weight;
+				sumweight += backgroundModel[i][j][k].weight;
+			}
+			*p = (float)(sum / sumweight);
 			p++;
 		}
 	}
 	cv::normalize(image, image, 0, 255, NORM_MINMAX, CV_8UC1);
+	//firstFrame.copyTo(image);
+	
+	//getBackgroundModelsForLK();
+	//backgroundModelForLK.copyTo(image);
 }
 
 void CEFIC::createLTPs(cv::Mat& source, cv::Mat& dest)
