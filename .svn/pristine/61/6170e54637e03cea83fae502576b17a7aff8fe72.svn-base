@@ -1,0 +1,12 @@
+#include "stdafx.h"
+#include "LSD.h"
+
+
+CLSD::CLSD()
+{
+}
+
+
+CLSD::~CLSD()
+{
+}

@@ -1,0 +1,12 @@
+#include "stdafx.h"
+#include "LSDBGS.h"
+
+
+CLSDBGS::CLSDBGS()
+{
+}
+
+
+CLSDBGS::~CLSDBGS()
+{
+}

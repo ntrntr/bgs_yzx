@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\FrameDifference">
+      <UniqueIdentifier>{5be0ca70-ecdb-4178-9c08-5d1e281d12d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Vibe">
+      <UniqueIdentifier>{3668001d-3088-4561-a52b-473951dbe401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\BGSubtract">
+      <UniqueIdentifier>{e34a5ea0-7234-4885-8a78-61b86a929640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\AdpativeBGSubtract">
+      <UniqueIdentifier>{e11233b7-0e57-42ef-a353-fb5d9fd61ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\codebook">
+      <UniqueIdentifier>{8b347523-5ea0-4751-b8d6-3404f6ce2059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GaussianMix">
+      <UniqueIdentifier>{9b3ca54a-6bd7-4a3c-9ad1-bfdf5fc2bb77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\subsense">
+      <UniqueIdentifier>{cd702c76-ff00-4f23-ae53-b6fa478552d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\AdpativeVibe">
+      <UniqueIdentifier>{e0a01559-436b-4721-860f-2c19c11890f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\sigmadelta">
+      <UniqueIdentifier>{bdd2cb66-ca92-4690-9573-25acffd26253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\PBAS">
+      <UniqueIdentifier>{7b63cda2-60d8-49b4-bd06-02462377fcc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\MyBGS">
+      <UniqueIdentifier>{38668f9a-beb0-4969-8313-460dfc4aad67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\vibe+">
+      <UniqueIdentifier>{4d167087-6a55-4b12-ba1c-152612d723c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\codebookOpencv">
+      <UniqueIdentifier>{d1de6574-6abe-4494-a804-28304c4bddbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\codeBookOpencv2">
+      <UniqueIdentifier>{57faa730-79c6-493e-85c3-1ea4f3a07d98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\MultiscaleSTBackground">
+      <UniqueIdentifier>{2ec2d5a6-492a-4dab-83e4-0763c609f897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\PAWCS">
+      <UniqueIdentifier>{34aac0e6-c696-45b0-b7a3-95227e8a67e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Vibe_diff">
+      <UniqueIdentifier>{4bc38264-b68e-49b7-aca0-6916bd8c80b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\MyPAWCS">
+      <UniqueIdentifier>{026b1ad8-0b03-4402-aeea-85aedabc779d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\lobster">
+      <UniqueIdentifier>{7fb5c3be-82fb-42cd-bb20-c99899cd5ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\MyLBSP">
+      <UniqueIdentifier>{bd23a56b-630f-4b43-b28a-5403ef68dd89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\AMBER">
+      <UniqueIdentifier>{28ebaa81-6942-4cec-9d62-b23568cfbbdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\IMBS">
+      <UniqueIdentifier>{954cb036-43ba-4410-b853-917ecfe6c420}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\vumter">
+      <UniqueIdentifier>{4bbffba3-303d-4bd4-9127-4fe7cba782c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\I_Wonder">
+      <UniqueIdentifier>{33288fd0-aaf6-46f1-ab7b-38e48f1c6700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\EFIC">
+      <UniqueIdentifier>{dcdf6321-bad7-4e69-a3f4-26dfaeb473a8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bgs_yzx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="bgs_yzxDoc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="bgs_yzxView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGBSDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DragEdit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IBGS.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="commom.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameDifferenceBGS.h">
+      <Filter>头文件\FrameDifference</Filter>
+    </ClInclude>
+    <ClInclude Include="VibeBGS.h">
+      <Filter>头文件\Vibe</Filter>
+    </ClInclude>
+    <ClInclude Include="yzxVibe.h">
+      <Filter>头文件\Vibe</Filter>
+    </ClInclude>
+    <ClInclude Include="BGSubtract.h">
+      <Filter>头文件\BGSubtract</Filter>
+    </ClInclude>
+    <ClInclude Include="AdpativeBGSubtract.h">
+      <Filter>头文件\AdpativeBGSubtract</Filter>
+    </ClInclude>
+    <ClInclude Include="YZXCodebookBGS.h">
+      <Filter>头文件\codebook</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxCodeBook.h">
+      <Filter>头文件\codebook</Filter>
+    </ClInclude>
+    <ClInclude Include="YZXGaussianMix.h">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClInclude>
+    <ClInclude Include="precomp.hpp">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGaussmix2.h">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClInclude>
+    <ClInclude Include="MyBackgroundSubtractorMOG.h">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClInclude>
+    <ClInclude Include="YZXGaussianMix2.h">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundSubtractorLBSP.h">
+      <Filter>头文件\subsense</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundSubtractorSuBSENSE.h">
+      <Filter>头文件\subsense</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceUtils.h">
+      <Filter>头文件\subsense</Filter>
+    </ClInclude>
+    <ClInclude Include="LBSP.h">
+      <Filter>头文件\subsense</Filter>
+    </ClInclude>
+    <ClInclude Include="RandUtils.h">
+      <Filter>头文件\subsense</Filter>
+    </ClInclude>
+    <ClInclude Include="Subsense.h">
+      <Filter>头文件\subsense</Filter>
+    </ClInclude>
+    <ClInclude Include="AdpativeVibeBGS.h">
+      <Filter>头文件\AdpativeVibe</Filter>
+    </ClInclude>
+    <ClInclude Include="AdpativeyzxVibe.h">
+      <Filter>头文件\AdpativeVibe</Filter>
+    </ClInclude>
+    <ClInclude Include="YZXAdpativeGaussianMix.h">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClInclude>
+    <ClInclude Include="MyAdpativeMOG.h">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClInclude>
+    <ClInclude Include="SigmaDeltaBGS.h">
+      <Filter>头文件\sigmadelta</Filter>
+    </ClInclude>
+    <ClInclude Include="SigmaDelta.h">
+      <Filter>头文件\sigmadelta</Filter>
+    </ClInclude>
+    <ClInclude Include="PBASBGS.h">
+      <Filter>头文件\PBAS</Filter>
+    </ClInclude>
+    <ClInclude Include="PBAS.h">
+      <Filter>头文件\PBAS</Filter>
+    </ClInclude>
+    <ClInclude Include="MyBGS.h">
+      <Filter>头文件\MyBGS</Filter>
+    </ClInclude>
+    <ClInclude Include="Yzx.h">
+      <Filter>头文件\MyBGS</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxFormView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Version.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VibePlusBGS.h">
+      <Filter>头文件\vibe+</Filter>
+    </ClInclude>
+    <ClInclude Include="VibePlus.h">
+      <Filter>头文件\vibe+</Filter>
+    </ClInclude>
+    <ClInclude Include="cv_yuv_codebook.h">
+      <Filter>头文件\codebookOpencv</Filter>
+    </ClInclude>
+    <ClInclude Include="CodebookOpencvBGS.h">
+      <Filter>头文件\codebookOpencv</Filter>
+    </ClInclude>
+    <ClInclude Include="Codebook2BGS.h">
+      <Filter>头文件\codeBookOpencv2</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiscaleSTBGS.h">
+      <Filter>头文件\MultiscaleSTBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiscaleSTBG.h">
+      <Filter>头文件\MultiscaleSTBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundSubtractorPAWCS.h">
+      <Filter>头文件\PAWCS</Filter>
+    </ClInclude>
+    <ClInclude Include="PAWCSBgs.h">
+      <Filter>头文件\PAWCS</Filter>
+    </ClInclude>
+    <ClInclude Include="VibeTest.h">
+      <Filter>头文件\Vibe_diff</Filter>
+    </ClInclude>
+    <ClInclude Include="ImproveVibeTest.h">
+      <Filter>头文件\Vibe_diff</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxPAWCS.h">
+      <Filter>头文件\MyPAWCS</Filter>
+    </ClInclude>
+    <ClInclude Include="CyzxPAWCSBGS.h">
+      <Filter>头文件\MyPAWCS</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundSubtractorLOBSTER.h">
+      <Filter>头文件\lobster</Filter>
+    </ClInclude>
+    <ClInclude Include="LobsterBGS.h">
+      <Filter>头文件\lobster</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxLBSPBGS.h">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxLBSP.h">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClInclude>
+    <ClInclude Include="YzxDistanceTool.h">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClInclude>
+    <ClInclude Include="GaussianRandom.h">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClInclude>
+    <ClInclude Include="AMBERBGS.h">
+      <Filter>头文件\AMBER</Filter>
+    </ClInclude>
+    <ClInclude Include="AMBER.h">
+      <Filter>头文件\AMBER</Filter>
+    </ClInclude>
+    <ClInclude Include="IMBSBGS.h">
+      <Filter>头文件\IMBS</Filter>
+    </ClInclude>
+    <ClInclude Include="IMBS.h">
+      <Filter>头文件\IMBS</Filter>
+    </ClInclude>
+    <ClInclude Include="imbs_org.hpp">
+      <Filter>头文件\IMBS</Filter>
+    </ClInclude>
+    <ClInclude Include="TBackground.h">
+      <Filter>头文件\vumter</Filter>
+    </ClInclude>
+    <ClInclude Include="TBackgroundVuMeter.h">
+      <Filter>头文件\vumter</Filter>
+    </ClInclude>
+    <ClInclude Include="VuMeterBGS.h">
+      <Filter>头文件\vumter</Filter>
+    </ClInclude>
+    <ClInclude Include="IWonderBGS.h">
+      <Filter>头文件\I_Wonder</Filter>
+    </ClInclude>
+    <ClInclude Include="IWonder.h">
+      <Filter>头文件\I_Wonder</Filter>
+    </ClInclude>
+    <ClInclude Include="EFICBGS.h">
+      <Filter>头文件\EFIC</Filter>
+    </ClInclude>
+    <ClInclude Include="EFIC.h">
+      <Filter>头文件\EFIC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTPS.h">
+      <Filter>头文件\EFIC</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="bgs_yzx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="bgs_yzxDoc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="bgs_yzxView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGBSDialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DragEdit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameDifferenceBGS.cpp">
+      <Filter>头文件\FrameDifference</Filter>
+    </ClCompile>
+    <ClCompile Include="VibeBGS.cpp">
+      <Filter>头文件\Vibe</Filter>
+    </ClCompile>
+    <ClCompile Include="yzxVibe.cpp">
+      <Filter>头文件\Vibe</Filter>
+    </ClCompile>
+    <ClCompile Include="BGSubtract.cpp">
+      <Filter>头文件\BGSubtract</Filter>
+    </ClCompile>
+    <ClCompile Include="AdpativeBGSubtract.cpp">
+      <Filter>头文件\AdpativeBGSubtract</Filter>
+    </ClCompile>
+    <ClCompile Include="YZXCodebookBGS.cpp">
+      <Filter>头文件\codebook</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxCodeBook.cpp">
+      <Filter>头文件\codebook</Filter>
+    </ClCompile>
+    <ClCompile Include="YZXGaussianMix.cpp">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGaussmix2.cpp">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClCompile>
+    <ClCompile Include="MyBackgroundSubtractorMOG.cpp">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClCompile>
+    <ClCompile Include="YZXGaussianMix2.cpp">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundSubtractorLBSP.cpp">
+      <Filter>头文件\subsense</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundSubtractorSuBSENSE.cpp">
+      <Filter>头文件\subsense</Filter>
+    </ClCompile>
+    <ClCompile Include="bgfg_segm.cpp">
+      <Filter>头文件\subsense</Filter>
+    </ClCompile>
+    <ClCompile Include="LBSP.cpp">
+      <Filter>头文件\subsense</Filter>
+    </ClCompile>
+    <ClCompile Include="Subsense.cpp">
+      <Filter>头文件\subsense</Filter>
+    </ClCompile>
+    <ClCompile Include="AdpativeVibeBGS.cpp">
+      <Filter>头文件\AdpativeVibe</Filter>
+    </ClCompile>
+    <ClCompile Include="AdpativeyzxVibe.cpp">
+      <Filter>头文件\AdpativeVibe</Filter>
+    </ClCompile>
+    <ClCompile Include="YZXAdpativeGaussianMix.cpp">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClCompile>
+    <ClCompile Include="MyAdpativeMOG.cpp">
+      <Filter>头文件\GaussianMix</Filter>
+    </ClCompile>
+    <ClCompile Include="SigmaDeltaBGS.cpp">
+      <Filter>头文件\sigmadelta</Filter>
+    </ClCompile>
+    <ClCompile Include="SigmaDelta.cpp">
+      <Filter>头文件\sigmadelta</Filter>
+    </ClCompile>
+    <ClCompile Include="PBASBGS.cpp">
+      <Filter>头文件\PBAS</Filter>
+    </ClCompile>
+    <ClCompile Include="PBAS.cpp">
+      <Filter>头文件\PBAS</Filter>
+    </ClCompile>
+    <ClCompile Include="MyBGS.cpp">
+      <Filter>头文件\MyBGS</Filter>
+    </ClCompile>
+    <ClCompile Include="Yzx.cpp">
+      <Filter>头文件\MyBGS</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxFormView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Version.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VibePlusBGS.cpp">
+      <Filter>头文件\vibe+</Filter>
+    </ClCompile>
+    <ClCompile Include="VibePlus.cpp">
+      <Filter>头文件\vibe+</Filter>
+    </ClCompile>
+    <ClCompile Include="cv_yuv_codebook.cpp">
+      <Filter>头文件\codebookOpencv</Filter>
+    </ClCompile>
+    <ClCompile Include="CodebookOpencvBGS.cpp">
+      <Filter>头文件\codebookOpencv</Filter>
+    </ClCompile>
+    <ClCompile Include="Codebook2BGS.cpp">
+      <Filter>头文件\codeBookOpencv2</Filter>
+    </ClCompile>
+    <ClCompile Include="bgfg_codebook.cpp">
+      <Filter>头文件\codeBookOpencv2</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiscaleSTBGS.cpp">
+      <Filter>头文件\MultiscaleSTBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiscaleSTBG.cpp">
+      <Filter>头文件\MultiscaleSTBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundSubtractorPAWCS.cpp">
+      <Filter>头文件\PAWCS</Filter>
+    </ClCompile>
+    <ClCompile Include="PAWCSBgs.cpp">
+      <Filter>头文件\PAWCS</Filter>
+    </ClCompile>
+    <ClCompile Include="VibeTest.cpp">
+      <Filter>头文件\Vibe_diff</Filter>
+    </ClCompile>
+    <ClCompile Include="ImproveVibeTest.cpp">
+      <Filter>头文件\Vibe_diff</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxPAWCS.cpp">
+      <Filter>头文件\MyPAWCS</Filter>
+    </ClCompile>
+    <ClCompile Include="CyzxPAWCSBGS.cpp">
+      <Filter>头文件\MyPAWCS</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundSubtractorLOBSTER.cpp">
+      <Filter>头文件\lobster</Filter>
+    </ClCompile>
+    <ClCompile Include="LobsterBGS.cpp">
+      <Filter>头文件\lobster</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxLBSPBGS.cpp">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClCompile>
+    <ClCompile Include="YzxLBSP.cpp">
+      <Filter>头文件\MyLBSP</Filter>
+    </ClCompile>
+    <ClCompile Include="AMBERBGS.cpp">
+      <Filter>头文件\AMBER</Filter>
+    </ClCompile>
+    <ClCompile Include="AMBER.cpp">
+      <Filter>头文件\AMBER</Filter>
+    </ClCompile>
+    <ClCompile Include="IMBSBGS.cpp">
+      <Filter>头文件\IMBS</Filter>
+    </ClCompile>
+    <ClCompile Include="IMBS.cpp">
+      <Filter>头文件\IMBS</Filter>
+    </ClCompile>
+    <ClCompile Include="imbs_org.cpp">
+      <Filter>头文件\IMBS</Filter>
+    </ClCompile>
+    <ClCompile Include="TBackground.cpp">
+      <Filter>头文件\vumter</Filter>
+    </ClCompile>
+    <ClCompile Include="TBackgroundVuMeter.cpp">
+      <Filter>头文件\vumter</Filter>
+    </ClCompile>
+    <ClCompile Include="VuMeterBGS.cpp">
+      <Filter>头文件\vumter</Filter>
+    </ClCompile>
+    <ClCompile Include="IWonderBGS.cpp">
+      <Filter>头文件\I_Wonder</Filter>
+    </ClCompile>
+    <ClCompile Include="IWonder.cpp">
+      <Filter>头文件\I_Wonder</Filter>
+    </ClCompile>
+    <ClCompile Include="EFICBGS.cpp">
+      <Filter>头文件\EFIC</Filter>
+    </ClCompile>
+    <ClCompile Include="EFIC.cpp">
+      <Filter>头文件\EFIC</Filter>
+    </ClCompile>
+    <ClCompile Include="LTPS.cpp">
+      <Filter>头文件\EFIC</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="bgs_yzx.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\bgs_yzx.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="LBSP_16bits_dbcross_1ch.i">
+      <Filter>头文件\subsense</Filter>
+    </None>
+    <None Include="LBSP_16bits_dbcross_3ch1t.i">
+      <Filter>头文件\subsense</Filter>
+    </None>
+    <None Include="LBSP_16bits_dbcross_3ch3t.i">
+      <Filter>头文件\subsense</Filter>
+    </None>
+    <None Include="LBSP_16bits_dbcross_s3ch.i">
+      <Filter>头文件\subsense</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bgs_yzxDoc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bgs_yzx.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

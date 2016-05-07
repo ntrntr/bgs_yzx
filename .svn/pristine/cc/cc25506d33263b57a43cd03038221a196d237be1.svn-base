@@ -1,0 +1,10 @@
+#pragma once
+#include "IBGS.h"
+class CLSDBGS :
+	public IBGS
+{
+public:
+	CLSDBGS();
+	~CLSDBGS();
+};
+

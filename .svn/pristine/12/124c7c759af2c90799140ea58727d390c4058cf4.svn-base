@@ -1,0 +1,8 @@
+#pragma once
+class CLSD
+{
+public:
+	CLSD();
+	~CLSD();
+};
+

@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{74C359EB-582C-4B17-92E3-AA660EDD79FB}</ProjectGuid>
+    <RootNamespace>bgs_yzx</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Users\yzx\Downloads\boost_1_59_0\boost_1_59_0;F:\opencv2_4_9\opencv\build\include;F:\opencv2_4_9\opencv\build\include\opencv;F:\opencv2_4_9\opencv\build\include\opencv2;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\opencv2_4_9\opencv\build\x86\vc12\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\Users\yzx\Downloads\boost_1_59_0\boost_1_59_0;F:\opencv2_4_9\opencv\build\include;F:\opencv2_4_9\opencv\build\include\opencv;F:\opencv2_4_9\opencv\build\include\opencv2;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\opencv2_4_9\opencv\build\x86\vc12\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Users\yzx\Downloads\boost_1_59_0\boost_1_59_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opencv_ml249d.lib;opencv_calib3d249d.lib;opencv_contrib249d.lib;opencv_core249d.lib;opencv_features2d249d.lib;opencv_flann249d.lib;opencv_gpu249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;opencv_legacy249d.lib;opencv_objdetect249d.lib;opencv_ts249d.lib;opencv_video249d.lib;opencv_nonfree249d.lib;opencv_ocl249d.lib;opencv_photo249d.lib;opencv_stitching249d.lib;opencv_superres249d.lib;opencv_videostab249d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\boost\boost_1_53_0\bin\vc11\lib</AdditionalLibraryDirectories>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\OpenCV2.4.10\build\include;C:\OpenCV2.4.10\build\include\opencv;C:\boost_1_55_0;D:\Users\yzx\Downloads\boost_1_59_0\boost_1_59_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>F:\boost\boost_1_53_0\bin\vc11\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\OpenCV2.4.10\build\x86\vc10\staticlib\*.lib;C:\boost_1_55_0\stage32\lib\vc10\*.lib;comctl32.lib;VFW32.lib;uafxcw.lib;LIBCMT.lib;opencv_objdetect249.lib;opencv_ts249.lib;opencv_video249.lib;opencv_nonfree249.lib;opencv_ocl249.lib;opencv_photo249.lib;opencv_stitching249.lib;opencv_superres249.lib;opencv_videostab249.lib;opencv_calib3d249.lib;opencv_contrib249.lib;opencv_core249.lib;opencv_features2d249.lib;opencv_flann249.lib;opencv_gpu249.lib;opencv_highgui249.lib;opencv_imgproc249.lib;opencv_legacy249.lib;opencv_ml249.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>uafxcw.lib;LIBCMT.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AdpativeBGSubtract.h" />
+    <ClInclude Include="AdpativeVibeBGS.h" />
+    <ClInclude Include="AdpativeyzxVibe.h" />
+    <ClInclude Include="AMBER.h" />
+    <ClInclude Include="AMBERBGS.h" />
+    <ClInclude Include="BackgroundSubtractorLBSP.h" />
+    <ClInclude Include="BackgroundSubtractorLOBSTER.h" />
+    <ClInclude Include="BackgroundSubtractorPAWCS.h" />
+    <ClInclude Include="BackgroundSubtractorSuBSENSE.h" />
+    <ClInclude Include="BGSubtract.h" />
+    <ClInclude Include="bgs_yzx.h" />
+    <ClInclude Include="bgs_yzxDoc.h" />
+    <ClInclude Include="bgs_yzxView.h" />
+    <ClInclude Include="Codebook2BGS.h" />
+    <ClInclude Include="CodebookOpencvBGS.h" />
+    <ClInclude Include="commom.h" />
+    <ClInclude Include="cv_yuv_codebook.h" />
+    <ClInclude Include="CyzxPAWCSBGS.h" />
+    <ClInclude Include="DistanceUtils.h" />
+    <ClInclude Include="DragEdit.h" />
+    <ClInclude Include="EFIC.h" />
+    <ClInclude Include="EFICBGS.h" />
+    <ClInclude Include="FrameDifferenceBGS.h" />
+    <ClInclude Include="GaussianRandom.h" />
+    <ClInclude Include="global.h" />
+    <ClInclude Include="IBGS.h" />
+    <ClInclude Include="IMBS.h" />
+    <ClInclude Include="IMBSBGS.h" />
+    <ClInclude Include="imbs_org.hpp" />
+    <ClInclude Include="ImproveVibeTest.h" />
+    <ClInclude Include="IWonder.h" />
+    <ClInclude Include="IWonderBGS.h" />
+    <ClInclude Include="LBSP.h" />
+    <ClInclude Include="LobsterBGS.h" />
+    <ClInclude Include="LTPS.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MultiscaleSTBG.h" />
+    <ClInclude Include="MultiscaleSTBGS.h" />
+    <ClInclude Include="MyAdpativeMOG.h" />
+    <ClInclude Include="MyBackgroundSubtractorMOG.h" />
+    <ClInclude Include="MyBGS.h" />
+    <ClInclude Include="MyGaussmix2.h" />
+    <ClInclude Include="MyGBSDialog.h" />
+    <ClInclude Include="PAWCSBgs.h" />
+    <ClInclude Include="PBAS.h" />
+    <ClInclude Include="PBASBGS.h" />
+    <ClInclude Include="precomp.hpp" />
+    <ClInclude Include="RandUtils.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="SigmaDelta.h" />
+    <ClInclude Include="SigmaDeltaBGS.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Subsense.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TBackground.h" />
+    <ClInclude Include="TBackgroundVuMeter.h" />
+    <ClInclude Include="Version.h" />
+    <ClInclude Include="VibeBGS.h" />
+    <ClInclude Include="VibePlus.h" />
+    <ClInclude Include="VibePlusBGS.h" />
+    <ClInclude Include="VibeTest.h" />
+    <ClInclude Include="VuMeterBGS.h" />
+    <ClInclude Include="Yzx.h" />
+    <ClInclude Include="YZXAdpativeGaussianMix.h" />
+    <ClInclude Include="YzxCodeBook.h" />
+    <ClInclude Include="YZXCodebookBGS.h" />
+    <ClInclude Include="YzxDistanceTool.h" />
+    <ClInclude Include="YzxFormView.h" />
+    <ClInclude Include="YZXGaussianMix.h" />
+    <ClInclude Include="YZXGaussianMix2.h" />
+    <ClInclude Include="YzxLBSP.h" />
+    <ClInclude Include="YzxLBSPBGS.h" />
+    <ClInclude Include="YzxPAWCS.h" />
+    <ClInclude Include="yzxVibe.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AdpativeBGSubtract.cpp" />
+    <ClCompile Include="AdpativeVibeBGS.cpp" />
+    <ClCompile Include="AdpativeyzxVibe.cpp" />
+    <ClCompile Include="AMBER.cpp" />
+    <ClCompile Include="AMBERBGS.cpp" />
+    <ClCompile Include="BackgroundSubtractorLBSP.cpp" />
+    <ClCompile Include="BackgroundSubtractorLOBSTER.cpp" />
+    <ClCompile Include="BackgroundSubtractorPAWCS.cpp" />
+    <ClCompile Include="BackgroundSubtractorSuBSENSE.cpp" />
+    <ClCompile Include="bgfg_codebook.cpp" />
+    <ClCompile Include="bgfg_segm.cpp" />
+    <ClCompile Include="BGSubtract.cpp" />
+    <ClCompile Include="bgs_yzx.cpp" />
+    <ClCompile Include="bgs_yzxDoc.cpp" />
+    <ClCompile Include="bgs_yzxView.cpp" />
+    <ClCompile Include="Codebook2BGS.cpp" />
+    <ClCompile Include="CodebookOpencvBGS.cpp" />
+    <ClCompile Include="cv_yuv_codebook.cpp" />
+    <ClCompile Include="CyzxPAWCSBGS.cpp" />
+    <ClCompile Include="DragEdit.cpp" />
+    <ClCompile Include="EFIC.cpp" />
+    <ClCompile Include="EFICBGS.cpp" />
+    <ClCompile Include="FrameDifferenceBGS.cpp" />
+    <ClCompile Include="IMBS.cpp" />
+    <ClCompile Include="IMBSBGS.cpp" />
+    <ClCompile Include="imbs_org.cpp" />
+    <ClCompile Include="ImproveVibeTest.cpp" />
+    <ClCompile Include="IWonder.cpp" />
+    <ClCompile Include="IWonderBGS.cpp" />
+    <ClCompile Include="LBSP.cpp" />
+    <ClCompile Include="LobsterBGS.cpp" />
+    <ClCompile Include="LTPS.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MultiscaleSTBG.cpp" />
+    <ClCompile Include="MultiscaleSTBGS.cpp" />
+    <ClCompile Include="MyAdpativeMOG.cpp" />
+    <ClCompile Include="MyBackgroundSubtractorMOG.cpp" />
+    <ClCompile Include="MyBGS.cpp" />
+    <ClCompile Include="MyGaussmix2.cpp" />
+    <ClCompile Include="MyGBSDialog.cpp" />
+    <ClCompile Include="PAWCSBgs.cpp" />
+    <ClCompile Include="PBAS.cpp" />
+    <ClCompile Include="PBASBGS.cpp" />
+    <ClCompile Include="SigmaDelta.cpp" />
+    <ClCompile Include="SigmaDeltaBGS.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Subsense.cpp" />
+    <ClCompile Include="TBackground.cpp" />
+    <ClCompile Include="TBackgroundVuMeter.cpp" />
+    <ClCompile Include="Version.cpp" />
+    <ClCompile Include="VibeBGS.cpp" />
+    <ClCompile Include="VibePlus.cpp" />
+    <ClCompile Include="VibePlusBGS.cpp" />
+    <ClCompile Include="VibeTest.cpp" />
+    <ClCompile Include="VuMeterBGS.cpp" />
+    <ClCompile Include="Yzx.cpp" />
+    <ClCompile Include="YZXAdpativeGaussianMix.cpp" />
+    <ClCompile Include="YzxCodeBook.cpp" />
+    <ClCompile Include="YZXCodebookBGS.cpp" />
+    <ClCompile Include="YzxFormView.cpp" />
+    <ClCompile Include="YZXGaussianMix.cpp" />
+    <ClCompile Include="YZXGaussianMix2.cpp" />
+    <ClCompile Include="YzxLBSP.cpp" />
+    <ClCompile Include="YzxLBSPBGS.cpp" />
+    <ClCompile Include="YzxPAWCS.cpp" />
+    <ClCompile Include="yzxVibe.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="bgs_yzx.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LBSP_16bits_dbcross_1ch.i" />
+    <None Include="LBSP_16bits_dbcross_3ch1t.i" />
+    <None Include="LBSP_16bits_dbcross_3ch3t.i" />
+    <None Include="LBSP_16bits_dbcross_s3ch.i" />
+    <None Include="res\bgs_yzx.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bgs_yzx.ico" />
+    <Image Include="res\bgs_yzxDoc.ico" />
+    <Image Include="res\Toolbar.bmp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="bgs_yzx.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

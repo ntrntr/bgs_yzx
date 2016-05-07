@@ -1,0 +1,1 @@
+extern string __file_name;
